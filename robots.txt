@@ -1,4 +1,4 @@
-# robots.txt for laumi.me
+# robots.txt for lauer.cz
 # This file tells search engine crawlers which URLs they can access on the site
 
 User-agent: *
@@ -23,7 +23,7 @@ Allow: /assets/cv.pdf
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://laumi.me/sitemap.xml
+Sitemap: https://lauer.cz/sitemap.xml
 
 # Additional search engines
 User-agent: Googlebot

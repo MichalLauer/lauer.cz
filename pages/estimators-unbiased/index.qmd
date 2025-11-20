@@ -32,7 +32,7 @@ is impossible to get a perfectly representative sample.
 
 This is a part of my series about estimators and their properties. If you don't
 understand some concepts or would like to know, I fully suggest starting from
-[the beginning](https://laumi.me/blog.html#category=⭐%20Estimators)!
+[the beginning](https://lauer.cz/blog.html#category=⭐%20Estimators)!
 :::
 
 ## Blog preparation
@@ -43,7 +43,7 @@ library(glue)
 library(ggplot2)
 library(rmarkdown, include.only = "paged_table")
 theme_set(theme_bw())
-.cap <- "Michal Lauer | laumi.me"
+  .cap <- "Michal Lauer | lauer.cz"
 ```
 
 ## Motivation

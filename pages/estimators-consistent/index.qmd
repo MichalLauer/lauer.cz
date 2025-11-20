@@ -27,7 +27,7 @@ options(renv.config.sandbox.enabled = F)
 
 This is a part of my series about estimators and their properties. If you don't
 understand some concepts or would like to know, I fully suggest starting from
-[the beginning](https://laumi.me/blog.html#category=⭐%20Estimators)!
+[the beginning](https://lauer.cz/blog.html#category=⭐%20Estimators)!
 :::
 
 ## Blog preparation
@@ -42,7 +42,7 @@ sysfonts::font_add_google("Open Sans")
 showtext::showtext_auto()
 theme_set(theme_bw() +
             theme(legend.text.align = 0))
-.cap <- "Michal Lauer | laumi.me"
+  .cap <- "Michal Lauer | lauer.cz"
 ```
 
 ## Motivation
