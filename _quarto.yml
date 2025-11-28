@@ -7,7 +7,7 @@ format:
     fig-align: center
     include-before-body: "../navbar.html"
     include-after-body: "../footer.html"
-    favicon: 
+    favicon: "../../assets/favicon.ico"
     include-in-header:
       - text: |
           <link rel = "shortcut icon" href = "../../../assets/favicon.ico" />
