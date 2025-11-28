@@ -318,6 +318,7 @@ body:has(.iframe-container) {
   color: var(--text-main);
   font-size: 1.2rem;
   margin: 0;
+  text-align: justify;
 }
 
 /* ===== PROFILE ELEMENTS ===== */
@@ -466,10 +467,6 @@ body:has(.iframe-container) {
   padding: 0;
 }
 
-.teaching-resources-item ul li {
-  padding: 0.25rem 0;
-}
-
 .teaching-resources-item ul li a {
   position: relative;
   display: inline-block;
@@ -497,6 +494,10 @@ body:has(.iframe-container) {
   grid-column: 1 / -1;
 }
 
+.gallery-link {
+  cursor: pointer;
+}
+
 .gallery-legend {
   display: flex;
   align-items: center;
@@ -516,7 +517,7 @@ body:has(.iframe-container) {
   height: 16px;
   border-radius: 50%;
   border: 2px solid #ccc;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.);
   opacity: 0.8;
 }
 

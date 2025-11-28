@@ -16,9 +16,9 @@
   </script>
 
   <!-- SEO Meta Tags -->
-  <title>Michal Lauer - Researcher and Data Scientist | Bayesian Statistics & Machine Learning Expert</title>
+  <title>Michal Lauer - Applied Statistician & Lecturer | Bayesian Statistics & Causal Inference</title>
   <meta name="description"
-    content="Michal Lauer is a researcher and data scientist from Prague specializing in Bayesian Statistics, Causality, and Machine Learning. Expert in MCMC methods, DAGs, and statistical education with university teaching experience.">
+    content="Applied statistician and lecturer based in Prague. I teach Bayesian statistics and causal inference and help teams apply these methods in various fields.">
   <meta name="keywords"
     content="Michal Lauer, data scientist Prague, bayesian statistics expert, machine learning researcher, causality analysis, MCMC methods, directed acyclic graphs, statistical modeling, university teaching, VŠE Prague, data visualization, statistical education, Czech Republic researcher">
   <meta name="author" content="Michal Lauer">
@@ -34,8 +34,8 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://lauer.cz">
-  <meta property="og:title" content="Michal Lauer - Researcher and Data Scientist | Prague">
-  <meta property="og:description" content="Data scientist from Prague specializing in Bayesian Statistics, Causality, and Machine Learning. University teaching experience at VŠE.">
+  <meta property="og:title" content="Michal Lauer - Applied Statistician & Lecturer">
+  <meta property="og:description" content="Lecturer and researcher in Bayesian statistics and causal inference. Available for workshops, lectures, and consulting.">
   <meta property="og:image" content="https://lauer.cz/assets/profile.jpeg">
   <meta property="og:image:alt" content="Michal Lauer - Data Scientist and Researcher">
   <meta property="og:locale" content="en_US">
@@ -44,8 +44,8 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://lauer.cz">
-  <meta name="twitter:title" content="Michal Lauer - Researcher and Data Scientist | Prague">
-  <meta name="twitter:description" content="Data scientist from Prague specializing in Bayesian Statistics, Causality, and Machine Learning. University teaching experience at VŠE.">
+  <meta name="twitter:title" content="Michal Lauer - Applied Statistician & Lecturer">
+  <meta name="twitter:description" content="Bayesian statistics, causal inference, and practical statistical education for teams and students.">
   <meta name="twitter:image" content="https://lauer.cz/assets/profile.jpeg">
   <meta name="twitter:image:alt" content="Michal Lauer - Data Scientist and Researcher">
   <meta name="twitter:creator" content="@MichalLauer">
@@ -85,8 +85,8 @@
       "Data Visualization",
       "Statistical Education"
     ],
-    "description": "Researcher and Data Scientist specializing in Bayesian Statistics, Causality, and Machine Learning with extensive teaching experience",
-    "email": "michal.lauer.25@gmail.com",
+  "description": "Applied statistician and lecturer specialising in Bayesian statistics, causal inference and practical statistical education.",
+  "email": "michal.lauer.25@gmail.com",
     "sameAs": [
       "https://www.linkedin.com/in/michal-lauer/",
       "https://github.com/MichalLauer",
@@ -110,7 +110,7 @@
     "@type": "WebSite",
     "name": "Michal Lauer - Research and Data Science",
   "url": "https://lauer.cz",
-    "description": "Personal website of Michal Lauer featuring research in Bayesian Statistics, teaching resources, and data science blog",
+  "description": "Personal site of Michal Lauer - research, teaching materials, and applied data science.",
     "author": {
       "@type": "Person",
       "name": "Michal Lauer"
@@ -146,7 +146,7 @@
           "@type": "Person",
           "name": "Michal Lauer"
         },
-        "description": "When it comes to statistical analysis, unbiased estimators play a critical role in obtaining accurate results. But what exactly is an unbiased estimator, and how can it be applied in practical situations?",
+  "description": "An accessible guide to unbiased estimators: what they are and how to apply them in practice.",
         "keywords": ["statistics", "estimation", "unbiased estimators", "statistical analysis"]
       },
       {
@@ -159,7 +159,7 @@
           "@type": "Person",
           "name": "Michal Lauer"
         },
-        "description": "Consistent estimators hold a pivotal role in delivering precise statistical outcomes. Let's unravel their mystery and reveal how they shape real-world prediction scenarios.",
+  "description": "A concise explanation of consistent estimators and why they matter for reliable predictions.",
         "keywords": ["statistics", "estimation", "consistent estimators", "predictions"]
       }
     ]
@@ -175,6 +175,10 @@
 </head>
 
 <body>
+  <script>
+    const user = 'michal';
+    const domain = 'lauer.cz';
+  </script>
   <div class="container">
     <!-- Navigation Sidebar -->
     <nav class="sidebar" role="navigation" aria-label="Main Navigation">
@@ -187,7 +191,8 @@
           <a href="#teaching" target="_self">Teaching</a>
           <ul>
             <li><a href="#teaching-resources" target="_self">Resources</a></li>
-            <li><a href="#teaching-vse" target="_self">VŠE</a></li>
+            <li><a href="#teaching-gallery" target="_self">Gallery</a></li>
+            <li><a href="#teaching-classes" target="_self">Classes</a></li>
           </ul>
         </li>
         <li><a href="#testimonials" target="_self">Testimonials</a></li>
@@ -195,10 +200,14 @@
       </ul>
 
       <div class="sidebar-bottom-item">
-        <a href="mailto:michal.lauer.25@gmail.com" class="sidebar-contact" title="Contact Michal Lauer"
-          aria-label="Contact Michal Lauer">
-          <i class="fas fa-envelope" aria-hidden="true"></i> Write me!
-        </a>
+        <script>
+          (function(){
+            document.write('<a href="mailto:' + user + '@' + domain + '" class="sidebar-contact" title="Contact Michal Lauer" aria-label="Contact Michal Lauer"><i class="fas fa-envelope" aria-hidden="true"></i> Write me!</a>');
+          })();
+        </script>
+        <noscript>
+          <span class="sidebar-contact-noscript" title="Contact Michal Lauer">Write me!<br>(michal [at] lauer [dot] cz)</span>
+        </noscript>
       </div>
     </nav>
 
@@ -261,35 +270,65 @@
         </div>
 
         <div class="landing-right">
-          <h2>Bayesian Statistics &amp; Machine Learning</h2>
-          <p>I do research in statistics with the focus on causality, MCMC methods and modeling. My job focuses on
-            machine learning in marketing and teaching professionals and students to understand and enjoy data. Oh, and
-            I also write sometimes.</p>
+          <h2>Bayesian Statistics &amp; Causal Inference</h2>
+          <p>
+            I am an early-career researcher and data scientist who loves solving puzzles, figuring things out, and
+            modeling our <em>crazy</em> world. I'm passionate about teaching and spreading the joy of statistics.
+            <script>
+              document.write(`<a href="mailto:${user}@${domain}" title="${user}@${domain}">Let's work together!</a>`);
+            </script>
+            <noscript>
+              Let's work together! (michal [at] lauer [dot] cz)
+            </noscript>
+          </p>
         </div>
       </header>
 
       <!-- Research Section -->
       <section id="research" itemscope itemtype="https://schema.org/ResearchProject">
         <h2>Research</h2>
-        <p>My research at my <a href="https://vse.cz">alma mater</a> focuses on Bayesian causality through Directed Acyclic
-          Graphs (DAGs), Bayesian networks and state-space models. My secondary goal is the popularization of Bayesian
-          techniques which can offer significant advantages compared to standard frequentist methods, such as the Null
-          Hypothesis Significance Testing (NHST) framework.</p>
+        <p>At the <a href="https://vse.cz">University of Economics in Prague</a>, I study Bayesian approaches to
+          causality and statistical inference. I am fond of methods like Directed Acyclic Graphs
+          (<strong>DAG</strong>s), General Linear Models (<strong>GLM</strong>s), hierarchical models,
+          state&ndash;space models, and sampling methods.</p>
+        <p>
+          I am eager to use statistics to push the limits of science even further. If you need someone to collaborate
+          with, I would be happy to work with you. Just
+          <script>
+            document.write(`<a href="mailto:${user}@${domain}" title="${user}@${domain}">drop me a message!</a>`);
+          </script>
+          <noscript>
+            drop me a message! (michal [at] lauer [dot] cz)
+          </noscript>
+        </p>
       </section>
 
       <!-- Teaching Section -->
       <section id="teaching" itemscope itemtype="https://schema.org/EducationalOrganization">
         <h2>Teaching</h2>
-        <p>I have extensive experience teaching data science, statistics, and programming at university level and in
-          professional workshops.</p>
+        <p>I design and deliver university courses and professional workshops on various topics 
+          (<a href="https://www.doucuji.eu/381550-doucovani-srozumitelne-a-lidske-doucovani-statistiky-a-datove-analyzy">statistics</a>,
+           <a href="https://coderslab.cz/cz/kurzy/data-analyst">data analyst</a>, machine learning) in various tools
+          (<a href="https://www.datova-akademie.cz/nasi_lektori/michal-lauer/">R</a>, 
+           <a href="https://coderslab.cz/cz/kurzy/data-analyst">Python</a>,
+           <a href="https://coderslab.cz/cz/kurzy/data-analyst">Excel</a>, 
+           <a href="http://edudata.msmt.gov.cz/">Shiny</a>).
+            If you feel like I could help you with your thesis, data analysis, statistical work, or you just need help
+            clarifying something, don't hesitate to
+          <script>
+            document.write(`<a href="mailto:${user}@${domain}" title="${user}@${domain}">reach out!</a>`);
+          </script>
+          <noscript>
+            reach out! (michal [at] lauer [dot] cz)
+          </noscript>
+          </p>
 
         <section id="teaching-resources">
           <h3>Resources</h3>
           <div class="teaching-resources-list">
             <div class="teaching-resources-item">
-              <h4>Statistics</h4>
+              <h4>Stats</h4>
               <ul>
-                <li><a href="https://www.youtube.com/@very-normal">Very Normal</a></li>
                 <li><a href="https://rpsychologist.com/viz/">R Psychologist</a></li>
                 <li><a href="https://www.math.wm.edu/~leemis/chart/UDR/UDR.html">Distributions</a></li>
               </ul>
@@ -300,11 +339,13 @@
               <ul>
                 <li><a href="https://feaz-book.com/">Feature Engineering A-Z</a></li>
                 <li><a href="https://www.bigbookofr.com/">Big Book of R</a></li>
+                <li><a href="https://avehtari.github.io/ROS-Examples/">Regression and Other Stories</a></li>
+                <li><a href="https://www.bradyneal.com/which-causal-inference-book">Causal tree</a></li>
               </ul>
             </div>
 
             <div class="teaching-resources-item">
-              <h4>Websites</h4>
+              <h4>Brain teasers</h4>
               <ul>
                 <li><a href="https://www.tylervigen.com/spurious-correlations">Correlation ≠ Causation</a></li>
                 <li><a href="https://www.research.autodesk.com/publications/same-stats-different-graphs/">Numbers are
@@ -338,11 +379,12 @@
                 <li><a href="https://www.youtube.com/@jumping-rivers">Jumping Rivers</a></li>
                 <li><a href="https://www.youtube.com/@JuliaSilge">Julie Silge</a></li>
                 <li><a href="https://www.youtube.com/@very-normal">Very Normal</a></li>
+                <li><a href="https://www.youtube.com/@simplistics_stats">Simplistics</a></li>
               </ul>
             </div>
 
             <!-- Gallery Section -->
-            <div class="teaching-resources-item teaching-resources-gallery">
+            <div id="teaching-gallery" class="teaching-resources-item teaching-resources-gallery">
               <h4>Gallery</h4>
               <div class="gallery-legend">
                 <span>
@@ -405,19 +447,38 @@
           </div>
         </section>
 
-        <section id="teaching-vse">
-          <h3>VŠE</h3>
-          <p>Resources for my teaching courses:</p>
-          <p>👀</p>
+        <section id="teaching-classes">
+          <h3>Classes</h3>
+            <p><em>
+                Databon materials may be outdated, as I no longer work with that organization. But feel free to check out how I work!
+              </em></p>
+          <div class="teaching-resources-list">
+
+            <div class="teaching-resources-item">
+              <h4>Czech DataBon materials</h4>
+              <ul>
+                <li><a href="https://github.com/MichalLauer/datova-analyza-excel">Datová analýza v Excelu</a></li>
+                <li><a href="https://github.com/MichalLauer/zaklady-r-markdown-pro-vedce">Základy R Markdownu pro vědce</a></li>
+              </ul>
+            </div>
+
+            <div class="teaching-resources-item">
+              <h4>Czech VŠE courses</h4>
+              <ul>
+                <li><a href="https://gitlab.com/vseteaching/4st211kvantitativnimetody">4ST211 Kvantitativní Metody</a></li>
+              </ul>
+            </div>
+
+          </div>
         </section>
+
       </section>
 
       <!-- Testimonials Section -->
       <section id="testimonials" itemscope itemtype="https://schema.org/Review">
         <h2>Testimonials</h2>
-        <p>A few extracts from student reviews from my tutoring on <a
-            href="https://www.doucuji.eu/381550-doucovani-srozumitelne-a-lidske-doucovani-statistiky-a-datove-analyzy">doucuji.eu</a>,
-          courses lead on <a href="http://coderslab.cz/">Coders Lab</a> and <a
+        <p>Selected excerpts from student feedback and course evaluations (tutoring listed on <a
+            href="https://www.doucuji.eu/381550-doucovani-srozumitelne-a-lidske-doucovani-statistiky-a-datove-analyzy">doucuji.eu</a>), and teaching engagements at <a href="http://coderslab.cz/">Coders Lab</a> and <a
             href="https://www.datova-akademie.cz/">Data Academy</a>.</p>
 
         <div class="testimonial-carousel">
@@ -472,8 +533,7 @@
 
     <!-- Footer -->
     <footer>
-      <p>Made with <span class="heart" role="img" aria-label="love">❤️</span> &amp; AI &copy; <time
-          datetime="2025">2025</time> Michal Lauer.</p>
+    <p>Made with <span class="heart" role="img" aria-label="love">❤️</span> &amp; AI · &copy; <time datetime="2025">2025</time> Michal Lauer.</p>
     </footer>
   </div>
 

@@ -9,7 +9,8 @@
       <a href="../../index.html#teaching" target="_self">Teaching</a>
       <ul>
         <li><a href="../../index.html#teaching-resources" target="_self">Resources</a></li>
-        <li><a href="../../index.html#teaching-vse" target="_self">VŠE</a></li>
+        <li><a href="../../index.html#teaching-gallery" target="_self">Gallery</a></li>
+        <li><a href="../../index.html#teaching-classes" target="_self">Classes</a></li>
       </ul>
     </li>
     <li><a href="../../index.html#testimonials" target="_self">Testimonials</a></li>
@@ -17,8 +18,13 @@
   </ul>
 
   <div class="sidebar-bottom-item">
-    <a href="mailto:michal.lauer.25@gmail.com" class="sidebar-contact" title="Contact Michal Lauer" aria-label="Contact Michal Lauer">
-      <i class="fas fa-envelope" aria-hidden="true"></i> Write me!
-    </a>
+    <script>
+      (function(){
+        document.write('<a href="mailto:' + user + '@' + domain + '" class="sidebar-contact" title="Contact Michal Lauer" aria-label="Contact Michal Lauer"><i class="fas fa-envelope" aria-hidden="true"></i> Write me!</a>');
+      })();
+    </script>
+    <noscript>
+      <span class="sidebar-contact-noscript" title="Contact Michal Lauer">Write me!<br>(michal [at] lauer [dot] cz)</span>
+    </noscript>
   </div>
 </nav>
