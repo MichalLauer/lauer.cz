@@ -474,6 +474,96 @@ function initLazyLoading() {
   }
 }
 
+// Email placeholders and click-to-open-mailto behaviour
+// Keep user/domain only in JS to avoid exposing in markup
+const EMAIL_USER = 'michal';
+const EMAIL_DOMAIN = 'lauer.cz';
+const EMAIL_FULL = EMAIL_USER + '@' + EMAIL_DOMAIN;
+
+function createMailtoAnchor(email) {
+  const a = document.createElement('a');
+  a.href = 'mailto:' + email;
+  a.textContent = email;
+  a.title = email;
+  a.target = '_self';
+  a.rel = 'nofollow';
+  a.setAttribute('aria-label', 'Contact Michal Lauer');
+  return a;
+}
+
+function revealEmail(container, triggerBtn) {
+  // Do NOT insert the email into the page. Open the user's mail client instead.
+  const mailto = 'mailto:' + EMAIL_FULL;
+  try {
+    // Use location change which typically triggers the mail client
+    window.location.href = mailto;
+  } catch (e) {
+    // Fallback to open in new window/tab
+    window.open(mailto);
+  }
+}
+
+function initEmailPlaceholders() {
+  document.querySelectorAll('.mail-placeholder').forEach(ph => {
+    // Avoid initializing twice
+    if (ph.dataset.initialized) return; ph.dataset.initialized = '1';
+
+    const text = ph.dataset.text || 'Contact';
+    const variant = ph.dataset.variant || '';
+
+    // If the variant explicitly asks for a navbar-contact, create a <button>
+    // to satisfy the requirement that navbar element be a button. Otherwise
+    // create an anchor so existing CSS targeting anchors (e.g. sidebar-contact)
+    // still works. Do NOT include any icon/emoji in the text.
+    const useButton = /\bnavbar-contact\b/.test(variant);
+    let el;
+    if (useButton) {
+      el = document.createElement('button');
+      el.type = 'button';
+      el.className = 'reveal-email-btn';
+      if (variant) variant.split(/\s+/).forEach(c => { if (c) el.classList.add(c); });
+      // Ensure sidebar-contact class is present when requested so CSS targeting
+      // `.sidebar-contact` applies to this button as well.
+      if (/\bsidebar-contact\b/.test(variant)) el.classList.add('sidebar-contact');
+      // For header-contact (large-screen) include an envelope icon before the text
+  if (/\b(header-contact|navbar-contact)\b/.test(variant)) {
+        // create the icon element (Font Awesome)
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-envelope';
+        icon.setAttribute('aria-hidden', 'true');
+        el.appendChild(icon);
+        el.appendChild(document.createTextNode(text));
+      } else {
+        el.textContent = text;
+      }
+      el.setAttribute('aria-label', 'Contact Michal Lauer');
+      el.addEventListener('click', function () { revealEmail(ph, el); });
+    } else {
+      el = document.createElement('a');
+      el.href = '#';
+      el.className = 'reveal-email-btn';
+      if (variant) variant.split(/\s+/).forEach(c => { if (c) el.classList.add(c); });
+      if (/\bsidebar-contact\b/.test(variant)) el.classList.add('sidebar-contact');
+      // For header-contact (large-screen) include an envelope icon before the text
+  if (/\b(header-contact|navbar-contact)\b/.test(variant)) {
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-envelope';
+        icon.setAttribute('aria-hidden', 'true');
+        el.appendChild(icon);
+        el.appendChild(document.createTextNode(text));
+      } else {
+        el.textContent = text;
+      }
+      el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', 'Contact Michal Lauer');
+      el.addEventListener('click', function (e) { e.preventDefault(); revealEmail(ph, el); });
+      el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); el.click(); } });
+    }
+
+    ph.appendChild(el);
+  });
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
@@ -482,6 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initTestimonialCarousel();
   initLightbox();
+  initEmailPlaceholders();
   initLazyLoading();
 });
 

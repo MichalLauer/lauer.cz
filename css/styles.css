@@ -1009,6 +1009,18 @@ footer {
     z-index: 125;
   }
 
+  /* Remove default button border on mobile for the reveal email control
+     and keep the existing shadow/visuals. Targets both button and anchor
+     variants that receive the sidebar-contact class. */
+  .contact-float .sidebar-contact,
+  button.reveal-email-btn.sidebar-contact,
+  a.reveal-email-btn.sidebar-contact {
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    box-shadow: var(--shadow);
+  }
+
   /* Hide the contact that lives inside the sidebar to avoid duplicates on mobile */
   .sidebar .sidebar-bottom-item {
     display: none;
@@ -1028,7 +1040,6 @@ footer {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
     background: rgba(0,0,0,0.35);
     opacity: 0;
     pointer-events: none;
