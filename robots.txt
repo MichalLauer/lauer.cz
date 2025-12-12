@@ -1,43 +1,5 @@
 # robots.txt for lauer.cz
-# This file tells search engine crawlers which URLs they can access on the site
-
-User-agent: *
-Allow: /
-Disallow: /assets/imgs/
-Disallow: /.git/
-Disallow: /renv/
-Disallow: /.rooignore
-Disallow: /.Rprofile
-Disallow: /web.Rproj
-Disallow: /web.code-workspace
-Disallow: /renv.lock
-
-# Allow access to CSS and JS files for proper rendering
-Allow: /css/
-Allow: /js/
-Allow: /assets/favicon.ico
-Allow: /assets/profile.jpeg
-Allow: /assets/cv.pdf
-
-# Crawl delay (optional - be respectful to server resources)
-Crawl-delay: 1
-
-# Sitemap location
 Sitemap: https://lauer.cz/sitemap.xml
 
-# Additional search engines
-User-agent: Googlebot
-Allow: /
+Crawl-delay: 1
 
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-# Czech search engines
-User-agent: SeznamBot
-Allow: /
-
-User-agent: Seznam screenshot-generator
-Allow: /
