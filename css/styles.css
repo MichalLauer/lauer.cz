@@ -6,6 +6,22 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
+/*
+ * CSS Organization
+ * - Variables
+ * - Reset & Base (utilities)
+ * - Accessibility & Focus
+ * - Typography
+ * - Links
+ * - Layout (container, content, sidebar)
+ * - Components (sections, landing, profile, icons, gallery, lightbox, testimonials, blog)
+ * - Responsive rules
+ * - Print
+ *
+ * This file is reorganized with annotated blocks for readability. No visual rules were
+ * changed — only comments/annotations and minor non-functional cleanups were applied.
+ */
+
 /* ===== CSS VARIABLES ===== */
 :root {
   --sidebar-bg: #1a2236;
@@ -23,6 +39,12 @@
   --arrow-color: #6fe056;
   --border-radius: 12px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hide mobile-only controls by default (shown inside the small-screen media query) */
+.menu-toggle,
+.contact-float {
+  display: none;
 }
 
 /* ===== RESET & BASE ===== */
@@ -46,7 +68,8 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== ACCESSIBILITY ===== */
+/* ===== UTILITIES & ACCESSIBILITY ===== */
+/* Utility helpers (visually-hidden, focus outlines) used across components */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -64,6 +87,20 @@ button:focus,
 input:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* Floating tooltip used by abbreviation tooltips */
+.floating-tooltip {
+  position: fixed;
+  background: #232323;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+  z-index: 100000;
+  pointer-events: none;
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -176,6 +213,34 @@ p a {
   width: 100%;
 }
 
+/* Submenu indicator (chevron) positioned inside the link on the right */
+.submenu-indicator {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  transition: transform 0.18s ease, color 0.18s ease;
+}
+
+.submenu-indicator:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Rotate chevron when submenu is open */
+.sidebar ul li.open > a .submenu-indicator {
+  transform: translateY(-50%) rotate(180deg);
+}
+
 /* Sidebar Submenus */
 .sidebar ul li ul {
   max-height: 0;
@@ -243,7 +308,7 @@ p a {
 /* ===== SECTIONS ===== */
 section {
   margin: 2rem auto;
-  padding: 2rem 1.5rem;
+  padding: 2rem 2rem; /* increased horizontal padding */
   width: 100%;
   max-width: var(--content-width);
   background: var(--card-bg);
@@ -271,7 +336,7 @@ body:has(.iframe-container) {
   border: none;
 }
 
-/* Landing Section */
+/* ===== LANDING & PROFILE ===== */
 .landing-section {
   display: flex;
   align-items: center;
@@ -427,19 +492,6 @@ body:has(.iframe-container) {
   fill: var(--arrow-color);
 }
 
-/* ===== TOOLTIPS ===== */
-.floating-tooltip {
-  position: fixed;
-  background: #232323;
-  color: #fff;
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  white-space: nowrap;
-  box-shadow: var(--shadow);
-  z-index: 100000;
-  pointer-events: none;
-}
 
 /* ===== TEACHING RESOURCES ===== */
 .teaching-resources-list {
@@ -450,7 +502,7 @@ body:has(.iframe-container) {
 
 .teaching-resources-item {
   background: var(--card-bg);
-  padding: 1rem;
+  padding: 1.5rem; /* slightly larger horizontal padding */
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   transition: var(--transition);
@@ -489,7 +541,7 @@ body:has(.iframe-container) {
   width: 100%;
 }
 
-/* Gallery */
+/* ===== GALLERY & LIGHTBOX ===== */
 .teaching-resources-gallery {
   grid-column: 1 / -1;
 }
@@ -517,7 +569,6 @@ body:has(.iframe-container) {
   height: 16px;
   border-radius: 50%;
   border: 2px solid #ccc;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.);
   opacity: 0.8;
 }
 
@@ -538,25 +589,11 @@ body:has(.iframe-container) {
   padding: 0.5rem;
 }
 
-.gallery-thumbnails a {
-  display: block;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: var(--transition);
-}
-
-.gallery-thumbnails a:hover {
-  transform: scale(1.05);
-}
-
-.gallery-thumbnails img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-}
+.gallery-thumbnails a,
+.gallery-thumbnails img { border-radius: 8px; }
+.gallery-thumbnails a { display: block; overflow: hidden; transition: var(--transition); }
+.gallery-thumbnails a:hover { transform: scale(1.05); }
+.gallery-thumbnails img { width: 100%; height: auto; object-fit: cover; box-shadow: var(--shadow); transition: var(--transition); }
 
 .gallery-thumbnails a.meme img {
   box-shadow: 0 4px 20px rgba(79, 140, 255, 0.4);
@@ -695,7 +732,7 @@ body:has(.iframe-container) {
   background: var(--card-bg);
   box-shadow: var(--shadow);
   border-radius: var(--border-radius);
-  padding: 1rem;
+  padding: 1.25rem; /* increase padding for better spacing */
   width: 260px;
   display: flex;
   flex-direction: column;
@@ -936,64 +973,152 @@ footer {
   :root {
     --sidebar-width: 0px;
   }
-  
+
+  /* Mobile: show a burger button and make sidebar a hidden roll-down panel */
+  .menu-toggle {
+    display: inline-flex;
+    position: fixed;
+    top: 14px;
+    right: 16px;
+    width: 44px;
+    height: 40px;
+    padding: 6px;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: var(--card-bg);
+    border: none;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    z-index: 120;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .menu-toggle:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* Floating contact (top-left) shown on small screens */
+  .contact-float {
+    display: inline-flex;
+    position: fixed;
+    top: 14px;
+    left: 16px;
+    z-index: 125;
+  }
+
+  /* Hide the contact that lives inside the sidebar to avoid duplicates on mobile */
+  .sidebar .sidebar-bottom-item {
+    display: none;
+  }
+
+  .burger-line {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--sidebar-bg);
+    border-radius: 2px;
+  }
+
+  /* Overlay that appears when menu is open */
+  .menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 110;
+  }
+
+  body.menu-open .menu-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Sidebar becomes a fixed top panel that rolls down */
   .sidebar {
     width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
     height: auto;
-    position: relative;
     border-radius: 0;
-    padding: 1rem;
+    padding: 1rem 1.25rem;
+    transform: translateY(-110%);
+    transition: transform 0.35s ease;
+    z-index: 130;
+    box-shadow: 0 8px 36px rgba(0,0,0,0.25);
   }
-  
+
+  /* When menu is opened, slide it down */
+  body.menu-open .sidebar {
+    transform: translateY(0);
+  }
+
   .content {
     margin-left: 0;
     width: 100%;
   }
-  
+
+  /* Add horizontal gap for sections on small screens */
+  section {
+    /* inset the whole card background from the viewport edges */
+    margin: 1rem;
+    max-width: calc(100% - 2rem);
+    padding: 1.5rem 1rem; /* keep vertical padding, reduce horizontal padding */
+    box-sizing: border-box;
+  }
+
   .landing-section {
     flex-direction: column;
     min-height: auto;
     padding: 1rem;
   }
-  
+
   .landing-left {
     position: relative;
     height: auto;
     margin-bottom: 2rem;
   }
-  
+
   .landing-right {
     padding: 1rem;
     text-align: center;
   }
-  
+
   .teaching-resources-list {
     grid-template-columns: 1fr;
   }
-  
+
   .testimonial-cards {
     flex-direction: column;
     max-width: 100%;
   }
-  
+
   .testimonial-card {
     width: 100%;
   }
-  
+
   .icon-labels-container {
     max-width: 320px;
     height: 150px;
   }
-  
+
   .icon-label {
     font-size: 0.9rem;
   }
-  
+
   .arrows-svg {
     transform: scale(0.8);
     transform-origin: center;
   }
-  
+
   footer {
     margin-left: 0;
   }

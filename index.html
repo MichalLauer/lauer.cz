@@ -180,9 +180,49 @@
     const domain = 'lauer.cz';
   </script>
   <div class="container">
-    <!-- Navigation Sidebar -->
-    <nav class="sidebar" role="navigation" aria-label="Main Navigation">
-      <ul>
+
+<!-- Mobile menu toggle (visible on small screens) - icon version -->
+<span class="menu-toggle" role="button" tabindex="0" aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation">
+  <svg class="menu-icon" width="28" height="22" viewBox="0 0 28 22" aria-hidden="true" focusable="false">
+    <rect class="burger-line" x="0" y="2" width="28" height="2" rx="1"></rect>
+    <rect class="burger-line" x="0" y="10" width="28" height="2" rx="1"></rect>
+    <rect class="burger-line" x="0" y="18" width="28" height="2" rx="1"></rect>
+  </svg>
+</span>
+
+<!-- Floating contact for small screens (duplicate of sidebar contact, placed outside nav) -->
+<span class="contact-float" aria-hidden="false">
+  <script>
+    (function(){
+      document.write('<a href="mailto:' + user + '@' + domain + '" class="sidebar-contact" title="Contact Michal Lauer" aria-label="Contact Michal Lauer"><i class="fas fa-envelope" aria-hidden="true"></i> Write me!</a>');
+    })();
+  </script>
+  <noscript>
+    <span class="sidebar-contact-noscript" title="Contact Michal Lauer">Write me!<br>(michal [at] lauer [dot] cz)</span>
+  </noscript>
+</span>
+
+<!-- Navigation Sidebar -->
+<nav id="main-navigation" class="sidebar" role="navigation" aria-label="Main Navigation">
+  <!-- Top header shown on small screens: blank stretch with burger on right -->
+  <div class="sidebar-header" aria-hidden="false">
+    <span class="sidebar-header-blank" aria-hidden="true"></span>
+    <div class="sidebar-header-controls">
+      <!-- Contact shown next to burger on small screens -->
+      <div class="sidebar-header-contact">
+        <script>
+          (function(){
+            document.write('<a href="mailto:' + user + '@' + domain + '" class="sidebar-contact header-contact" title="Contact Michal Lauer" aria-label="Contact Michal Lauer"><i class="fas fa-envelope" aria-hidden="true"></i> Write me!</a>');
+          })();
+        </script>
+        <noscript>
+          <span class="sidebar-contact-noscript" title="Contact Michal Lauer">Write me!<br>(michal [at] lauer [dot] cz)</span>
+        </noscript>
+      </div>
+    </div>
+  </div>
+
+  <ul id="main-sidebar-menu">
         <li><a href="#about" target="_self" aria-current="page">About Me</a></li>
         <li>
           <a href="#research" target="_self">Research</a>
@@ -199,16 +239,7 @@
         <li><a href="#blog" target="_self">Blog</a></li>
       </ul>
 
-      <div class="sidebar-bottom-item">
-        <script>
-          (function(){
-            document.write('<a href="mailto:' + user + '@' + domain + '" class="sidebar-contact" title="Contact Michal Lauer" aria-label="Contact Michal Lauer"><i class="fas fa-envelope" aria-hidden="true"></i> Write me!</a>');
-          })();
-        </script>
-        <noscript>
-          <span class="sidebar-contact-noscript" title="Contact Michal Lauer">Write me!<br>(michal [at] lauer [dot] cz)</span>
-        </noscript>
-      </div>
+      <!-- single contact button moved to header; bottom duplicate removed -->
     </nav>
 
     <!-- Main Content -->

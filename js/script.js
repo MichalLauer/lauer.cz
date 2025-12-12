@@ -7,6 +7,18 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
+// Small helpers to avoid repeating overflow toggles and arrow enabling
+const setPageOverflow = (hidden) => {
+  document.documentElement.style.overflow = hidden ? 'hidden' : '';
+  document.body.style.overflow = hidden ? 'hidden' : '';
+};
+
+const setTestimonialArrows = (enabled) => {
+  $$('.testimonial-arrow').forEach(arrow => {
+    arrow.style.pointerEvents = enabled ? 'auto' : 'none';
+  });
+};
+
 // Tooltip functionality for abbreviations
 function initTooltips() {
   $$('abbr[title]').forEach(el => {
@@ -48,10 +60,7 @@ function initTooltips() {
 
     el.addEventListener('mouseleave', () => {
       el.setAttribute('title', tooltipText);
-      if (tooltip) {
-        tooltip.remove();
-        tooltip = null;
-      }
+      if (tooltip) { tooltip.remove(); tooltip = null; }
     });
   });
 }
@@ -62,14 +71,182 @@ function initSidebar() {
   if (!sidebar) return;
 
   const menuItems = sidebar.querySelectorAll('li');
-  
-  menuItems.forEach(li => {
-    li.addEventListener('mouseenter', () => li.classList.add('open'));
+
+  // Add indicators (chevrons) to items that contain submenus.
+  function addIndicators() {
+    menuItems.forEach(li => {
+      const sub = li.querySelector('ul');
+      if (!sub) return;
+
+      const anchor = li.querySelector('a');
+      if (!anchor) return;
+
+      // Avoid adding duplicate indicators
+      if (anchor.querySelector('.submenu-indicator')) return;
+
+      const indicator = document.createElement('span');
+      indicator.className = 'submenu-indicator';
+      indicator.setAttribute('role', 'button');
+      indicator.setAttribute('tabindex', '0');
+      indicator.setAttribute('aria-expanded', 'false');
+      indicator.setAttribute('aria-label', 'Toggle submenu');
+      indicator.innerHTML = '<svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+      // Place indicator inside the anchor but keep it non-interactive to the anchor by stopping propagation
+      anchor.appendChild(indicator);
+
+      const toggle = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        li.classList.toggle('open');
+        const isOpen = li.classList.contains('open');
+        indicator.setAttribute('aria-expanded', String(!!isOpen));
+      };
+
+      indicator.addEventListener('click', toggle);
+      indicator.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); toggle(e); }
+      });
+    });
+  }
+
+  // Ensure indicators exist immediately
+  addIndicators();
+
+  // We'll enable hover behavior only on desktop-sized viewports and
+  // remove it for small screens so click/tap toggles work reliably.
+  const hoverHandlers = new Map();
+
+  function enableHover() {
+    menuItems.forEach(li => {
+      if (hoverHandlers.has(li)) return; // already added
+      const onEnter = () => li.classList.add('open');
+      const onLeave = () => li.classList.remove('open');
+      li.addEventListener('mouseenter', onEnter);
+      li.addEventListener('mouseleave', onLeave);
+      hoverHandlers.set(li, { onEnter, onLeave });
+    });
+
+    if (!sidebar._desktopMouseLeave) {
+      sidebar._desktopMouseLeave = () => menuItems.forEach(li => li.classList.remove('open'));
+      sidebar.addEventListener('mouseleave', sidebar._desktopMouseLeave);
+    }
+  }
+
+  function disableHover() {
+    hoverHandlers.forEach((h, li) => {
+      li.removeEventListener('mouseenter', h.onEnter);
+      li.removeEventListener('mouseleave', h.onLeave);
+    });
+    hoverHandlers.clear();
+    if (sidebar._desktopMouseLeave) {
+      sidebar.removeEventListener('mouseleave', sidebar._desktopMouseLeave);
+      delete sidebar._desktopMouseLeave;
+    }
+    // Ensure no submenu remains accidentally open when switching modes
+    menuItems.forEach(li => {
+      li.classList.remove('open');
+      const ind = li.querySelector('.submenu-indicator');
+      if (ind) ind.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function updateSidebarMode() {
+    if (window.innerWidth > 768) enableHover();
+    else disableHover();
+  }
+
+  // Initialize based on current viewport and keep in sync on resize
+  updateSidebarMode();
+  window.addEventListener('resize', () => {
+    // Simple throttle to avoid toggling too often
+    clearTimeout(sidebar._resizeTimeout);
+    sidebar._resizeTimeout = setTimeout(updateSidebarMode, 120);
   });
 
-  sidebar.addEventListener('mouseleave', () => {
-    menuItems.forEach(li => li.classList.remove('open'));
+  // Mobile: allow clicking parent links to toggle submenu
+  // Use event delegation for simplicity
+  sidebar.addEventListener('click', (e) => {
+    const target = e.target.closest('a');
+    if (!target) return;
+
+    // Only on small screens
+    if (window.innerWidth > 768) return;
+
+    const li = target.closest('li');
+    if (!li) return;
+
+    const sub = li.querySelector('ul');
+    if (sub) {
+      // Prevent navigation and toggle submenu
+      e.preventDefault();
+      li.classList.toggle('open');
+      // Update the aria-expanded state on the indicator if present
+      const ind = li.querySelector('.submenu-indicator');
+      if (ind) ind.setAttribute('aria-expanded', String(li.classList.contains('open')));
+    } else {
+      // When clicking a link (no submenu), close mobile menu so content is visible
+      if (window.closeMobileMenu) {
+        window.closeMobileMenu();
+      } else {
+        document.body.classList.remove('menu-open');
+        const menuToggle = document.querySelector('.menu-toggle');
+        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+        // remove any overlay if present
+        const overlay = document.querySelector('.menu-overlay');
+        if (overlay) overlay.remove();
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }
+    }
   });
+}
+
+// Mobile menu toggle: burger button, overlay, close handlers
+function initMobileMenu() {
+  const toggle = document.querySelector('.menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  if (!toggle || !sidebar) return;
+
+  // Make non-button toggle keyboard-accessible (Enter / Space)
+  toggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); toggle.click(); }
+  });
+
+  const ensureOverlay = () => {
+    let overlay = document.querySelector('.menu-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'menu-overlay';
+      document.body.appendChild(overlay);
+      overlay.addEventListener('click', closeMenu);
+    }
+    return overlay;
+  };
+
+  // central close function to ensure overflow and overlay are cleaned up
+  function closeMenu() {
+    document.body.classList.remove('menu-open');
+    try { toggle.setAttribute('aria-expanded', 'false'); } catch (e) {}
+    const overlay = document.querySelector('.menu-overlay'); if (overlay) overlay.remove();
+    setPageOverflow(false);
+  }
+
+  // expose for other modules / handlers
+  window.closeMobileMenu = closeMenu;
+
+  toggle.addEventListener('click', () => {
+    const isOpen = document.body.classList.toggle('menu-open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (isOpen) { ensureOverlay(); setPageOverflow(true); }
+    else { closeMenu(); }
+  });
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) closeMenu(); });
+
+  // If the window is resized to desktop while menu open, close mobile menu
+  window.addEventListener('resize', () => { if (window.innerWidth > 768 && document.body.classList.contains('menu-open')) closeMenu(); });
 }
 
 // Smooth scrolling for anchor links
@@ -166,15 +343,8 @@ function initTestimonialCarousel() {
   };
 
   // Navigation handlers
-  leftArrow.addEventListener('click', () => {
-    currentPosition = (currentPosition - 1 + totalCards) % totalCards;
-    renderCards();
-  });
-
-  rightArrow.addEventListener('click', () => {
-    currentPosition = (currentPosition + 1) % totalCards;
-    renderCards();
-  });
+  leftArrow.addEventListener('click', () => { currentPosition = (currentPosition - 1 + totalCards) % totalCards; renderCards(); });
+  rightArrow.addEventListener('click', () => { currentPosition = (currentPosition + 1) % totalCards; renderCards(); });
 
   // Handle window resize
   let resizeTimeout;
@@ -182,9 +352,7 @@ function initTestimonialCarousel() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
       const newVisibleCards = window.innerWidth <= 768 ? 1 : 3;
-      if (newVisibleCards !== visibleCards) {
-        location.reload(); // Simple solution for responsive changes
-      }
+      if (newVisibleCards !== visibleCards) location.reload(); // Simple solution for responsive changes
     }, 250);
   });
 
@@ -310,6 +478,7 @@ function initLazyLoading() {
 document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
   initSidebar();
+  initMobileMenu();
   initSmoothScroll();
   initTestimonialCarousel();
   initLightbox();
