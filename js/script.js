@@ -245,6 +245,19 @@ function initMobileMenu() {
   // Close on escape
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) closeMenu(); });
 
+  // Close when clicking outside the sidebar or the toggle (capture phase).
+  // This handles cases where the overlay doesn't receive the click because of
+  // stacking contexts or other elements covering it.
+  document.addEventListener('click', (e) => {
+    if (!document.body.classList.contains('menu-open')) return;
+    const clickedInsideSidebar = !!e.target.closest && e.target.closest('.sidebar');
+    const clickedToggle = !!e.target.closest && e.target.closest('.menu-toggle');
+    if (!clickedInsideSidebar && !clickedToggle) {
+      // click outside -> close menu
+      closeMenu();
+    }
+  }, true);
+
   // If the window is resized to desktop while menu open, close mobile menu
   window.addEventListener('resize', () => { if (window.innerWidth > 768 && document.body.classList.contains('menu-open')) closeMenu(); });
 }
