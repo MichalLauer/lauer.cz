@@ -142,7 +142,7 @@ p a {
 }
 
 /* ===== LAYOUT ===== */
-.container {
+.container-main {
   display: block;
   min-height: 100vh;
   width: 100%;
@@ -314,6 +314,13 @@ section {
   background: var(--card-bg);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
+}
+
+.quarto-light section,
+.quarto-light div {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
 }
 
 body:has(.iframe-container) {
@@ -959,6 +966,14 @@ footer {
   .landing-right {
     padding: 2rem;
   }
+
+  
+
+  .landing-section {
+    flex-direction: column;
+    min-height: auto;
+    padding: 1rem;
+  }
   
   .testimonial-cards {
     max-width: calc(220px * 2 + 1.25rem);
@@ -966,6 +981,13 @@ footer {
   
   .testimonial-card {
     width: 220px;
+  }
+
+  /* Disable sticky left column at tablet sizes to avoid touch/scroll capture
+     that causes the page to appear to 'stick' before content moves. */
+  .landing-left {
+    position: relative !important;
+    top: auto !important;
   }
 }
 
@@ -995,6 +1017,12 @@ footer {
     transition: var(--transition);
   }
 
+  
+  /* Push the whole site down slightly on small screens */
+  body {
+    margin-top: 50px;
+  }
+  
   .menu-toggle:focus {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
@@ -1086,12 +1114,6 @@ footer {
     box-sizing: border-box;
   }
 
-  .landing-section {
-    flex-direction: column;
-    min-height: auto;
-    padding: 1rem;
-  }
-
   .landing-left {
     position: relative;
     height: auto;
@@ -1126,8 +1148,13 @@ footer {
   }
 
   .arrows-svg {
-    transform: scale(0.8);
+    transform: translateY(-8px) scale(0.8);
     transform-origin: center;
+  }
+
+  .MathJax {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
   }
 
   footer {
@@ -1139,7 +1166,7 @@ footer {
   .landing-section {
     padding: 0.5rem;
   }
-  
+
   .profile-photo {
     width: 150px;
     height: 150px;
