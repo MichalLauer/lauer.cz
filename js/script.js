@@ -326,17 +326,38 @@ function initTestimonialCarousel() {
 
   if (!cardsContainer || !leftArrow || !rightArrow) return;
 
-  let currentPosition = 0;
-  const totalCards = testimonials.length;
-  const visibleCards = window.innerWidth <= 768 ? 1 : 3;
+  // If already initialized, just re-render (this makes the function idempotent
+  // and ensures that when the page is restored from bfcache we re-populate
+  // the carousel without binding duplicate event listeners).
+  if (carousel._initialized) {
+    // update visibleCards and re-render
+    const getVisibleCards = () => (window.innerWidth <= 768 ? 1 : (window.innerWidth <= 1024 ? 2 : 3));
+    carousel._visibleCards = getVisibleCards();
+    carousel._renderCards();
+    return;
+  }
 
-  const renderCards = () => {
+  // First-time initialization
+  carousel._initialized = true;
+  carousel._totalCards = testimonials.length;
+  carousel._currentPosition = 0;
+  const getVisibleCards = () => (window.innerWidth <= 768 ? 1 : (window.innerWidth <= 1024 ? 2 : 3));
+  carousel._visibleCards = getVisibleCards();
+
+  // create a render function attached to the carousel so other handlers (pageshow)
+  // can call it to repopulate the DOM from the source `testimonials` array.
+  carousel._renderCards = function () {
+    // defensive reference lookups
+    const total = carousel._totalCards || testimonials.length;
+    const pos = (typeof carousel._currentPosition === 'number') ? carousel._currentPosition : 0;
+    const visible = carousel._visibleCards || 1;
+
     cardsContainer.innerHTML = '';
-    
-    for (let i = 0; i < visibleCards; i++) {
-      const cardIndex = (currentPosition + i) % totalCards;
+
+    for (let i = 0; i < visible; i++) {
+      const cardIndex = (pos + i) % total;
       const testimonial = testimonials[cardIndex];
-      
+
       const card = document.createElement('div');
       card.className = 'testimonial-card';
       card.innerHTML = `
@@ -355,23 +376,49 @@ function initTestimonialCarousel() {
     }
   };
 
-  // Navigation handlers
-  leftArrow.addEventListener('click', () => { currentPosition = (currentPosition - 1 + totalCards) % totalCards; renderCards(); });
-  rightArrow.addEventListener('click', () => { currentPosition = (currentPosition + 1) % totalCards; renderCards(); });
-
-  // Handle window resize
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      const newVisibleCards = window.innerWidth <= 768 ? 1 : 3;
-      if (newVisibleCards !== visibleCards) location.reload(); // Simple solution for responsive changes
-    }, 250);
+  // Navigation handlers (bind once)
+  leftArrow.addEventListener('click', () => {
+    carousel._currentPosition = (carousel._currentPosition - 1 + carousel._totalCards) % carousel._totalCards;
+    carousel._renderCards();
+  });
+  rightArrow.addEventListener('click', () => {
+    carousel._currentPosition = (carousel._currentPosition + 1) % carousel._totalCards;
+    carousel._renderCards();
   });
 
+  // Handle window resize: re-calc visibleCards and re-render when breakpoint changes
+  carousel._resizeHandler = () => {
+    const newVisible = getVisibleCards();
+    if (newVisible !== carousel._visibleCards) {
+      carousel._visibleCards = newVisible;
+      carousel._currentPosition = carousel._currentPosition % carousel._totalCards;
+      carousel._renderCards();
+    }
+  };
+
+  let resizeTimeout;
+  window.addEventListener('resize', () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(carousel._resizeHandler, 250); });
+
   // Initial render
-  renderCards();
+  carousel._renderCards();
 }
+
+// When a user navigates with back/forward, some browsers restore the DOM from
+// the bfcache and do not fire DOMContentLoaded. Use pageshow to ensure the
+// carousel is repopulated when returning to the page.
+window.addEventListener('pageshow', (e) => {
+  const carousel = document.querySelector('.testimonial-carousel');
+  if (!carousel) return;
+  if (carousel._initialized) {
+    // update visible cards then re-render
+    const visible = (window.innerWidth <= 768 ? 1 : (window.innerWidth <= 1024 ? 2 : 3));
+    carousel._visibleCards = visible;
+    carousel._renderCards();
+  } else {
+    // If for some reason it wasn't initialized (rare), initialize now
+    initTestimonialCarousel();
+  }
+});
 
 // Lightbox functionality
 function initLightbox() {
