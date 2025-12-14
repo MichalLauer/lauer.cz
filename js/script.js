@@ -254,6 +254,14 @@ function initMobileMenu() {
     const clickedToggle = !!e.target.closest && e.target.closest('.menu-toggle');
     if (!clickedInsideSidebar && !clickedToggle) {
       // click outside -> close menu
+      // Prevent the click from reaching underlying elements (anchors, images, etc.)
+      // which would otherwise trigger navigation or other actions.
+      try {
+        e.preventDefault();
+        e.stopPropagation();
+      } catch (err) {
+        // ignore if the event is not cancellable in some environments
+      }
       closeMenu();
     }
   }, true);
