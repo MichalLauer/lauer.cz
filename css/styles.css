@@ -323,6 +323,34 @@ section {
   border-radius: 0 !important;
 }
 
+/* Utterances (comment widget) - always centered within the content area
+   Excludes the sidebar/navigation because we target `.content` and
+   Quarto's `#quarto-content` so the widget stays aligned with article width. */
+.utterances {
+  max-width: var(--content-width);
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* Ensure the Utterances iframe (or inner frame) uses the available width */
+.utterances iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .content .utterances,
+  #quarto-content .utterances,
+  section .utterances {
+    max-width: calc(100% - 2rem);
+    margin: 1.25rem auto;
+    padding: 0 1rem;
+  }
+}
+
 body:has(.iframe-container) {
   overflow: hidden;
 }
