@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2023-08-01">
+<meta name="description" content="Consistent estimators hold a pivotal role in delivering precise statistical outcomes. Let’s unravel their mystery and reveal how they shape real-world prediction scenarios.">
+
+<title>Consistent Estimators: The Unseen Champions of Accurate Predictions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-8ZGMYX2VV4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8ZGMYX2VV4');
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/article.css">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+
+<main class="content column-page" id="quarto-document-content">
+<!-- Mobile menu toggle (visible on small screens) - icon version -->
+<span class="menu-toggle" role="button" tabindex="0" aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation">
+  <svg class="menu-icon" width="28" height="22" viewbox="0 0 28 22" aria-hidden="true" focusable="false">
+    <rect class="burger-line" x="0" y="2" width="28" height="2" rx="1"></rect>
+    <rect class="burger-line" x="0" y="10" width="28" height="2" rx="1"></rect>
+    <rect class="burger-line" x="0" y="18" width="28" height="2" rx="1"></rect>
+  </svg>
+</span>
+
+<!-- Floating contact for small screens (duplicate of sidebar contact, placed outside nav) -->
+<span class="contact-float" aria-hidden="false">
+  <!-- On small screens the floating contact is visible; make it the navbar-contact
+    and apply sidebar-contact styling so it matches the original small-screen button -->
+  <span class="mail-placeholder" data-text="Write me!" data-variant="navbar-contact sidebar-contact"></span>
+  <noscript>
+    <span class="sidebar-contact-noscript" title="Contact Michal Lauer">Write me!<br>(michal [at] lauer [dot]
+      cz)</span>
+  </noscript>
+</span>
+
+<!-- Navigation Sidebar -->
+<nav id="main-navigation" class="sidebar" role="navigation" aria-label="Main Navigation">
+  <!-- Top header shown on small screens: blank stretch with burger on right -->
+  <div class="sidebar-header" aria-hidden="false">
+    <span class="sidebar-header-blank" aria-hidden="true"></span>
+    <div class="sidebar-header-controls">
+      <!-- Contact shown next to burger on small screens -->
+      <div class="sidebar-header-contact">
+        <!-- On large screens the header contact should use the sidebar-contact
+          styling; on small screens the floating navbar contact remains visible. -->
+        <span class="mail-placeholder" data-text="Write me!" data-variant="header-contact sidebar-contact"></span>
+        <noscript>
+          <span class="sidebar-contact-noscript" title="Contact Michal Lauer">Write me!<br>(michal [at] lauer [dot]
+            cz)</span>
+        </noscript>
+      </div>
+    </div>
+  </div>
+
+  <ul id="main-sidebar-menu">
+    <li><a href="../../index.html#about" target="_self" aria-current="page">About Me</a></li>
+    <li>
+      <a href="../../index.html#research" target="_self">Research</a>
+    </li>
+    <li>
+      <a href="../../index.html#teaching" target="_self">Teaching</a>
+      <ul>
+        <li><a href="../../index.html#teaching-resources" target="_self">Resources</a></li>
+        <li><a href="../../index.html#teaching-gallery" target="_self">Gallery</a></li>
+        <li><a href="../../index.html#teaching-classes" target="_self">Classes</a></li>
+      </ul>
+    </li>
+    <li><a href="../../index.html#testimonials" target="_self">Testimonials</a></li>
+    <li><a href="../../index.html#blog" target="_self">Blog</a></li>
+  </ul>
+
+  <!-- single contact button moved to header; bottom duplicate removed -->
+</nav>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><p>Consistent Estimators: The Unseen Champions of Accurate Predictions</p></h1>
+</div>
+
+<div>
+  <div class="description">
+    <p>Consistent estimators hold a pivotal role in delivering precise statistical outcomes. Let’s unravel their mystery and reveal how they shape real-world prediction scenarios.</p>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta column-page">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 1, 2023</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">August 1, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+too long; didn’t read
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Consistency <span class="math inline">\(\neq\)</span> Unbiasedness</li>
+<li>Biased estimate is always inconsistent</li>
+<li>Variance of a consistent estimator must tend to zero as <span class="math inline">\(n \to \infty\)</span></li>
+<li>Estimators can be both unbiased and inconsistent, or any other combination</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Series introduction
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is a part of my series about estimators and their properties. If you don’t understand some concepts or would like to know, I fully suggest starting from <a href="https://lauer.cz/blog.html#category=⭐%20Estimators">the beginning</a>!</p>
+</div>
+</div>
+<section id="blog-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="blog-preparation">Blog preparation</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Graphs</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(latex2exp)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">"Open Sans"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>showtext<span class="sc">::</span><span class="fu">showtext_auto</span>()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">legend.text.align =</span> <span class="dv">0</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  .cap <span class="ot">&lt;-</span> <span class="st">"Michal Lauer | lauer.cz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>In the exciting world of statistics, consistency is a key characteristic that turns good estimators into great ones. Picture a compass guiding an adventurer through a vast and unknown territory - that’s what a consistent estimator does in the terrain of data. It may start with some variance, but as the explorer gathers more information - just like increasing our sample size - it moves closer and closer to the true value. This is the magic of consistency: a learning process that refines initial guesses with increasing insight and experience. So let’s celebrate consistent estimators: they’re our trusty compass in the vibrant, ever-evolving landscape of data-driven decision-making.</p>
+</section>
+<section id="about-consistency" class="level2">
+<h2 class="anchored" data-anchor-id="about-consistency">About consistency</h2>
+<section id="statisticians-are-cheap" class="level3">
+<h3 class="anchored" data-anchor-id="statisticians-are-cheap">Statisticians are cheap</h3>
+<p>Let’s face it - statisticians are forced to be cheap. <strong>Good statisticians</strong> can take data and confidently make educated guesses about the overarching population. But, as you all know, a lot of data equals many costs. And <del>the business</del> we don’t want that. That’s why <strong>great statisticians</strong> can make great guesses from a relatively small sample of data. Large samples also bring another set of challenges, such as:</p>
+<ul>
+<li>the sample should be created at the same time (e.g., when a survey is conducted, all respondents should answer in the shortest time possible).</li>
+<li>somebody has to overlook the sampling (more respondents = more people to manage = more difficult).</li>
+<li>data processing can take longer time (imagine you’d have to process written responses from 10 000 respondents).</li>
+</ul>
+<p>Big data sets can also makes the results less relevant as they are not very up-to-date. Don’t get me wrong - big samples are also great. They can make the results more representative, less biased, more precise, or more confident. But the sweet spot is <em>somewhere</em> in the middle.</p>
+<p>Now imagine that you go through all the struggle - you manage to get a large sample, you get your project managers and C-something-O’s on board, you handle all the precious data - and the results are no more precise than a sample with a fourth of your respondents. That must suck!!!. Luckily, after reading this article, you won’t get into this issue, as you would first check the properties of your estimator - primarily, it’s <strong>consistency</strong>.</p>
+<p>First, let me introduce consistency - more human-friendly and less math-nerdy. Let’s ask the question:</p>
+<blockquote class="blockquote">
+<p>How precise is your estimate as the sample size grows?</p>
+</blockquote>
+<p>Common sense might tell you that the estimate is more precise, e.g., closer to the population parameter. But this does not have to be always true. Imagine that - for some reason - the estimator’s variance is not decreasing with the increasing sample size. This would make the estimator <strong>inconsistent</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Consistency means, in loose terms, that the estimate is more precise as the sample size increases.</p>
+</div>
+</div>
+</section>
+<section id="math-gibberish" class="level3">
+<h3 class="anchored" data-anchor-id="math-gibberish">Math gibberish</h3>
+<p>Okay, let’s now transfer this problem to the statistical world. With an increasing sample size, we want to have more precise estimates. To put it in another way, we want to be closer and closer to the real parameter <span class="math inline">\(\theta\)</span> with increasing sample size that the probability of the absolute difference of the estimate <span class="math inline">\(\hat{\theta}\)</span> and parameter <span class="math inline">\(\theta\)</span> is smaller than any positive real number <span class="math inline">\(\epsilon\)</span> with probability 1. If we write it down, we end up with something like this <span class="citation" data-cites="Mala2016_VybraneKapitolyTeorie">(<a href="#ref-Mala2016_VybraneKapitolyTeorie" role="doc-biblioref">Malá 2016, p.&nbsp;156</a>)</span>:</p>
+<p><span id="eq-consistency"><span class="math display">\[
+\lim_{n\to\infty} P(|\hat{\theta} - \theta| &lt; \epsilon)=1
+\tag{1}\]</span></span></p>
+<p>This is also called the convergence in probability.</p>
+</section>
+<section id="consistency-vs.-unbiasedness" class="level3">
+<h3 class="anchored" data-anchor-id="consistency-vs.-unbiasedness">Consistency vs.&nbsp;unbiasedness</h3>
+<p>While I was doing research for this post, I often found sources that mix-up consistency and unbiasedness. While the terms are somewhat connected, they represent completely different things. Unbiasedness talks about the expected value, while consistency talks about convergence.</p>
+<p>Whether an estimate is biased or unbiased holds for any sample size. If we have a biased estimator, no matter how many people we ask, the estimate will still either, on average, underestimate or overestimate the true parameter. <a href="#fig-biased-unbiased-estimates" class="quarto-xref">Figure&nbsp;1</a> shows two estimates. One is unbiased and the second overestimates <span class="math inline">\(\theta\)</span> by 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">789</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">n =</span> <span class="dv">10</span><span class="sc">^</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">theta =</span> <span class="dv">10</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">bias =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">biased =</span> <span class="fu">pmap_dbl</span>(<span class="at">.l =</span> ., <span class="at">.f =</span> <span class="cf">function</span>(n, theta, bias) <span class="fu">mean</span>(<span class="fu">rnorm</span>(n, theta) <span class="sc">+</span> bias)),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">unbiased =</span> <span class="fu">map2_dbl</span>(<span class="at">.x =</span> n, <span class="at">.y =</span> theta, <span class="at">.f =</span> <span class="cf">function</span>(n, theta) <span class="fu">mean</span>(<span class="fu">rnorm</span>(n, theta))),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="fu">format</span>(n, <span class="at">scientific =</span> <span class="cn">FALSE</span>, <span class="at">big.mark =</span> <span class="st">" "</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n)) <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">xend =</span> n, <span class="at">y =</span> unbiased, <span class="at">yend =</span> biased)) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> unbiased, <span class="at">color =</span> <span class="st">"Unbiased estimate"</span>), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> biased, <span class="at">color =</span> <span class="st">"Biased estimate"</span>), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> theta), <span class="at">linetype =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">name =</span> <span class="st">"Marker"</span>, <span class="at">option =</span> <span class="st">"cividis"</span>) <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># legend.position = "bottom",</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> .<span class="dv">5</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"There is bias no matter the sample size"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Dotted line represents parameter Theta; y-axis is cut for visibility"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Sample size"</span>, <span class="at">y =</span> <span class="st">"Biased mean"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> .cap</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-biased-unbiased-estimates" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-biased-unbiased-estimates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-biased-unbiased-estimates-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-biased-unbiased-estimates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The sample size does not have any effect on estimates bias
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout-info">
+<p>Asymptotically unbiased estimates <em>are</em> affected by sample size, as their bias is going to <span class="math inline">\(0\)</span> as <span class="math inline">\(n \to \infty\)</span>.</p>
+</div>
+</section>
+</section>
+<section id="necessary-properties-of-consistency" class="level2">
+<h2 class="anchored" data-anchor-id="necessary-properties-of-consistency">Necessary properties of consistency</h2>
+<p>In order to have a consistent estimate</p>
+<ul>
+<li>its variance needs to converge to zero, and</li>
+<li>it is at least asymptotically unbiased.</li>
+</ul>
+<p>These properties <span class="citation" data-cites="Mala2016_VybraneKapitolyTeorie">(<a href="#ref-Mala2016_VybraneKapitolyTeorie" role="doc-biblioref">Malá 2016, p.&nbsp;156</a>)</span> are sufficient for consistency. Let’s now focus on the first property.</p>
+<section id="variance-goes-vroom" class="level3">
+<h3 class="anchored" data-anchor-id="variance-goes-vroom">Variance goes vroom</h3>
+<p>Consider a simple sample mean given by</p>
+<p><span class="math display">\[
+\overline{x} = \frac{1}{n} \sum_{i=1}^n x_i.
+\]</span></p>
+<p>This sample mean has a known variance <span class="citation" data-cites="PennState2023_Lesson244">(<a href="#ref-PennState2023_Lesson244" role="doc-biblioref">Science: PennState 2023</a>)</span></p>
+<p><span class="math display">\[
+\mathbb{D}\left(\overline{x}\right) = \frac{\sigma^2}{n},
+\]</span></p>
+<p>because</p>
+<p><span id="eq-variance-of-mean"><span class="math display">\[
+\mathbb{D}\left(\frac{1}{n} \sum_{i=1}^n x_i\right) =
+\frac{1}{n^2} \mathbb{D}\left(\sum_{i=1}^n x_i\right) =
+\frac{1}{n^2} n \mathbb{D}\left(x_i\right) =
+\frac{1}{n^2} n \sigma^2 =
+\frac{\sigma^2}{n}.
+\tag{2}\]</span></span></p>
+<p>Now imagine that for every sample size <span class="math inline">\(n &gt; 1\)</span>, we only consider the first two respondents. That is, every sample has a constant size of <span class="math inline">\(2\)</span>.</p>
+<p><span class="math display">\[
+\overline{x}_s = \frac{x_1 + x_2}{2}
+\]</span></p>
+<p>This estimate <em>should</em> still be usable because it is unbiased.</p>
+<p><span class="math display">\[
+\mathbb{E}\left(\frac{x_1 + x_2}{2}\right) =
+\frac{1}{2} \mathbb{E}\left(x_1 + x_2\right) =
+\frac{1}{2} 2\mu =
+\mu
+\]</span></p>
+<p>This can also be seen in <a href="#fig-biased-unbiased-means" class="quarto-xref">Figure&nbsp;2</a>, where the values oscillate around the true mean.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">789</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">n =</span> <span class="fu">seq_len</span>(<span class="dv">9999</span>) <span class="sc">+</span> <span class="dv">1</span>, <span class="co"># starts at 2</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">sample =</span> <span class="fu">map</span>(n, rnorm),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">sample2 =</span> <span class="fu">map</span>(sample, <span class="sc">~</span> .x[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">mean =</span> <span class="fu">map_dbl</span>(sample, <span class="sc">~</span> <span class="fu">mean</span>(.x)),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">mean2 =</span> <span class="fu">map_dbl</span>(sample2, <span class="sc">~</span> <span class="fu">mean</span>(.x))) <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n)) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> mean2, <span class="at">color =</span> <span class="st">"n2"</span>)) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> mean, <span class="at">color =</span> <span class="st">"ni"</span>)) <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">name =</span> <span class="st">"Type"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"n2"</span> <span class="ot">=</span> <span class="fu">TeX</span>(<span class="st">"$n = 2$"</span>), <span class="st">"ni"</span> <span class="ot">=</span> <span class="fu">TeX</span>(<span class="st">"$n </span><span class="sc">\\</span><span class="st">to </span><span class="sc">\\</span><span class="st">infty$"</span>)),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"n2"</span> <span class="ot">=</span> <span class="st">"pink"</span>, <span class="st">"ni"</span> <span class="ot">=</span> <span class="st">"lightblue"</span>)) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>(<span class="at">big.mark =</span> <span class="st">" "</span>),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10000</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.text.align =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">TeX</span>(<span class="st">"Convergence of means of values from N(0, 1)"</span>),</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Sample size"</span>, <span class="at">y =</span> <span class="st">"Mean"</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> .cap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-biased-unbiased-means" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-biased-unbiased-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-biased-unbiased-means-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-biased-unbiased-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Both means are unbiased. They vary heavily in their variance.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Both estimators are unbiased, but one has a much bigger variance. The classical mean (<span class="math inline">\(\overline{x}\)</span>, where we calculate it over <em>all</em> values) has a decreasing variance, as seen in <a href="#eq-variance-of-mean" class="quarto-xref">Equation&nbsp;2</a>. However, the mean of the first two values (<span class="math inline">\(\overline{x}_s\)</span>) has a constant variance of <span class="math inline">\(\sigma^2 / 2\)</span>. <a href="#fig-consistent-inconsistent-means" class="quarto-xref">Figure&nbsp;3</a> shows the variance for both means as n increases.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">789</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">n =</span> <span class="fu">seq_len</span>(<span class="dv">999</span>) <span class="sc">+</span> <span class="dv">1</span>, <span class="co"># starts at 2</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">sample =</span> <span class="fu">map</span>(n, rnorm),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">sample2 =</span> <span class="fu">map</span>(sample, <span class="sc">~</span> .x[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">variance =</span> <span class="fu">map2_dbl</span>(sample, n, <span class="sc">~</span> <span class="fu">var</span>(.x) <span class="sc">/</span> .y),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">variance2 =</span> <span class="fu">map_dbl</span>(sample2, <span class="sc">~</span> <span class="fu">var</span>(.x) <span class="sc">/</span> <span class="dv">2</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n)) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> variance2, <span class="at">color =</span> <span class="st">"n2"</span>)) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> variance, <span class="at">color =</span> <span class="st">"ni"</span>), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">name =</span> <span class="st">"Type"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"n2"</span> <span class="ot">=</span> <span class="fu">TeX</span>(<span class="st">"$n = 2$"</span>), <span class="st">"ni"</span> <span class="ot">=</span> <span class="fu">TeX</span>(<span class="st">"$n </span><span class="sc">\\</span><span class="st">to </span><span class="sc">\\</span><span class="st">infty$"</span>)),</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"n2"</span> <span class="ot">=</span> <span class="st">"pink"</span>, <span class="st">"ni"</span> <span class="ot">=</span> <span class="st">"lightblue"</span>)) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>(<span class="at">big.mark =</span> <span class="st">" "</span>),</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Convergence of the variance of mean"</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Sample size"</span>, <span class="at">y =</span> <span class="st">"Variance"</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> .cap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-consistent-inconsistent-means" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-consistent-inconsistent-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-consistent-inconsistent-means-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-consistent-inconsistent-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Both means are unbiased. They vary heavily in their variance.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The variance if the sample mean is decreasing as <span class="math inline">\(n \to \infty\)</span>, which supports the basic assumption in <a href="#eq-consistency" class="quarto-xref">Equation&nbsp;1</a> However, the mean from the first two values has a constant variance that does not decrease. Hence the convergence in probability is not satisfied.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sample mean is an unbiased and consistent estimator. The mean of the first two values is unbiased, but it is not consistent.</p>
+</div>
+</div>
+</section>
+<section id="consistently-biased-or-inconsistently-unbiased" class="level3">
+<h3 class="anchored" data-anchor-id="consistently-biased-or-inconsistently-unbiased">Consistently biased or inconsistently unbiased?</h3>
+<p>The second statement says that the estimator has to be at least asymptotically unbiased - in other words, it is not biased. This makes sense once you realize that bias is a difference between the expected value of the estimator and the population counterpart <span class="citation" data-cites="Kozdron2016_EvaluationgTheGoodness">(<a href="#ref-Kozdron2016_EvaluationgTheGoodness" role="doc-biblioref">Kozdron 2016</a>)</span>.</p>
+<p><span class="math display">\[
+\text{Bias}(\hat{\theta}) = \mathbb{E}(\hat{\theta}) - \theta
+\]</span></p>
+<p>If the bias is non-zero, there will always be <em>some</em> value <span class="math inline">\(\epsilon\)</span> which is smaller than the absolute difference between the estimate and the parameter. The convergence in probability (a necessary condition for consistency) does not hold, and hence biased estimators are always inconsistent.</p>
+<p>In the previous part, it was introduced that an unbiased estimator can be both consistent and inconsistent. The only option that is left now is an asymptotically unbiased estimator. Surprisingly, an asymptotically unbiased estimator can still be both consistent and inconsistent. Let’s modify the mean of the first two values and add a constant of <span class="math inline">\(1/n\)</span>.</p>
+<p><span class="math display">\[
+\overline{x}_{s_2} = \frac{x_1 + x_2}{2} + \frac{1}{n}
+\]</span></p>
+<p>The new expected value is</p>
+<p><span class="math display">\[
+\mathbb{E}\left(\overline{x}_{s_2}\right) = \mu + \frac{1}{n},
+\]</span></p>
+<p>while the variance is</p>
+<p><span class="math display">\[
+\mathbb{D}\left(\overline{x}_{s_2}\right) =
+\frac{1}{4} 2*\sigma^2 + 0 =
+\frac{\sigma^2}{2}.
+\]</span></p>
+<p>Based on these properties, we can identify that this estimator is asymptotically unbiased and inconsistent.</p>
+</section>
+</section>
+<section id="footnotes" class="level2">
+<h2 class="anchored" data-anchor-id="footnotes">Footnotes</h2>
+<details>
+<summary>
+Session Info
+</summary>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>─ Session info ───────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.4.3 (2025-02-28)
+ os       Ubuntu 24.04.3 LTS
+ system   x86_64, linux-gnu
+ ui       X11
+ language (EN)
+ collate  C.UTF-8
+ ctype    C.UTF-8
+ tz       UTC
+ date     2025-12-14
+ pandoc   3.2 @ /opt/quarto/bin/tools/ (via rmarkdown)
+ quarto   1.5.56 @ /opt/quarto/bin/quarto
+
+─ Packages ───────────────────────────────────────────────────────────────────
+ ! package     * version date (UTC) lib source
+ P dplyr       * 1.1.4   2023-11-17 [?] RSPM (R 4.4.0)
+ P ggplot2     * 4.0.1   2025-11-14 [?] RSPM (R 4.4.0)
+ P latex2exp   * 0.9.6   2022-11-28 [?] RSPM (R 4.4.0)
+ P purrr       * 1.1.0   2025-07-10 [?] RSPM (R 4.4.0)
+ P sessioninfo * 1.2.3   2025-02-05 [?] RSPM (R 4.4.0)
+
+ [1] /home/runner/work/lauer.cz/lauer.cz/renv/library/linux-ubuntu-noble/R-4.4/x86_64-pc-linux-gnu
+ [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.4/x86_64-pc-linux-gnu/17ee7825
+
+ * ── Packages attached to the search path.
+ P ── Loaded and on-disk path mismatch.
+
+──────────────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+</div>
+</details>
+<p>Feel free to comment below your thoughts! If you have found some things unclear, misleading, or incorrect, feel free to let me know and I will work on it as soon as possible.</p>
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list">
+<div id="ref-Kozdron2016_EvaluationgTheGoodness" class="csl-entry" role="listitem">
+KOZDRON, Michael, 2016. Evaluating the goodness of an estimator: Bias, mean-square error, relative efficiency (chapter 3). <em>stat.math.uregina.ca</em> [online]. [accessed.&nbsp;2020-09-11]. Available at:&nbsp;<a href="https://uregina.ca/~kozdron/Teaching/Regina/252Winter16/Handouts/ch3.pdf">https://uregina.ca/~kozdron/Teaching/Regina/252Winter16/Handouts/ch3.pdf</a>
+</div>
+<div id="ref-Mala2016_VybraneKapitolyTeorie" class="csl-entry" role="listitem">
+MALÁ, Ivana, 2016. <em><span>Vybrané kapitoly z teorie pravděpodobnosti a matematické statistiky</span></em>. Vydání první. <span>Praha</span>: <span>Oeconomica, nakladatelství VŠE</span>. ISBN&nbsp;978-80-245-2184-8.
+</div>
+<div id="ref-PennState2023_Lesson244" class="csl-entry" role="listitem">
+SCIENCE: PENNSTATE, Eberly College of, 2023. <em>STAT 414: Introduction to probability theory: Lecture 24.4 - mean and variance of sample mean</em> [online]. 2023. Available at:&nbsp;<a href="https://online.stat.psu.edu/stat414/lesson/24/24.4">https://online.stat.psu.edu/stat414/lesson/24/24.4</a>
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<!-- Footer -->
+<script src="https://utteranc.es/client.js" repo="MichalLauer/lauer.cz" issue-term="pathname" label="comment" theme="github-light" crossorigin="anonymous" async="">
+</script>
+<script src="../../js/script.js"></script>
+<script src="../../js/blog.js"></script>
+<footer>
+    <p>Made with <span class="heart" role="img" aria-label="love">❤️</span> &amp; AI © <time datetime="2025">2025</time> Michal Lauer.</p>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

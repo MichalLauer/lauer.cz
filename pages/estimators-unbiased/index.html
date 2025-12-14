@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2023-03-27">
+<meta name="description" content="When it comes to statistical analysis, unbiased estimators play a critical role in obtaining accurate results. But what exactly is an unbiased estimator, and how can it be applied in practical situations?">
+
+<title>Unbiased Estimators: Understanding their practical application</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="index_files/libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-8ZGMYX2VV4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8ZGMYX2VV4');
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/article.css">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+
+<main class="content column-page" id="quarto-document-content">
+<!-- Mobile menu toggle (visible on small screens) - icon version -->
+<span class="menu-toggle" role="button" tabindex="0" aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation">
+  <svg class="menu-icon" width="28" height="22" viewbox="0 0 28 22" aria-hidden="true" focusable="false">
+    <rect class="burger-line" x="0" y="2" width="28" height="2" rx="1"></rect>
+    <rect class="burger-line" x="0" y="10" width="28" height="2" rx="1"></rect>
+    <rect class="burger-line" x="0" y="18" width="28" height="2" rx="1"></rect>
+  </svg>
+</span>
+
+<!-- Floating contact for small screens (duplicate of sidebar contact, placed outside nav) -->
+<span class="contact-float" aria-hidden="false">
+  <!-- On small screens the floating contact is visible; make it the navbar-contact
+    and apply sidebar-contact styling so it matches the original small-screen button -->
+  <span class="mail-placeholder" data-text="Write me!" data-variant="navbar-contact sidebar-contact"></span>
+  <noscript>
+    <span class="sidebar-contact-noscript" title="Contact Michal Lauer">Write me!<br>(michal [at] lauer [dot]
+      cz)</span>
+  </noscript>
+</span>
+
+<!-- Navigation Sidebar -->
+<nav id="main-navigation" class="sidebar" role="navigation" aria-label="Main Navigation">
+  <!-- Top header shown on small screens: blank stretch with burger on right -->
+  <div class="sidebar-header" aria-hidden="false">
+    <span class="sidebar-header-blank" aria-hidden="true"></span>
+    <div class="sidebar-header-controls">
+      <!-- Contact shown next to burger on small screens -->
+      <div class="sidebar-header-contact">
+        <!-- On large screens the header contact should use the sidebar-contact
+          styling; on small screens the floating navbar contact remains visible. -->
+        <span class="mail-placeholder" data-text="Write me!" data-variant="header-contact sidebar-contact"></span>
+        <noscript>
+          <span class="sidebar-contact-noscript" title="Contact Michal Lauer">Write me!<br>(michal [at] lauer [dot]
+            cz)</span>
+        </noscript>
+      </div>
+    </div>
+  </div>
+
+  <ul id="main-sidebar-menu">
+    <li><a href="../../index.html#about" target="_self" aria-current="page">About Me</a></li>
+    <li>
+      <a href="../../index.html#research" target="_self">Research</a>
+    </li>
+    <li>
+      <a href="../../index.html#teaching" target="_self">Teaching</a>
+      <ul>
+        <li><a href="../../index.html#teaching-resources" target="_self">Resources</a></li>
+        <li><a href="../../index.html#teaching-gallery" target="_self">Gallery</a></li>
+        <li><a href="../../index.html#teaching-classes" target="_self">Classes</a></li>
+      </ul>
+    </li>
+    <li><a href="../../index.html#testimonials" target="_self">Testimonials</a></li>
+    <li><a href="../../index.html#blog" target="_self">Blog</a></li>
+  </ul>
+
+  <!-- single contact button moved to header; bottom duplicate removed -->
+</nav>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><p>Unbiased Estimators: Understanding their practical application</p></h1>
+</div>
+
+<div>
+  <div class="description">
+    <p>When it comes to statistical analysis, unbiased estimators play a critical role in obtaining accurate results. But what exactly is an unbiased estimator, and how can it be applied in practical situations?</p>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta column-page">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 27, 2023</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">June 6, 2025</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+too long; didn’t read
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Unbiased estimator -<span class="math inline">\(E(\hat{\theta}) = \theta\)</span> <br> Asymptotically unbiased estimator - <span class="math inline">\(\lim_{n \to \inf} E(\hat{\theta}) = \theta\)</span> <br> Biased estimator - <span class="math inline">\(E(\hat{\theta}) \neq \theta\)</span></p>
+<p>In order to have an unbiased estimator, the sample *must be representative of the population.**</p>
+<p>When to estimators are unbiased, they are <strong>compared using other characteristics</strong>, such as variance, consistency, or efficienty.</p>
+<p>In the real world, <strong>unbiasedness practitcally does not exists</strong> because it is impossible to get a perfectly representative sample.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Series introduction
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is a part of my series about estimators and their properties. If you don’t understand some concepts or would like to know, I fully suggest starting from <a href="https://lauer.cz/blog.html#category=⭐%20Estimators">the beginning</a>!</p>
+</div>
+</div>
+<section id="blog-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="blog-preparation">Blog preparation</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown, <span class="at">include.only =</span> <span class="st">"paged_table"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  .cap <span class="ot">&lt;-</span> <span class="st">"Michal Lauer | lauer.cz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>Unbiased estimators play a vital role in obtaining accurate statistical results, but understanding how they work can be complex. In this blog, we’ll explain the concept of unbiasedness and its importance in statistical analysis. We’ll then dive into how unbiased estimators can be applied through mean. By the end of this blog, you’ll have a solid understanding of how to use unbiased estimators in your statistical analyses and be equipped with the knowledge needed to obtain reliable results. Whether you’re a student, researcher, or simply interested in statistical analysis, this blog is for you.</p>
+</section>
+<section id="unicorn-for-every-student" class="level2">
+<h2 class="anchored" data-anchor-id="unicorn-for-every-student">Unicorn for every student!</h2>
+<p>Imagine you are a director of an unspecified magician university, and some company called UnicornRiders™ offers you a partnership. They will give to <em>every</em> student of your school a discount for their unicorn rides - and as a bonus, you will get a donut for every 100<sup>th</sup> student who uses the code <code>UnicornsAreReal10</code> when registering for a ride! As a huge fan of <del>donuts</del> unicorns, you are eager to accept the deal and announce to everybody what a great director you are. This will also attract new students to the upcoming university entrance exams. You meet with the president of UnicornRiders™ and as you are about to sign the paperwork, he takes the paper from you and asks:</p>
+<blockquote class="blockquote">
+<p>Before we sign this deal, what is the mean (average) age of your students?</p>
+</blockquote>
+<p>As you have not (understandably) met with every student of your magical school, you tell him you don’t have the number and will get back to him in a week. You both shake hands and schedule a meeting for the next Friday.</p>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">31. 02. 3023</h2>
+<p>As you rush back to your school, you join the school’s Slack server and call your secretary. When students apply to your school, they have to fill out a questionnaire specifying their age, and your secretary should be able to pull out those records and average them. As you explain the situation to your dedicated colleague, she blunts, looks down, and starts to mumble. After a couple of minutes, she spits out that the field where students were supposed to fill out their date of birth was, in fact, just a text. To your surprise, some students were born in years <span class="math inline">\(\pi\)</span>, <em>-1</em>, <em>YouWouldLikeToKnow</em> or, - the old-age classic - <em>AskYourMom</em>.</p>
+<p>Because you do not know what to do, you rush to your local professor of statistics - Mr.&nbsp;Tiny. As you explain the problem to him, he smiles and tells you not to worry. His cheeky smile and strange hand gestures worry you - <strong>How can you not worry? How do you get your donuts?</strong></p>
+</section>
+<section id="estimating" class="level2">
+<h2 class="anchored" data-anchor-id="estimating">Estimating</h2>
+<p>Enough of the charades; let’s get to business 😎. Imagine that you would like to know the mean age of every man in New York. It would be impractical, expensive, and outright impossible to ask everybody their age. Even if possible, you would need to ask every person simultaneously because people will get older, have birthdays, or might die. There are a lot of other issues that would rise, such as:</p>
+<ul>
+<li>How to define a “New Yorker”?</li>
+<li>Who would ask all of these people?</li>
+<li>When should everybody be asked, since they can have jobs or school?</li>
+</ul>
+<p>This is where statistical inference comes in.</p>
+<p>Statistical inference<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> generally tries to draw conclusions about the whole population based on a sample. It uses methods such as hypothesis testing, confidence intervals, or regression analysis. One of these methods is <em>estimation</em>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/population-vs-sample-scribbr.png" title="Sample vs. Population" class="img-fluid figure-img"></p>
+<figcaption>Bhandari, P. (2020, May 14). Population vs.&nbsp;Sample. Retrieved from https://www.scribbr.com/methodology/population-vs-sample</figcaption>
+</figure>
+</div>
+<p>Estimates are created with estimators, which have their own properties. A common example is the sample mean, which estimates the population mean. If you take a sample of students and calculate their mean age, the computed sample mean is an estimate of the population mean.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naming conventions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The population has parameters, while samples have estimates.</p>
+</div>
+</div>
+<section id="theres-no-sample-like-the-other" class="level3">
+<h3 class="anchored" data-anchor-id="theres-no-sample-like-the-other">There’s no sample like the other</h3>
+<p>As mentioned, an estimate (<span class="math inline">\(\hat{\theta}\)</span>) is obtained from a sample. An important thing is that the <strong>sample must represent the whole population.</strong> Imagine that you wanted to know the average time someone has cheated in a relationship, how long they have been smoking, or whether they have ever been in jail. These questions are sensitive, and responders might lie or not answer. The interviewer and the sampling method have to adjust accordingly to this issue. Other issues that may arise are:</p>
+<ul>
+<li>ambiguous questions,</li>
+<li>answers which are hard to measure,</li>
+<li>unbalanced population, or</li>
+<li>hierarchical structure in the population.</li>
+</ul>
+<p>The sampling strategies and representativeness theory surpass this blog post <em>by far</em>. Luckily, Mr.&nbsp;Thompson wrote a great book<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> on this topic which I can strongly recommend. For this blog, we will simplify our assumptions of representativeness to a single statement: the sample is taken <em>randomly</em>.</p>
+</section>
+<section id="unbiasedness" class="level3">
+<h3 class="anchored" data-anchor-id="unbiasedness">Unbiasedness…</h3>
+<p>As mentioned earlier, estimators have their own properties. One of these properties is unbiasedness.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Unbiased estimators
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Unbiased estimators, on average, do not overestimate or underestimate their population counterparts.</p>
+</div>
+</div>
+<p>We’ll use some mathematics to express this assumption in a more general way. Let’s have a population parameter <span class="math inline">\(\theta\)</span>. We say that the estimate of <span class="math inline">\(\theta\)</span>, called <span class="math inline">\(\hat{\theta}\)</span> is unbiased<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> if</p>
+<p><span class="math display">\[
+E(\hat{\theta}) = \theta.
+\]</span></p>
+<p>A great example of an unbiased estimator is the sample mean. Imagine that you take a <em>representative</em> sample of size <span class="math inline">\(n\)</span> of all nursing home residents. Every age collected is denoted by <span class="math inline">\(x_i; i = 1, \dots, n\)</span>. The sample mean, denoted as <span class="math inline">\(\bar{x}\)</span>, is unbiased, because</p>
+<p><span class="math display">\[
+E \left( {\hat{\theta}} \right) =
+E \left( {\bar{x}} \right) =
+E \left( \frac{\sum_{i=1}^n x_i}{n} \right) =
+\frac{1}{n} E \left(\sum_{i=1}^n x_i \right) =
+\frac{1}{n} n\mu =
+\mu =
+\theta.
+\]</span></p>
+<p>Here, the estimator <span class="math inline">\(\hat{\theta}\)</span> is the sample mean <span class="math inline">\(\bar{x}\)</span>. The population parameter <span class="math inline">\(\theta\)</span> is the population mean <span class="math inline">\(\mu\)</span>. The value calculated, let’s say 70.2, would be the estimate.</p>
+</section>
+<section id="and-bias" class="level3">
+<h3 class="anchored" data-anchor-id="and-bias">…and bias…</h3>
+<p>On the other hand, when an estimator <em>is</em> biased, it tends to overestimate or underestimate the population parameter.</p>
+<p><span class="math display">\[
+E(\hat{\theta}) \neq \theta
+\]</span></p>
+<p>Imagine that you are a crazy statistician who wants to burn the world and to calculate the sample mean, you use a special mean</p>
+<p><span class="math display">\[
+\bar{x}_{S} = \frac{1}{n} \sum_{n=1}^i x_i + 256/n,
+\]</span></p>
+<p>where <span class="math inline">\(256/n\)</span> is your super-secret-crazy coefficient. Now you want to know if of your new sample mean <span class="math inline">\(\bar{x}_s\)</span> is unbiased or not.</p>
+<p><span class="math display">\[
+E \left( {\bar{x}_S} \right) =
+E \left( \frac{\sum_{i=1}^n x_i}{n} + 256/n \right) =
+\frac{1}{n} E \left(\sum_{i=1}^n x_i \right) + E(256/n) =
+\frac{1}{n} n\mu + 256/n =
+\mu + 256/n
+\]</span></p>
+<p>This means your mean <span class="math inline">\(\bar{x}_S\)</span> overestimates the true population mean <span class="math inline">\(\mu\)</span>, on average, by <span class="math inline">\(256/n\)</span>. But you are also a great statistician and want to know what happens with a sample that gets bigger and bigger - enter asymptotic unbiasedness!</p>
+</section>
+<section id="and-bias-in-the-infinite" class="level3">
+<h3 class="anchored" data-anchor-id="and-bias-in-the-infinite">… and bias in the infinite</h3>
+<p>Asymptotic unbiasedness means that as sample size <span class="math inline">\(n\)</span> goes to <span class="math inline">\(\infty\)</span>, the bias goes to zero and estimator <span class="math inline">\(\hat{\theta}\)</span> is unbiased.</p>
+<p><span class="math display">\[
+\lim_{n \to \infty} E(\hat{\theta}) = \theta
+\]</span></p>
+<p>Going back to our statistician and his super-secret-crazy coefficient, it can be seen <strong>it is biased but asymptotically unbiased simultaneously</strong>.</p>
+<p><span class="math display">\[
+\lim_{n \to \infty} (\mu + 256/n) = \mu
+\]</span></p>
+<p>Another property which can be derived from this fact is that the estimate will be, on average, off from the real value by the bias itself.</p>
+<p>If you, as a crazy statistician, took a sample of size <span class="math inline">\(n = 128\)</span>, you would overestimate, on average, the true population mean by 2. However, if you took a sample large enough, the bias would be really small, and your estimate would really close to the population parameter.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An asymptitcally unbiased estimator will never be unbiased as you can never take a sample of size <span class="math inline">\(\infty\)</span>. This property tells you that as you increase the sample size, the bias is so small that it can be ignored.</p>
+</div>
+</div>
+</section>
+<section id="limitations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
+<p>Unbiasedness, like any other thing, has its limitations. The main thing that you, as a statistician, need to look for is its variance. Imagine that you have an estimator <span class="math inline">\(\hat{\theta}\)</span> which <em>is</em> unbiased but has a variance of <span class="math inline">\(10^8\)</span>. This means that the estimate produced by the estimator is, on average correct, but it is, on average, off by <span class="math inline">\(10^8\)</span>. If you could pick between an unbiased estimator with high variance and biased estimator with a small variance, it is reasonable to use a biased estimator. This is called the bias–variance tradeoff<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<p>Another important thing is if the estimator is consistent and efficient. These properties deserve a post on it. Luckily for you, they are on my roadmap! In short, consistency means that the estimator is more precise as <span class="math inline">\(n \to \infty\)</span>. Efficiency, on the other hand, states that the variance of an estimator is the smallest possible.</p>
+<p>A final limitation that I will mention is representativeness. Take a moment and think - is it really possible to have an unbiased estimator? Can you really get a sample that fully represents the underlying population? Can you ensure that everybody has the same chance of ending up in a sample? Can you specify and define the population in question?</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Unbiased estimators in practice
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In practice, every estimator is biased because the requirements can’t be met. This is mainly compensated by a big sample size, which should push down the potential bias. Since no estimator is unbiased, other properties - such as variance, consistency, or efficiency, are discussed in future blog posts.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="simulations" class="level2">
+<h2 class="anchored" data-anchor-id="simulations">Simulations</h2>
+<p>Thanks to our digital age, most of the stuff described above can be shown using statistical tools such as R. I will simulate all three types of estimators - unbiased, asymptotically unbiased, and biased estimators. But first, let’s see on a small sample that the core property described as unbiasedness is true.</p>
+<section id="unbiasedness-estimate" class="level3">
+<h3 class="anchored" data-anchor-id="unbiasedness-estimate">Unbiasedness estimate</h3>
+<p>To showcase the unbiasedness of the mean, let’s create a small population of of size <span class="math inline">\(N = 7\)</span> teachers where we want to know the average time they spend teaching each week in a single semester. In this example, we assume every teacher has a schedule for the whole semester.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>teachers <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">teacher_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">hours_in_week =</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">12</span>,<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">11</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">paged_table</span>(teachers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-teachers-population" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-teachers-population-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Population of teachers
+</figcaption>
+<div aria-describedby="tbl-teachers-population-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["teacher_id"],"name":[1],"type":["int"],"align":["right"]},{"label":["hours_in_week"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"7"},{"1":"2","2":"6"},{"1":"3","2":"12"},{"1":"4","2":"8"},{"1":"5","2":"4"},{"1":"6","2":"10"},{"1":"7","2":"11"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Out of all teachers <em>(the population)</em>, we’ll consider a sample size of <span class="math inline">\(n = 3\)</span>. To check the unbiasedness, we’ll get <em>all</em> possible samples of size 3.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get all combinations</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sample_hours <span class="ot">&lt;-</span> <span class="fu">combn</span>(teachers<span class="sc">$</span>hours_in_week, <span class="dv">3</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get mean hours for every combination</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sample_means <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(sample_hours)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the results</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>sample_table <span class="ot">&lt;-</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(sample_hours, sample_means) <span class="sc">|&gt;</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">.name_repair =</span> <span class="st">"minimal"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">hours1 =</span> <span class="dv">1</span>, <span class="at">hours2 =</span> <span class="dv">2</span>, <span class="at">hours3 =</span> <span class="dv">3</span>, <span class="at">sample_mean =</span> sample_means) <span class="sc">|&gt;</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sample_id =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(sample_id, <span class="at">.before =</span> <span class="dv">1</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">paged_table</span>(sample_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-teachers-combination" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-teachers-combination-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: All possible combinations of sample size 3
+</figcaption>
+<div aria-describedby="tbl-teachers-combination-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["sample_id"],"name":[1],"type":["int"],"align":["right"]},{"label":["hours1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["hours2"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["hours3"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["sample_mean"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"7","3":"6","4":"12","5":"8.333333"},{"1":"2","2":"7","3":"6","4":"8","5":"7.000000"},{"1":"3","2":"7","3":"6","4":"4","5":"5.666667"},{"1":"4","2":"7","3":"6","4":"10","5":"7.666667"},{"1":"5","2":"7","3":"6","4":"11","5":"8.000000"},{"1":"6","2":"7","3":"12","4":"8","5":"9.000000"},{"1":"7","2":"7","3":"12","4":"4","5":"7.666667"},{"1":"8","2":"7","3":"12","4":"10","5":"9.666667"},{"1":"9","2":"7","3":"12","4":"11","5":"10.000000"},{"1":"10","2":"7","3":"8","4":"4","5":"6.333333"},{"1":"11","2":"7","3":"8","4":"10","5":"8.333333"},{"1":"12","2":"7","3":"8","4":"11","5":"8.666667"},{"1":"13","2":"7","3":"4","4":"10","5":"7.000000"},{"1":"14","2":"7","3":"4","4":"11","5":"7.333333"},{"1":"15","2":"7","3":"10","4":"11","5":"9.333333"},{"1":"16","2":"6","3":"12","4":"8","5":"8.666667"},{"1":"17","2":"6","3":"12","4":"4","5":"7.333333"},{"1":"18","2":"6","3":"12","4":"10","5":"9.333333"},{"1":"19","2":"6","3":"12","4":"11","5":"9.666667"},{"1":"20","2":"6","3":"8","4":"4","5":"6.000000"},{"1":"21","2":"6","3":"8","4":"10","5":"8.000000"},{"1":"22","2":"6","3":"8","4":"11","5":"8.333333"},{"1":"23","2":"6","3":"4","4":"10","5":"6.666667"},{"1":"24","2":"6","3":"4","4":"11","5":"7.000000"},{"1":"25","2":"6","3":"10","4":"11","5":"9.000000"},{"1":"26","2":"12","3":"8","4":"4","5":"8.000000"},{"1":"27","2":"12","3":"8","4":"10","5":"10.000000"},{"1":"28","2":"12","3":"8","4":"11","5":"10.333333"},{"1":"29","2":"12","3":"4","4":"10","5":"8.666667"},{"1":"30","2":"12","3":"4","4":"11","5":"9.000000"},{"1":"31","2":"12","3":"10","4":"11","5":"11.000000"},{"1":"32","2":"8","3":"4","4":"10","5":"7.333333"},{"1":"33","2":"8","3":"4","4":"11","5":"7.666667"},{"1":"34","2":"8","3":"10","4":"11","5":"9.666667"},{"1":"35","2":"4","3":"10","4":"11","5":"8.333333"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>All generated samples and their mean can be seen in <a href="#tbl-teachers-combination" class="quarto-xref">Table&nbsp;2</a>. This is why we chose rather a small sample and population. The total number of possible samples is given by <span class="math inline">\({N \choose n}\)</span>; in our case, it’s 35.</p>
+<p>Expected value is what we would, on average, expect. To get the expected value of the sample mean, we need to average all the computed sample averages.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sample_average <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample_table<span class="sc">$</span>sample_mean)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>popul_average  <span class="ot">&lt;-</span> <span class="fu">mean</span>(teachers<span class="sc">$</span>hours_in_week)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The final statistics are:</p>
+<ul>
+<li>The expected value of the sample mean: 8.2857143</li>
+<li>Population mean: 8.2857143</li>
+</ul>
+<p>We can see that the sample mean is, on average, equal to its population counterpart.</p>
+</section>
+<section id="biased-estimate" class="level3">
+<h3 class="anchored" data-anchor-id="biased-estimate">Biased estimate</h3>
+<p>Let’s get back to the crazy statistician example. We’ll do the <strong>exact</strong> same procedure to see if their mean is really biased, that is:</p>
+<ul>
+<li>We’ll create all possible samples,</li>
+<li>for every sample, calculate mean <span class="math inline">\(\bar{x}_S\)</span>,</li>
+<li>get the mean of all means <span class="math inline">\(\bar{x}_S\)</span>, and</li>
+<li>compare them to the population mean.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sample_crazy_average <span class="ot">&lt;-</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get all possible samples of size n = 3</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">combn</span>(teachers<span class="sc">$</span>hours_in_week, <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate crazy mean</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(<span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">mean</span>(x) <span class="sc">+</span> (<span class="dv">256</span><span class="sc">/</span><span class="fu">length</span>(x))) <span class="sc">|&gt;</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Average crazy mean</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The sample mean computed is 93.6190476, which is <em>way</em> above the population mean. But by how much does the crazy mean overestimate the true population mean?</p>
+<p>If you remember the super-secret-crazy coefficient, it is the bias that overestimates the population parameter. Let’s see if it all adds up…</p>
+<ul>
+<li>Sample crazy mean: 93.6190476</li>
+<li>Sample bias: 85.3333333</li>
+<li>Population mean: 8.2857143</li>
+</ul>
+<p>If you subtract the bias from the crazy mean, you’ll get the population mean! This is exactly what is meant by <em>overestimates, on average</em>. But what would happen with an infinitely large number of samples…?</p>
+</section>
+<section id="asymptotically-unbiased" class="level3">
+<h3 class="anchored" data-anchor-id="asymptotically-unbiased">Asymptotically unbiased</h3>
+<p>What would happen if we took a sample of size <span class="math inline">\(n\)</span> many, many times from a much larger population? To test this, we can use simulations! In the figure below, we take many samples of size <span class="math inline">\(n\)</span> to see what happens to the estimate. Remember, here we compute the crazy average.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reproducibility</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">789</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Population</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">2000</span>, <span class="dv">5</span>, <span class="dv">15</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Maximum sample size</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">128</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Vectors to store computed statistics</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"double"</span>, samples)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute statistics for every sample size i, i = 1, ..., r</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>samples) {</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(population, <span class="at">size =</span> n)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  mean[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample) <span class="sc">+</span> <span class="dv">256</span><span class="sc">/</span>n</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span>samples,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">mean =</span> mean,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">sample_mean =</span> <span class="fu">mean</span>(mean),</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">real_mean =</span> <span class="fu">mean</span>(population)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> sample_mean,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="fu">glue</span>(<span class="st">"Mean of means ({round(sample_mean, 2)})"</span>)), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> real_mean,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="fu">glue</span>(<span class="st">"Real mean ({round(real_mean, 2)})"</span>)), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> i, <span class="at">y =</span> mean), <span class="at">alpha =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>()) <span class="sc">+</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">"Type of the mean"</span>) <span class="sc">+</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"The mean oscillates arounte the true population mean"</span>,</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"The bias is equal to 256/128 = 2"</span>,</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Number of samples"</span>, <span class="at">y =</span> <span class="st">"Sample mean"</span>,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> .cap</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-asymptotical-mean" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-asymptotical-mean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-asymptotical-mean-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-asymptotical-mean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The mean of samples with constant size oscillates around the true mean + bias
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-asymptotical-mean" class="quarto-xref">Figure&nbsp;1</a> shows that the sample mean oscillates around the value 12.03. The real mean (computed from the population, which is rarely known) is 10.04. As we know from the previous text, the bias for the crazy average is <span class="math inline">\(256/n\)</span>, which in our case equals two! This shows that the mean of all means is, on average, the true population mean plus bias.</p>
+<p>We can now look at what happens if the sample size increases until it equals to the population size. In this case, the sample is called a census. That’s because you are essentially not making any guesses or samples anymore - you are asking every person in the population!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reproducibility</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>max_size <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vectors to store computed statistics</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"double"</span>, max_size)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>bias <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"double"</span>, max_size)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute statistics for every sample size i, i = 1, ..., r</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_size) {</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(population, <span class="at">size =</span> i)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  mean[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample) <span class="sc">+</span> <span class="dv">256</span><span class="sc">/</span>i</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span>max_size,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">mean =</span> mean,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">real_mean =</span> <span class="fu">mean</span>(population)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> real_mean), <span class="at">color =</span> <span class="st">"#01bec4"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> i, <span class="at">y =</span> mean), <span class="at">alpha =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>()) <span class="sc">+</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">14</span>)) <span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">"Type of the mean"</span>) <span class="sc">+</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"The mean converges to the population man + bias"</span>,</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Maximum sample size is cut at N = 2 000"</span>,</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Sample size"</span>, <span class="at">y =</span> <span class="st">"Sample mean"</span>,</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> .cap</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-asymptotical-to-big-n" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-asymptotical-to-big-n-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-asymptotical-to-big-n-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-asymptotical-to-big-n-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: The sample mean converges to the population mean as n grows
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As <span class="math inline">\(n\)</span> goes to <span class="math inline">\(N\)</span>, the sample mean converges to the real mean. At <span class="math inline">\(n = N\)</span>, the mean of all means is greater by <span class="math inline">\(256/2000 = 0.128\)</span>. This proves that the larger the sample, the less of a bias you will have (<a href="#fig-asymptotical-to-big-n" class="quarto-xref">Figure&nbsp;2</a>). Finally, we’ll look at what happens when the sample size <span class="math inline">\(n\)</span> goes <em>really</em> (not really) to infinity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reproducibility</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">789</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Much larger Population</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20000</span>, <span class="dv">5</span>, <span class="dv">15</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Reproducibility</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">20000</span>, <span class="at">by =</span> <span class="dv">100</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Vectors to store computed statistics</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"double"</span>, <span class="fu">length</span>(samples))</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute statistics for every sample size i, i = 1, ..., r</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(samples)) {</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(population, <span class="at">size =</span> i, <span class="at">replace =</span> T)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  mean[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample) <span class="sc">+</span> <span class="dv">256</span><span class="sc">/</span>i</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(samples),</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">mean =</span> mean,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">real_mean =</span> <span class="fu">mean</span>(population)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> real_mean), <span class="at">color =</span> <span class="st">"#01bec4"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="dv">20000</span><span class="sc">/</span><span class="dv">100</span>), <span class="at">color =</span> <span class="st">"grey20"</span>) <span class="sc">+</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> i, <span class="at">y =</span> mean), <span class="at">alpha =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>()) <span class="sc">+</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">"Type of the mean"</span>) <span class="sc">+</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"The mean converges asymptotically to the true population mean"</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Vertical line denotes the maximum at N = 2 000"</span>,</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Sample size / 100"</span>, <span class="at">y =</span> <span class="st">"Sample mean"</span>,</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> .cap</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-asymptotical-to-infty" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-asymptotical-to-infty-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-asymptotical-to-infty-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-asymptotical-to-infty-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: The bias is even more negligible with larger sample size
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Here, we first increased the population size to 20 000. We want to investigate what happens as <span class="math inline">\(n \to \infty\)</span>, but we still have the limitation of the population size. On <a href="#fig-asymptotical-to-infty" class="quarto-xref">Figure&nbsp;3</a>, We see that the larger the sample, the smaller the bias. In the final sample (census), the bias equals to <span class="math inline">\(256/20000 = 0.0128\)</span> - almost negligible.</p>
+</section>
+</section>
+<section id="about-those-unicorns" class="level2">
+<h2 class="anchored" data-anchor-id="about-those-unicorns">About those unicorns…</h2>
+<p>Let’s get back to those unicorns (and donuts). After the university statistician tells you about unbiasedness and how it works, you realize that you can have an unbiased estimate of the mean student age. The only issue left to tackle is how to create a representative sample of students and get the answer before Friday.</p>
+<p>Luckily - since you are all wizards - your statistician gets in touch with the local wizard of dark magic, who can get (peacefully, but persuasively) the correct age of any student who sits in his magical chair. With the help of Mr.&nbsp;Tiny, who creates a perfectly representative sample using his spell <em>SampoPerfecto</em>, they together interview 100 students out of all 50 000 students and record their age in an Exspell table.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">50000</span> <span class="co"># Population size</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span>   <span class="dv">100</span> <span class="co"># Sample size</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">159</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N, <span class="fl">22.5</span>, <span class="dv">5</span>) <span class="co"># Generated population</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">963</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(population, n) <span class="co"># Generated sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Sample mean: 22.8022139</li>
+<li><em>(not known)</em> Population mean: 22.5</li>
+</ul>
+<p>After computing the mean age, you know that the unbiased estimate of mean age among your students is 22.8 years. You stand up and rush to the door for your donuts and sales coupons for unicorns while thanking Mr.&nbsp;Tiny for his great statistics work.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Precision
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Notice that with a sample that represents only 0.2 % of the whole populatoin, we got a fairly decent estimate of the true population mean.</p>
+</div>
+</div>
+</section>
+<section id="footnotes" class="level2">
+<h2 class="anchored" data-anchor-id="footnotes">Footnotes</h2>
+<p>R session information</p>
+<details>
+<summary>
+Session Info
+</summary>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>─ Session info ───────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.4.3 (2025-02-28)
+ os       Ubuntu 24.04.3 LTS
+ system   x86_64, linux-gnu
+ ui       X11
+ language (EN)
+ collate  C.UTF-8
+ ctype    C.UTF-8
+ tz       UTC
+ date     2025-12-14
+ pandoc   3.2 @ /opt/quarto/bin/tools/ (via rmarkdown)
+ quarto   1.5.56 @ /opt/quarto/bin/quarto
+
+─ Packages ───────────────────────────────────────────────────────────────────
+ ! package     * version date (UTC) lib source
+ P dplyr       * 1.1.4   2023-11-17 [?] RSPM (R 4.4.0)
+ P ggplot2     * 4.0.1   2025-11-14 [?] RSPM (R 4.4.0)
+ P glue        * 1.8.0   2024-09-30 [?] RSPM (R 4.4.0)
+ P rmarkdown   * 2.29    2024-11-04 [?] RSPM (R 4.4.0)
+ P sessioninfo * 1.2.3   2025-02-05 [?] RSPM (R 4.4.0)
+
+ [1] /home/runner/work/lauer.cz/lauer.cz/renv/library/linux-ubuntu-noble/R-4.4/x86_64-pc-linux-gnu
+ [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.4/x86_64-pc-linux-gnu/17ee7825
+
+ * ── Packages attached to the search path.
+ P ── Loaded and on-disk path mismatch.
+
+──────────────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+</div>
+</details>
+<p>Feel free to comment below your thoughts! If you have found some things unclear, misleading, or incorrect, feel free to let me know and I will work on it as soon as possible.</p>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Statistical_inference">Statistical inference</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Thompson, S. K. Sampling, 3rd ed.&nbsp;Wiley, 2012, 408 p.&nbsp;ISBN 978-0-470-50581-7.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>MALÁ, Ivana. Vybrané kapitoly z teorie pravděpodobnosti a matematické statistiky. Praha: Oeconomica, nakladatelství VŠE, 2016. ISBN 978-80-245-2184-8.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">Bias–variance tradeoff</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<!-- Footer -->
+<script src="https://utteranc.es/client.js" repo="MichalLauer/lauer.cz" issue-term="pathname" label="comment" theme="github-light" crossorigin="anonymous" async="">
+</script>
+<script src="../../js/script.js"></script>
+<script src="../../js/blog.js"></script>
+<footer>
+    <p>Made with <span class="heart" role="img" aria-label="love">❤️</span> &amp; AI © <time datetime="2025">2025</time> Michal Lauer.</p>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
