@@ -536,7 +536,7 @@ function initLazyLoading() {
 
 // Email placeholders and click-to-open-mailto behaviour
 // Keep user/domain only in JS to avoid exposing in markup
-const EMAIL_USER = 'michal';
+const EMAIL_USER = 'hello';
 const EMAIL_DOMAIN = 'lauer.cz';
 const EMAIL_FULL = EMAIL_USER + '@' + EMAIL_DOMAIN;
 
