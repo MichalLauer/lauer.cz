@@ -274,17 +274,23 @@ function initMobileMenu() {
 function initSmoothScroll() {
   $$('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href').slice(1);
+      const href = this.getAttribute('href');
+      if (!href || href === '#') return;
+      const targetId = href.slice(1);
       if (!targetId) return;
-      
+
       const target = document.getElementById(targetId);
       if (target) {
         e.preventDefault();
-        target.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-        
+
+        // On small screens the burger/menu and floating button cover part of the
+        // viewport. Apply a 50px offset so the target isn't hidden under them.
+        const offset = (window.innerWidth <= 768) ? 40 : 0;
+        const targetTop = target.getBoundingClientRect().top + window.scrollY;
+        const scrollTo = Math.max(0, targetTop - offset);
+
+        window.scrollTo({ top: scrollTo, behavior: 'smooth' });
+
         // Update URL without jumping
         if (history.pushState) {
           history.pushState(null, '', `#${targetId}`);
