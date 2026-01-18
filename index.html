@@ -180,7 +180,7 @@
 <body>
   <div class="container">
 
-    <!-- Mobile menu toggle (visible on small screens) - icon version -->
+    <!-- Mobile menu toggle (burger) -->
     <span class="menu-toggle" role="button" tabindex="0" aria-controls="main-navigation" aria-expanded="false"
       aria-label="Toggle navigation">
       <svg class="menu-icon" width="28" height="22" viewBox="0 0 28 22" aria-hidden="true" focusable="false">
@@ -190,36 +190,35 @@
       </svg>
     </span>
 
-    <!-- Floating contact for small screens (duplicate of sidebar contact, placed outside nav) -->
+    <!-- Floating contact for small screens -->
     <span class="contact-float" aria-hidden="false">
-      <!-- On small screens the floating contact is visible; make it the navbar-contact
-       and apply sidebar-contact styling so it matches the original small-screen button -->
       <span class="mail-placeholder" data-text="Write me!" data-variant="navbar-contact sidebar-contact"></span>
       <noscript>
-        <span class="sidebar-contact-noscript" title="Contact Michal Lauer">Write me!<br>(michal [at] lauer [dot]
-          cz)</span>
+        <span class="sidebar-contact-noscript" title="Contact Michal Lauer">
+          Write me!<br>(hello [at] lauer [dot] cz)
+        </span>
       </noscript>
     </span>
 
     <!-- Navigation Sidebar -->
     <nav id="main-navigation" class="sidebar" role="navigation" aria-label="Main Navigation">
-      <!-- Top header shown on small screens: blank stretch with burger on right -->
+
+      <!-- Top CTA -->
       <div class="sidebar-header" aria-hidden="false">
         <span class="sidebar-header-blank" aria-hidden="true"></span>
         <div class="sidebar-header-controls">
-          <!-- Contact shown next to burger on small screens -->
           <div class="sidebar-header-contact">
-            <!-- On large screens the header contact should use the sidebar-contact
-             styling; on small screens the floating navbar contact remains visible. -->
             <span class="mail-placeholder" data-text="Write me!" data-variant="header-contact sidebar-contact"></span>
             <noscript>
-              <span class="sidebar-contact-noscript" title="Contact Michal Lauer">Write me!<br>(michal [at] lauer [dot]
-                cz)</span>
+              <span class="sidebar-contact-noscript" title="Contact Michal Lauer">
+                Write me!<br>(hello [at] lauer [dot] cz)
+              </span>
             </noscript>
           </div>
         </div>
       </div>
 
+      <!-- Main menu -->
       <ul id="main-sidebar-menu">
         <li><a href="#about" target="_self" aria-current="page">About Me</a></li>
         <li>
@@ -237,11 +236,11 @@
         <li><a href="#blog" target="_self">Blog</a></li>
       </ul>
 
-      <!-- single contact button moved to header; bottom duplicate removed -->
     </nav>
 
     <!-- Main Content -->
     <main class="content">
+      
       <!-- Hero Section -->
       <header id="about" class="landing-section">
         <div class="landing-left">
@@ -305,7 +304,7 @@
             modeling our <em>crazy</em> world. I'm passionate about teaching and spreading the joy of statistics.
             <span class="mail-placeholder" data-text="Let's work together!"></span>
             <noscript>
-              Let's work together! (michal [at] lauer [dot] cz)
+              Let's work together! (hello [at] lauer [dot] cz)
             </noscript>
           </p>
         </div>
@@ -323,7 +322,7 @@
           with, I would be happy to work with you. Just
           <span class="mail-placeholder" data-text="drop me a message!"></span>
           <noscript>
-            drop me a message! (michal [at] lauer [dot] cz)
+            drop me a message! (hello [at] lauer [dot] cz)
           </noscript>
         </p>
       </section>
@@ -343,7 +342,7 @@
           clarifying something, don't hesitate to
           <span class="mail-placeholder" data-text="reach out!"></span>
           <noscript>
-            reach out! (michal [at] lauer [dot] cz)
+            reach out! (hello [at] lauer [dot] cz)
           </noscript>
         </p>
 
@@ -466,6 +465,10 @@
                   <img src="assets/imgs/gym.jpeg" data-source="https://x.com/sonukg4india/status/1743483491508171110"
                     alt="Gym statistics educational content from sonukg4india on Twitter" loading="lazy">
                 </a>
+                <a class="gallery-link educ">
+                  <img src="assets/imgs/sampling_bias.jpg" data-source="https://x.com/Whiskeypunk1/status/1861167858899693769"
+                    alt="Sampling bias joke from Whiskeypunk1 on Twitter" loading="lazy">
+                </a>
               </div>
             </div>
           </div>
@@ -566,7 +569,7 @@
     </footer>
   </div>
 
-  <!-- Lightbox Modal -->
+  <!-- Lightbox Modal for images -->
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
     <span class="lightbox-close" aria-label="Close lightbox">&times;</span>
     <span class="lightbox-nav lightbox-prev" aria-label="Previous image">&#10094;</span>
