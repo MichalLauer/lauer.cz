@@ -1,86 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-  
-  <!-- Homepage -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-  <loc>https://lauer.cz/</loc>
+    <loc>https://lauer.cz/</loc>
     <lastmod>2025-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-  
-  <!-- About Section -->
+
   <url>
-  <loc>https://lauer.cz/#about</loc>
-    <lastmod>2025-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <!-- Research Section -->
-  <url>
-  <loc>https://lauer.cz/#research</loc>
-    <lastmod>2025-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- Teaching Section -->
-  <url>
-  <loc>https://lauer.cz/#teaching</loc>
-    <lastmod>2025-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- Teaching Resources -->
-  <url>
-  <loc>https://lauer.cz/#teaching-resources</loc>
-    <lastmod>2025-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Testimonials Section -->
-  <url>
-  <loc>https://lauer.cz/#testimonials</loc>
-    <lastmod>2025-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <!-- Blog Section -->
-  <url>
-  <loc>https://lauer.cz/#blog</loc>
-    <lastmod>2025-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- Blog Articles -->
-  <url>
-  <loc>https://lauer.cz/pages/estimators-unbiased/index.html</loc>
+    <loc>https://lauer.cz/pages/estimators-unbiased/</loc>
     <lastmod>2025-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
   <url>
-  <loc>https://lauer.cz/pages/estimators-consistent/index.html</loc>
+    <loc>https://lauer.cz/pages/estimators-consistent/</loc>
     <lastmod>2025-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
-  <!-- CV/Resume -->
+
   <url>
-  <loc>https://lauer.cz/assets/cv.pdf</loc>
+    <loc>https://lauer.cz/assets/cv.pdf</loc>
     <lastmod>2025-06-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
-  
 </urlset>
