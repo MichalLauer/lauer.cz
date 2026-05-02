@@ -180,63 +180,60 @@
 <body>
   <div class="container">
 
-    <!-- Mobile menu toggle (burger) -->
-    <span class="menu-toggle" role="button" tabindex="0" aria-controls="main-navigation" aria-expanded="false"
-      aria-label="Toggle navigation">
-      <svg class="menu-icon" width="28" height="22" viewBox="0 0 28 22" aria-hidden="true" focusable="false">
-        <rect class="burger-line" x="0" y="2" width="28" height="2" rx="1"></rect>
-        <rect class="burger-line" x="0" y="10" width="28" height="2" rx="1"></rect>
-        <rect class="burger-line" x="0" y="18" width="28" height="2" rx="1"></rect>
-      </svg>
+<!-- Mobile menu toggle (burger) -->
+<span class="menu-toggle" role="button" tabindex="0" aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation">
+  <svg class="menu-icon" width="28" height="22" viewBox="0 0 28 22" aria-hidden="true" focusable="false">
+    <rect class="burger-line" x="0" y="2" width="28" height="2" rx="1"></rect>
+    <rect class="burger-line" x="0" y="10" width="28" height="2" rx="1"></rect>
+    <rect class="burger-line" x="0" y="18" width="28" height="2" rx="1"></rect>
+  </svg>
+</span>
+
+<!-- Floating contact for small screens -->
+<span class="contact-float" aria-hidden="false">
+  <span class="mail-placeholder" data-text="Write me!" data-variant="navbar-contact sidebar-contact"></span>
+  <noscript>
+    <span class="sidebar-contact-noscript" title="Contact Michal Lauer">
+      Write me!<br>(hello [at] lauer [dot] cz)
     </span>
+  </noscript>
+</span>
 
-    <!-- Floating contact for small screens -->
-    <span class="contact-float" aria-hidden="false">
-      <span class="mail-placeholder" data-text="Write me!" data-variant="navbar-contact sidebar-contact"></span>
-      <noscript>
-        <span class="sidebar-contact-noscript" title="Contact Michal Lauer">
-          Write me!<br>(hello [at] lauer [dot] cz)
-        </span>
-      </noscript>
-    </span>
+<!-- Navigation Sidebar -->
+<nav id="main-navigation" class="sidebar" role="navigation" aria-label="Main Navigation">
 
-    <!-- Navigation Sidebar -->
-    <nav id="main-navigation" class="sidebar" role="navigation" aria-label="Main Navigation">
-
-      <!-- Top CTA -->
-      <div class="sidebar-header" aria-hidden="false">
-        <span class="sidebar-header-blank" aria-hidden="true"></span>
-        <div class="sidebar-header-controls">
-          <div class="sidebar-header-contact">
-            <span class="mail-placeholder" data-text="Write me!" data-variant="header-contact sidebar-contact"></span>
-            <noscript>
-              <span class="sidebar-contact-noscript" title="Contact Michal Lauer">
-                Write me!<br>(hello [at] lauer [dot] cz)
-              </span>
-            </noscript>
-          </div>
-        </div>
+  <!-- Top CTA -->
+  <div class="sidebar-header" aria-hidden="false">
+    <span class="sidebar-header-blank" aria-hidden="true"></span>
+    <div class="sidebar-header-controls">
+      <div class="sidebar-header-contact">
+        <span class="mail-placeholder" data-text="Write me!" data-variant="header-contact sidebar-contact"></span>
+        <noscript>
+          <span class="sidebar-contact-noscript" title="Contact Michal Lauer">
+            Write me!<br>(hello [at] lauer [dot] cz)
+          </span>
+        </noscript>
       </div>
+    </div>
+  </div>
 
-      <!-- Main menu -->
-      <ul id="main-sidebar-menu">
-        <li><a href="#about" target="_self" aria-current="page">About Me</a></li>
-        <li>
-          <a href="#research" target="_self">Research</a>
-        </li>
-        <li>
-          <a href="#teaching" target="_self">Teaching</a>
-          <ul>
-            <li><a href="#teaching-resources" target="_self">Resources</a></li>
-            <li><a href="#teaching-gallery" target="_self">Gallery</a></li>
-            <li><a href="#teaching-classes" target="_self">Classes</a></li>
-          </ul>
-        </li>
-        <li><a href="#testimonials" target="_self">Testimonials</a></li>
-        <li><a href="#blog" target="_self">Blog</a></li>
+  <!-- Main menu -->
+  <ul id="main-sidebar-menu">
+    <li><a href="/#about" target="_self" aria-current="page">About Me</a></li>
+    <li><a href="/#research" target="_self">Research</a></li>
+    <li>
+      <a href="/#teaching" target="_self">Teaching</a>
+      <ul>
+        <li><a href="/#teaching-resources" target="_self">Resources</a></li>
+        <li><a href="/#teaching-gallery" target="_self">Gallery</a></li>
+        <li><a href="/#teaching-classes" target="_self">Classes</a></li>
       </ul>
+    </li>
+    <li><a href="/#testimonials" target="_self">Testimonials</a></li>
+    <li><a href="/#blog" target="_self">Blog</a></li>
+  </ul>
 
-    </nav>
+</nav>
 
     <!-- Main Content -->
     <main class="content">
