@@ -7,3 +7,5 @@
 # Local exclusion; is deleted on remote GitHub Actions
 pages/*/*_files/
 pages/*/*.html
+
+**/*.quarto_ipynb
