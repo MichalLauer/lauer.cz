@@ -1,2 +1,11 @@
-# Redirect all non-existent pages to 404.html
-/*    /404.html   404
+# Canonical Domain: Redirect www to non-www
+https://www.lauer.cz/*  https://lauer.cz/:splat  301!
+
+# Normalize index.html to root
+/index.html  /  301
+
+# Clean URL for CV (200 Rewrite)
+/cv  /assets/cv.pdf  200
+
+# Catch-all: Redirect non-existent pages to 404
+/*  /404.html  404
