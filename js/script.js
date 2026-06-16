@@ -326,6 +326,17 @@ const testimonials = [
     text: 'Pana Michala na 100 % doporučuji. Velká pomoc při DP. Je vidět, že statistice opravdu rozumí a hlavně ji dokáže vysvětlit.',
     source: 'Mgr. I.',
     url: 'https://www.doucuji.eu/381550-doucovani-srozumitelne-a-lidske-doucovani-statistiky-a-datove-analyzy'
+  }, 
+
+
+
+  {
+    text: 'Dneska jsem úspěšně práci obhájila a myslím, že bez vás bych to nezvládla, tak děkuji!',
+    source: 'Private review' // conversations/381550-458409-t
+  }, 
+  {
+    text: 'Ale chci tedy moc poděkovat, že jste mi pomohl a byl moc milý! Jestli pořád budete doučovat, určitě využiju',
+    source: 'Private review' // conversations/381550-266946-t
   }
 ];
 
@@ -378,11 +389,13 @@ function initTestimonialCarousel() {
         <div class="testimonial-text">${testimonial.text}</div>
         <div class="testimonial-bottom-row">
           <div class="testimonial-number">${cardIndex + 1}</div>
-          <div class="testimonial-source"> 
-            <a href="${testimonial.url}" target="_blank" rel="noopener" 
-               title="Source" aria-label="Source">
-               ${testimonial.source}
-            </a> 🔗
+          <div class="testimonial-source">
+          ${testimonial.url ? `
+            <a href="${testimonial.url}" target="_blank" rel="noopener"
+              title="Source" aria-label="Source">
+              ${testimonial.source}
+            </a> 🔗 ` : `
+            <span>${testimonial.source}</span>`}
           </div>
         </div>
       `;
