@@ -1,15 +1,11 @@
-i have been here
+# lauer.cz
 
-# Update blog posts
+Static personal website (HTML, CSS and vanilla JavaScript). There is no build step:
+edit the files and commit.
 
-To update blog posts, run
+- `index.html` — the single page (about, research, teaching, testimonials)
+- `css/styles.css` — all styles
+- `js/script.js` — navigation, testimonials carousel, lightbox, contact
+- `assets/` — images, CV and favicon
 
-```bash
-quarto render
-```
-
-This should be run whenever
-
-- there is a change in the navigation scheme,
-- there is a new blog post, or
-- there are some changes in already existing blog posts.
+Deployment is handled by `.github/workflows/deploy-production.yml`.

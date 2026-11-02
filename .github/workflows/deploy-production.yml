@@ -4,12 +4,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  quarto:
+  deploy:
     runs-on: ubuntu-latest
-    env:
-      RENV_PATHS_ROOT: ~/.local/share/renv
-      GIT_AUTH_TOKEN: ${{ secrets.GH_PAT }}
-      
+
     steps:
       - name: Check out main branch
         uses: actions/checkout@v4
@@ -24,41 +21,6 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - run: git checkout -B prod
-
-      - uses: r-lib/actions/setup-r@v2
-        with:
-          r-version: '4.4.3'
-
-      - name: Install curl
-        run: |
-          sudo apt -y install libcurl4-openssl-dev
-
-      - name: Cache R packages"
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.RENV_PATHS_ROOT }}
-          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
-
-      - name: Install R Packages
-        shell: Rscript {0}
-        run: |
-          if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
-          renv::restore()
-
-      - name: Install Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          version: 1.5.56
-
-      - name: Render Quarto
-        uses: quarto-dev/quarto-actions/render@v2
-
-      - name: Remove last 4 lines from .gitignore
-        run: |
-          head -n -4 .gitignore > temp && mv temp .gitignore
-          rm -f temp
 
       - name: Minify .css
         uses: nizarmah/auto-minify@v3
@@ -76,12 +38,8 @@ jobs:
         run: |
           rm -f web.Rproj
           rm -f web.code-workspace
-          rm -f renv.lock
-          rm -f .Rprofile
           rm -f .rooignore
-          rm -f _quarto.yml
-          rm -rf renv/
-          find . -name "*.qmd" -type f -delete
+          rm -f README.md
 
       - name: Set timestamp
         id: set_timestamp
