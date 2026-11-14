@@ -573,6 +573,56 @@ function initExternalLinks() {
   });
 }
 
+// Signal bubble on the services page. Android gets the app through Signal's
+// https link; the QR code is shown on wide screens, where it has room.
+function initSignalBubble() {
+  const fab = $('.signal-fab');
+  const popup = $('#signal-popup');
+  if (!fab || !popup) return;
+
+  const closeBtn = popup.querySelector('.signal-popup-close');
+  const showPopup = window.matchMedia('(min-width: 769px)');
+
+  const setPopup = (visible) => {
+    popup.hidden = !visible;
+    fab.setAttribute('aria-expanded', visible ? 'true' : 'false');
+  };
+
+  setPopup(false);
+
+  if (/Android/i.test(navigator.userAgent)) {
+    const replace = fab.dataset.signalUrl && fab.protocol === 'https:'
+      && window.matchMedia('(pointer: coarse)').matches;
+    if (replace) fab.href = fab.dataset.signalUrl;
+  }
+
+  fab.addEventListener('click', (e) => {
+    e.preventDefault();
+    setPopup(popup.hidden);
+  });
+
+  closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setPopup(false);
+    fab.focus();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !popup.hidden) {
+      setPopup(false);
+      fab.focus();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (popup.hidden || popup.contains(e.target) || fab.contains(e.target)) return;
+    setPopup(false);
+  });
+
+  showPopup.addEventListener('change', () => setPopup(false));
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
@@ -584,4 +634,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initEmailPlaceholders();
   initCtaEmails();
   initExternalLinks();
+  initSignalBubble();
 });

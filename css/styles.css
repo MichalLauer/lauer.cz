@@ -311,6 +311,77 @@ section {
   display: none;
 }
 
+.signal-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #3a76f0;
+  box-shadow: var(--shadow-hover);
+  color: #fff;
+  transition: var(--transition);
+  z-index: 120;
+}
+
+.signal-fab:hover,
+.signal-fab:focus-visible {
+  background: #2d63d3;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.signal-popup {
+  position: fixed;
+  right: 24px;
+  bottom: 96px;
+  width: 200px;
+  max-width: calc(100vw - 48px);
+  overflow: visible;
+  background: transparent;
+  filter: drop-shadow(0 8px 24px rgba(28, 34, 38, 0.24));
+  z-index: 120;
+}
+
+.signal-popup:hover {
+  color: var(--text-main);
+}
+
+.signal-qr {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 35px;
+  background: transparent;
+}
+
+.signal-popup-close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.signal-popup-close:hover,
+.signal-popup-close:focus-visible {
+  color: var(--accent);
+}
+
 .landing-section {
   display: flex;
   align-items: center;
@@ -1577,6 +1648,17 @@ footer {
     z-index: 125;
   }
 
+  .signal-fab {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .signal-popup {
+    right: 16px;
+    bottom: 84px;
+    max-width: calc(100vw - 32px);
+  }
+
   .contact-float .sidebar-contact,
   button.reveal-email-btn.sidebar-contact,
   a.reveal-email-btn.sidebar-contact {
@@ -1839,7 +1921,9 @@ footer {
 
 @media print {
   .sidebar,
-  .lightbox {
+  .lightbox,
+  .signal-popup,
+  .signal-fab {
     display: none !important;
   }
 
