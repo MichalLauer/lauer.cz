@@ -409,9 +409,11 @@ section {
 }
 
 /* ===== WORK TOGETHER CTAS ===== */
+/* Centred, so every CTA sits above the centred About me button */
 .work-together-links {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
   width: 100%;
   margin-top: 2rem;
@@ -419,9 +421,11 @@ section {
 
 .work-together-link {
   flex: 1 1 220px;
+  /* Never wider than a comfortable tile, however wide the column is */
+  max-width: 240px;
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: var(--tile-gap, 0.9rem);
   padding: 1rem 1.25rem;
   background: var(--card-bg);
   color: var(--text-main);
@@ -454,9 +458,10 @@ section {
   min-width: 0;
 }
 
-/* Flag sits tight against the title on hero tiles */
+/* Flag sits tight against the title on hero tiles. The offset follows the
+   tile's gap, so the flag keeps the same 4px of air at every padded size. */
 .work-together-link .nav-flag {
-  margin-right: calc(-1 * (0.9rem - 0.25rem));
+  margin-right: calc(-1 * (var(--tile-gap, 0.9rem) - 0.25rem));
 }
 
 .work-together-arrow {
@@ -587,13 +592,39 @@ section {
 .researchgate-label { bottom: 20px; left: 120px; }
 .resume-label { top: 40px; right: 20px; }
 
+@media (max-width: 1024px) {
+
+  .linkedin-label { top: 30px; left: 10px; }
+  .github-label { bottom: 0px; left: 40px; }
+  .researchgate-label { bottom: 10px; left: 130px; }
+  .resume-label { top: 30px; right: 30px; }
+}
+
+@media (max-width: 768px) {
+
+  .linkedin-label { top: 30px; left: 10px; }
+  .github-label { bottom: 0px; left: 40px; }
+  .researchgate-label { bottom: 5px; left: 125px; }
+  .resume-label { top: 22px; right: 37px; }
+}
+
+@media (max-width: 480px) {
+  .linkedin-label { top: 25px; left: 5px; }
+  .github-label { bottom: 0px; left: 40px; }
+  .researchgate-label { bottom: 5px; left: 120px; }
+  .resume-label { top: 20px; right: 35px; }
+}
+
+
 .arrows-svg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  /* Keep the original paths visible above the icon circles. */
+  z-index: 3;
+  overflow: visible;
   pointer-events: none;
 }
 
@@ -1552,29 +1583,145 @@ footer {
     font-size: 0.85rem;
   }
 
-  .landing-right {
-    padding: 2rem;
-  }
-
-  
-
+  /* Tablets keep the desktop hero: profile on the left, copy on the right,
+     one screen tall, with the About me button as the scroll cue. The sidebar
+     still takes 260px here, so the profile column is narrower and the gutters
+     are tighter; the copy keeps a readable width. */
   .landing-section {
-    flex-direction: column;
-    min-height: auto;
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
-  /* Disable sticky left column at tablet sizes to avoid touch/scroll capture
-     that causes the page to appear to 'stick' before content moves. */
+  .landing-right {
+    padding: 1rem 0.75rem;
+    /* The copy must not stretch the hero past one screen: the profile column
+       plus the hero's own padding already fill the viewport. */
+    min-width: 0;
+    align-self: center;
+    max-height: 100%;
+  }
+
+  /* The profile column is as wide as the arrow labels (400px) on desktop.
+     Here it scales with the room left beside the sidebar, and is centered in
+     the column the flex row gives it. Its zero padding and border keep the
+     one-screen height from adding up with the hero's own padding. */
   .landing-left {
-    position: relative !important;
-    top: auto !important;
+    width: clamp(220px, 30vw, 300px);
+    height: calc(100vh - 1rem);
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+  }
+
+  .profile-photo {
+    width: 110px;
+    height: 110px;
+    margin-bottom: 0.5rem;
+  }
+
+  .name {
+    margin-top: 0.25rem;
+    font-size: 1.25rem;
+  }
+
+  .icons {
+    margin-top: 0.75rem;
+  }
+
+  /* The arrow lines bend upwards into the icon row at this width. Pushing the
+     block down leaves the icons clear, and the labels follow it. */
+  .icon-labels-container {
+    height: 88px;
+    margin-top: 1.5rem;
+  }
+
+  .icon-label {
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 768px) {
   :root {
     --sidebar-width: 0px;
+  }
+
+  /* Burger layout: the hero stacks, so it grows with its copy. The profile
+     column gets its full width and fixed sizes back. The hero fills the whole
+     first screen like the desktop one, so the next card never peeks above the
+     fold and the page always ends with the About me button. Its top padding
+     makes room for the burger bar instead of the body margin, and the same
+     amount at the bottom keeps the content centred in the visible part of the
+     screen rather than pushed up against the burger bar. */
+  .landing-section {
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    margin-top: -50px;
+    padding: calc(50px + 0.5rem) 0.5rem calc(50px + 0.5rem);
+  }
+
+  /* The hero stacks here, so the sticky profile would stay pinned while the
+     rest of the page scrolls. Let the whole hero scroll away instead. The copy
+     below keeps only a small gap, so the centred content looks like one block. */
+  .landing-left {
+    position: relative;
+    top: auto;
+    width: auto;
+    height: auto;
+    max-width: none;
+    margin: 0 0 0.25rem;
+  }
+
+  .landing-right {
+    padding: 0.75rem 1rem 1rem;
+    text-align: center;
+    /* The stacked hero is centred as a whole, so the copy column only takes
+       the height it needs. */
+    flex: 0 0 auto;
+  }
+
+  .landing-right h2 {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Compact profile: the name, arrows and social icons take much less room
+     than their desktop sizes, so the intro and buttons also fit on screen.
+     The face and the social icons stay a size worth looking at. They shrink a
+     little on shorter phones so the whole hero still fits, and so centres. */
+  .profile-photo {
+    /* about a sixth of the screen height */
+    width: clamp(92px, 15.5vh, 132px);
+    height: clamp(92px, 15.5vh, 132px);
+    margin-bottom: 0.5rem;
+  }
+
+  .name {
+    margin-top: 0.25rem;
+    font-size: 1.6rem;
+  }
+
+  .icons {
+    margin-top: 0.75rem;
+  }
+
+  .icon-link {
+    width: clamp(36px, 5.4vh, 46px);
+    height: clamp(36px, 5.4vh, 46px);
+    font-size: 1.45rem;
+  }
+
+  .icon-labels-container {
+    height: clamp(58px, 9.2vh, 78px);
+    /* Keeps the arrow lines clear of the icon row, same as on tablets */
+    margin-top: 1rem;
+  }
+
+  .work-together-links {
+    /* Follows the screen height so short phones still show About me */
+    margin-top: clamp(0.5rem, 2.2vh, 1rem);
+  }
+
+  .about-me-scroll {
+    margin-top: clamp(0.5rem, 2.2vh, 1rem);
   }
 
   /* Mobile: show a burger button and make sidebar a hidden roll-down panel */
@@ -1691,23 +1838,32 @@ footer {
     box-sizing: border-box;
   }
 
-  .landing-left {
-    position: relative;
-    height: auto;
-    margin-bottom: 2rem;
-  }
-
-  .landing-right {
-    padding: 1rem;
-    text-align: center;
-  }
-
   .work-together-links {
     flex-direction: column;
+    margin-top: 1rem;
   }
 
+  .about-me-scroll {
+    margin-top: 1rem;
+  }
+
+  /* The tiles stack in a column here, so the 220px flex basis from the
+     desktop rule would stretch the tile into a tall box. The shorter padding
+     keeps the tap target comfortable without a phone-height tile. The tile
+     keeps its 320px cap, so centring it lines it up with About me instead of
+     leaving dead space on the right. The gap goes through the variable so the
+     flag keeps its spacing to the title. */
   .work-together-link {
+    --tile-gap: 0.6rem;
+    flex: 0 0 auto;
+    width: 100%;
+    align-self: center;
+    padding: 0.55rem 1rem;
     text-align: left;
+  }
+
+  .work-together-title {
+    font-size: 1.05rem;
   }
 
   .teaching-resources-list {
@@ -1761,21 +1917,9 @@ footer {
     padding: 0 1.15rem 1.1rem;
   }
 
-  .icon-labels-container {
-    max-width: 320px;
-    height: 150px;
-  }
-
   .icon-label {
-    font-size: 0.9rem;
+    font-size: clamp(0.7rem, 3.2vw, 0.9rem);
   }
-
-  .arrows-svg {
-    transform: translateY(-8px) scale(0.8);
-    transform-origin: center;
-  }
-
-
 
   footer {
     margin-left: 0;
@@ -1783,15 +1927,6 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .landing-section {
-    padding: 0.5rem;
-  }
-
-  .profile-photo {
-    width: 150px;
-    height: 150px;
-  }
-  
   .name {
     font-size: 1.3rem;
   }
@@ -1802,14 +1937,6 @@ footer {
   
   .landing-right p {
     font-size: 1rem;
-  }
-  
-  .icon-labels-container {
-    max-width: 280px;
-  }
-  
-  .icon-label {
-    font-size: 0.8rem;
   }
 }
 
