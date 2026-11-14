@@ -14,7 +14,7 @@
  * - Typography
  * - Links
  * - Layout (container, content, sidebar)
- * - Components (sections, landing, profile, icons, gallery, lightbox, testimonials)
+ * - Components (sections, landing, profile, icons, gallery, lightbox)
  * - Responsive rules
  * - Print
  *
@@ -24,19 +24,26 @@
 
 /* ===== CSS VARIABLES ===== */
 :root {
-  --sidebar-bg: #1a2236;
-  --primary-bg: #f9fbfd;
-  --accent: #4f8cff;
-  --accent-hover: #3a7ae8;
-  --text-main: #232946;
+  /* Warm neutral surfaces and a deep ink for text, instead of cold blue-greys */
+  --sidebar-bg: #16202e;
+  --primary-bg: #faf8f5;
+  --accent: #1f6f6b;
+  --accent-hover: #185a57;
+  --accent-soft: rgba(31, 111, 107, 0.12);
+  --text-main: #1c2226;
   --text-light: #fff;
-  --text-muted: #666;
+  --text-muted: #5f6567;
   --card-bg: #ffffff;
-  --shadow: 0 4px 24px rgba(30, 34, 90, 0.15);
-  --shadow-hover: 0 8px 32px rgba(30, 34, 90, 0.25);
+  --card-border: rgba(28, 34, 38, 0.09);
+  --shadow: 0 4px 24px rgba(28, 34, 38, 0.12);
+  --shadow-hover: 0 8px 32px rgba(28, 34, 38, 0.2);
   --sidebar-width: 260px;
   --content-width: 1024px;
+  /* Pulled from the hand-drawn arrows in the sidebar. The bright lime works
+     as a thin line on the dark background, so the UI tones sit deeper. */
   --arrow-color: #6fe056;
+  --arrow-deep: #41803a;
+  --arrow-soft: rgba(111, 224, 86, 0.14);
   --border-radius: 12px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -286,6 +293,101 @@ p a {
   justify-content: center;
 }
 
+/* ===== SIDEBAR PAGE SWITCHER ===== */
+/* Which part of the site you are on: About me / Services / Courses */
+.sidebar-pages {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  gap: 0.1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-pages li,
+.sidebar ul.sidebar-pages li {
+  margin: 0;
+}
+
+.sidebar .sidebar-pages li a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.75rem;
+  line-height: 1.4;
+}
+
+.sidebar-pages li a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.75rem;
+  line-height: 1.4;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  border-radius: 6px;
+  transition: var(--transition);
+}
+
+.sidebar-pages li a::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  transition: var(--transition);
+}
+
+/* Language flag next to a page link */
+.nav-flag {
+  flex: 0 0 auto;
+  display: block;
+  width: 22px;
+  height: 15px;
+  overflow: hidden;
+  border-radius: 2px;
+  /* Clip to the flag shape so no stray edge or hairline shows */
+  clip-path: inset(0 round 2px);
+}
+
+/* Keep the SVG itself free of outlines */
+.nav-flag rect,
+.nav-flag path {
+  stroke-linejoin: miter;
+}
+
+/* With a flag, the bullet dot is redundant */
+.sidebar-pages li a:has(.nav-flag)::before {
+  display: none;
+}
+
+.sidebar-pages li a::after {
+  display: none;
+}
+
+/* Page switcher links sit on the dark sidebar, so hover must stay light;
+   the teal accent would be unreadable there. Specificity matches
+   `.sidebar ul li a` so these rules win. */
+.sidebar .sidebar-pages li a:hover,
+.sidebar .sidebar-pages li a:focus,
+.sidebar .sidebar-pages li a:focus-visible {
+  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Current page: subtle highlight instead of a solid block */
+.sidebar .sidebar-pages li a[aria-current="page"] {
+  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-pages li a[aria-current="page"]::before {
+  background: var(--arrow-color);
+  opacity: 1;
+}
+
 .sidebar-contact {
   display: flex;
   align-items: center;
@@ -303,6 +405,15 @@ p a {
   background: var(--accent-hover);
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
+}
+
+/* Page switcher sits at the very bottom of the sidebar */
+.sidebar ul.sidebar-pages {
+  gap: 0.1rem;
+  margin-top: auto;
+  margin-bottom: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* ===== SECTIONS ===== */
@@ -384,6 +495,99 @@ body:has(.iframe-container) {
   font-size: 1.2rem;
   margin: 0;
   text-align: justify;
+}
+
+/* ===== WORK TOGETHER CTAS ===== */
+.work-together-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.work-together-link {
+  flex: 1 1 220px;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.25rem;
+  background: var(--card-bg);
+  color: var(--text-main);
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.work-together-link:hover,
+.work-together-link:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.work-together-link > .fas:first-child {
+  font-size: 1.4rem;
+  color: var(--accent);
+  flex: 0 0 auto;
+}
+
+.work-together-title {
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Flag sits tight against the title on hero tiles */
+.work-together-link .nav-flag {
+  margin-right: calc(-1 * (0.9rem - 0.25rem));
+}
+
+.work-together-arrow {
+  font-size: 0.95rem;
+  color: var(--accent);
+  flex: 0 0 auto;
+  transition: var(--transition);
+}
+
+.work-together-link:hover .work-together-arrow,
+.work-together-link:focus-visible .work-together-arrow {
+  transform: translateX(4px);
+}
+
+.about-me-scroll {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.about-me-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  background: var(--card-bg);
+  color: var(--text-main);
+  border: 2px solid var(--accent);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.about-me-btn:hover,
+.about-me-btn:focus-visible {
+  background: var(--accent);
+  color: var(--text-light);
+  transform: translateY(3px);
+  box-shadow: var(--shadow-hover);
 }
 
 /* ===== PROFILE ELEMENTS ===== */
@@ -542,12 +746,18 @@ body:has(.iframe-container) {
 }
 
 /* ===== GALLERY & LIGHTBOX ===== */
-.teaching-resources-gallery {
-  grid-column: 1 / -1;
+.gallery {
+  width: 100%;
 }
 
+/* Gallery items are buttons (they open the lightbox) — reset native styling */
 .gallery-link {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
   cursor: pointer;
+  line-height: 0;
 }
 
 .gallery-legend {
@@ -589,17 +799,19 @@ body:has(.iframe-container) {
   padding: 0.5rem;
 }
 
-.gallery-thumbnails a,
+/* Gallery items are buttons, so target .gallery-link rather than a */
+.gallery-thumbnails .gallery-link,
 .gallery-thumbnails img { border-radius: 8px; }
-.gallery-thumbnails a { display: block; overflow: hidden; transition: var(--transition); }
-.gallery-thumbnails a:hover { transform: scale(1.05); }
-.gallery-thumbnails img { width: 100%; height: auto; object-fit: cover; box-shadow: var(--shadow); transition: var(--transition); }
+.gallery-thumbnails .gallery-link { display: block; overflow: hidden; transition: var(--transition); }
+.gallery-thumbnails .gallery-link:hover,
+.gallery-thumbnails .gallery-link:focus-visible { transform: scale(1.05); }
+.gallery-thumbnails img { display: block; width: 100%; height: auto; object-fit: cover; box-shadow: var(--shadow); transition: var(--transition); }
 
-.gallery-thumbnails a.meme img {
-  box-shadow: 0 4px 20px rgba(79, 140, 255, 0.4);
+.gallery-thumbnails .gallery-link.meme img {
+  box-shadow: 0 4px 20px rgba(31, 111, 107, 0.4);
 }
 
-.gallery-thumbnails a.educ img {
+.gallery-thumbnails .gallery-link.educ img {
   box-shadow: 0 4px 20px rgba(255, 216, 79, 0.4);
 }
 
@@ -705,110 +917,666 @@ body:has(.iframe-container) {
   border: 2px solid var(--accent);
 }
 
-/* ===== TESTIMONIALS ===== */
-.testimonial-carousel {
-  position: relative;
+/* ===== PAGE HEADER (subpages) ===== */
+.page-header {
+  margin-top: 4rem;
+}
+
+.page-header {
+  padding: 2.5rem 2rem;
+}
+
+.page-header h1 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+}
+
+.page-header p {
+  font-size: 1.15rem;
+}
+
+.page-cta-row {
   display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* ===== CTAs ===== */
+.cta-button {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  margin: 2rem 0;
-  min-height: 180px;
-  width: 100%;
-  overflow: hidden;
-}
-
-.testimonial-cards {
-  display: flex;
-  gap: 1.25rem;
-  position: relative;
-  flex: 1;
-  margin: 0.5rem auto;
-  max-width: calc(260px * 3 + 2.5rem);
-  justify-content: center;
-  align-items: stretch;
-}
-
-.testimonial-card {
-  background: var(--card-bg);
+  gap: 0.6rem;
+  padding: 0.8rem 1.5rem;
+  background: var(--accent);
+  color: var(--text-light);
+  border: 2px solid var(--accent);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
   box-shadow: var(--shadow);
-  border-radius: var(--border-radius);
-  padding: 1.25rem; /* increase padding for better spacing */
-  width: 260px;
-  display: flex;
-  flex-direction: column;
-  min-height: 140px;
   transition: var(--transition);
 }
 
-.testimonial-card:hover {
+.cta-button:hover,
+.cta-button:focus-visible {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: var(--text-light);
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
 }
 
-.testimonial-text {
-  font-size: 0.95rem;
-  color: var(--text-main);
-  margin-bottom: 0.75rem;
-  flex: 1;
-  word-break: break-word;
+.cta-button-secondary {
+  background: var(--card-bg);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
-.testimonial-source {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  text-align: right;
+.cta-button-secondary:hover,
+.cta-button-secondary:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent-hover);
+}
+
+/* Shown only when JavaScript is disabled */
+.cta-fallback {
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* ===== SERVICE SECTIONS ===== */
+.service-section {
+  scroll-margin-top: 1rem;
+}
+
+/* Centred section heading: eyebrow label, large title, short accent rule */
+.service-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 2.25rem 0;
+  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-align: center;
+  color: var(--text-main);
+}
+
+/* Small label above the title */
+.service-title::before {
+  content: attr(data-eyebrow);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Short rule under the title */
+.service-title::after {
+  content: '';
+  width: 72px;
+  height: 4px;
+  margin-top: 0.25rem;
+  /* Fully rounded ends */
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(63, 158, 51, 0.2), var(--arrow-deep), rgba(63, 158, 51, 0.2));
+}
+
+.service-grid {
+  display: grid;
+  /* Exactly two equal cards that together fill the section width */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* One column once there is no room for two side by side */
+@media (max-width: 640px) {
+  .service-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.service-grid-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1.5rem 1.6rem;
+  border-radius: calc(var(--border-radius) + 4px);
+  background: var(--primary-bg);
+  border: 1px solid var(--card-border);
+  transition: var(--transition);
+}
+
+.service-grid-item:hover {
+  border-color: rgba(31, 111, 107, 0.35);
+  box-shadow: var(--shadow);
+}
+
+/* Small icon above the card heading */
+.service-grid-heading {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-top: auto;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
 }
 
-.testimonial-source a {
-  color: inherit;
-  text-decoration: underline;
-}
-
-.testimonial-bottom-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-top: auto;
-  width: 100%;
-}
-
-.testimonial-number {
-  font-size: 0.85rem;
-  color: #bbb;
-  font-weight: 600;
-}
-
-.testimonial-arrow {
-  background: var(--card-bg);
-  border: none;
-  color: var(--accent);
-  font-size: 1.7rem;
-  border-radius: 50%;
+.service-grid-heading .service-grid-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 36px;
   height: 36px;
+  border-radius: 10px;
+  background: var(--arrow-soft);
+  color: var(--arrow-deep);
+  font-size: 0.95rem;
+}
+
+.service-grid-heading h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.service-grid-item p:last-child {
+  margin-bottom: 0;
+}
+
+.service-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.service-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin: 0.4rem 0;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.service-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--arrow-deep);
+  font-weight: 700;
+}
+
+.service-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* ===== EXPERIENCE CAROUSEL ===== */
+/* Uses the reference carousel, so only the card heading needs styling */
+.ref-title {
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-main);
+}
+
+.ref-card.is-side .ref-title {
+  color: var(--text-muted);
+}
+
+/* ===== FAQ ===== */
+.faq-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Each question is a full-width white card; it grows in place when opened */
+.faq-item {
+  border-radius: calc(var(--border-radius) + 4px);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 1px 2px rgba(28, 34, 38, 0.04);
+  transition: var(--transition);
+}
+
+.faq-item:hover {
+  border-color: rgba(31, 111, 107, 0.35);
+}
+
+.faq-item[open] {
+  border-color: rgba(31, 111, 107, 0.35);
   box-shadow: var(--shadow);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 1.5rem;
+  font-weight: 600;
+  color: var(--text-main);
   cursor: pointer;
+  list-style: none;
+}
+
+/* Hide the default disclosure marker */
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-question::marker {
+  content: '';
+}
+
+/* Plus sign that turns into a minus when the card is open */
+.faq-icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 999px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.faq-icon::before {
+  width: 14px;
+  height: 2px;
+}
+
+.faq-icon::after {
+  width: 2px;
+  height: 14px;
+}
+
+.faq-item[open] .faq-icon::after {
+  transform: translate(-50%, -50%) scaleY(0);
+  opacity: 0;
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1.25rem;
+}
+
+.faq-answer p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 1.02rem;
+}
+
+/* Answers with more than one paragraph keep a readable gap */
+.faq-answer p + p {
+  margin-top: 0.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-item,
+  .faq-icon::before,
+  .faq-icon::after {
+    transition: none;
+  }
+}
+
+/* ===== PREVIEW TILES ("Jak to vypadá") ===== */
+/* Two columns, two rows. Each tile is a link that opens the file in a new tab.
+   The thumbnail sits beside the label so the section stays compact. */
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+/* Three-column variant, used for the teaching materials (Databon, VŠE, Verto).
+   Columns are top-aligned so the headings sit on one line. */
+.preview-grid.preview-grid-triple {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+}
+
+/* A titled stack of tiles, e.g. one source of materials */
+.preview-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.preview-column-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-main);
+}
+
+/* Two columns before the tiles get too narrow to read */
+@media (max-width: 1024px) {
+  .preview-grid.preview-grid-triple {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .preview-grid.preview-grid-triple {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.preview-tile {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+  padding: 0.6rem;
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  background: var(--card-bg);
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+.preview-tile:hover,
+.preview-tile:focus-visible {
+  border-color: rgba(31, 111, 107, 0.45);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+/* Small fixed thumbnail box beside the label */
+.preview-thumb {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 88px;
+  height: 88px;
+  padding: 0.25rem;
+  border-radius: 8px;
+  background: var(--primary-bg);
+  overflow: hidden;
+}
+
+/* Thumbnails vary in aspect ratio (wide code, tall pages), so crop-fill the
+   box instead of letterboxing them into slivers. The full file opens on click. */
+.preview-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(28, 34, 38, 0.12);
+}
+
+/* Short line under the heading explaining what the previews are */
+.preview-intro {
+  margin: -1.25rem 0 1.25rem 0;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+}
+
+/* Course/material tiles have no thumbnail, so the tile is just a padded label.
+   They also stretch, so the tiles in one row line up even when a title wraps. */
+.preview-tile:not(:has(.preview-thumb)) {
+  padding: 1rem 1.1rem;
+  min-height: 64px;
+}
+
+/* Long course names wrap instead of being cut off */
+.preview-tile:not(:has(.preview-thumb)) .preview-label span {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* Note directly under a subsection heading (e.g. teaching materials) */
+.service-section h3 + .preview-intro {
+  margin-top: -0.5rem;
+}
+
+.preview-label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.preview-label i {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.preview-label span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .preview-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .preview-thumb {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+/* ===== PRICE BAR ===== */
+.service-price-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--border-radius);
+  background: var(--sidebar-bg);
+  color: var(--text-light);
+}
+
+.service-price {
+  color: var(--text-light);
+}
+
+.service-price-label {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.service-price p {
+  margin: 0;
+  color: var(--text-light);
+}
+
+/* ===== REFERENCE CAROUSELS ===== */
+.ref-carousel {
+  --ref-gap: 1.25rem;
+  --ref-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+/* Side padding makes room for the arrows, which sit in those gutters */
+.ref-viewport {
+  overflow: hidden;
+  padding: 0.25rem 3.25rem;
+}
+
+/* Cards are absolutely positioned inside the track, so it must provide the
+   containing block and take its height from the tallest review. */
+.ref-track {
+  position: relative;
+}
+
+/* Cards are positioned by slot from JS, so they no longer flow in the track.
+   Each card keeps its natural height and is vertically centred in the row. */
+.ref-card {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: var(--ref-card-width, 260px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--arrow-deep);
+  /* No card background: the review sits directly on the section surface. */
+  background: transparent;
+  transform-origin: center center;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Middle card: pulled forward. Side cards are recede without fading the text,
+   which keeps their copy readable (and above contrast minimums). */
+.ref-card.is-active {
+  opacity: 1;
+}
+
+.ref-card.is-side {
+  opacity: 1;
+}
+
+/* Side cards read as secondary through colour and border, not transparency */
+.ref-card.is-side {
+  border-left-color: rgba(65, 128, 58, 0.45);
+}
+
+.ref-card.is-side .ref-text,
+.ref-card.is-side .ref-title {
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ref-card {
+    transition: none;
+  }
+}
+
+.ref-text {
+  flex: 1;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--text-main);
+}
+
+/* Footer row: review number on the left, name (optionally a link) on the right */
+.ref-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.ref-number {
+  flex: 0 0 auto;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  /* Muted grey already contrasts at 5.93:1; no extra fade needed */
+  color: var(--text-muted);
+}
+
+.ref-source {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: right;
+  min-width: 0;
+}
+
+/* When the reviewer is a link it stays readable inside the card */
+.ref-source a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ref-source a:hover,
+.ref-source a:focus-visible {
+  color: var(--accent-hover);
+}
+
+.ref-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  border: none;
+  border-radius: 50%;
+  color: var(--accent);
+  font-size: 1.1rem;
+  box-shadow: var(--shadow);
+  cursor: pointer;
   transition: var(--transition);
   z-index: 2;
 }
 
-.testimonial-arrow:hover {
+.ref-arrow:hover,
+.ref-arrow:focus-visible {
   background: var(--accent);
-  color: var(--card-bg);
-  transform: scale(1.1);
+  color: var(--text-light);
 }
 
-.testimonial-arrow-left { margin-right: 0.75rem; }
-.testimonial-arrow-right { margin-left: 0.75rem; }
+.ref-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
 
+.ref-arrow-prev { left: 0; }
+.ref-arrow-next { right: 0; }
+
+/* Nothing to scroll: hide the arrows instead of leaving dead controls */
+.ref-carousel.is-static .ref-arrow {
+  display: none;
+}
+
+.ref-arrow:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ===== TESTIMONIALS ===== */
   /* Math blocks: allow horizontal scroll on small screens (KaTeX/MathJax) */
   p:has(.math) {
     overflow-x: scroll !important;
@@ -834,6 +1602,26 @@ footer {
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 1024px) {
+  /* Below laptop width there is no room for three reviews side by side,
+     so show one at a time. Must match the carousel breakpoint in script.js. */
+  .ref-carousel {
+    --ref-gap: 0.75rem;
+  }
+
+  .ref-viewport {
+    padding: 0.25rem 2.75rem;
+  }
+
+  .ref-card {
+    padding: 1.1rem 1.25rem;
+  }
+
+  .ref-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+
   .landing-right {
     padding: 2rem;
   }
@@ -844,14 +1632,6 @@ footer {
     flex-direction: column;
     min-height: auto;
     padding: 1rem;
-  }
-  
-  .testimonial-cards {
-    max-width: calc(220px * 2 + 1.25rem);
-  }
-  
-  .testimonial-card {
-    width: 220px;
   }
 
   /* Disable sticky left column at tablet sizes to avoid touch/scroll capture
@@ -996,17 +1776,68 @@ footer {
     text-align: center;
   }
 
+  .work-together-links {
+    flex-direction: column;
+  }
+
+  .work-together-link {
+    text-align: left;
+  }
+
   .teaching-resources-list {
     grid-template-columns: 1fr;
   }
 
-  .testimonial-cards {
-    flex-direction: column;
-    max-width: 100%;
+  /* Subpages: tighter header and stacked price bar */
+  .page-header {
+    margin-top: 1rem;
   }
 
-  .testimonial-card {
-    width: 100%;
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .service-header {
+    gap: 0.9rem;
+  }
+
+  .service-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-price-bar {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .service-price-bar .cta-button {
+    justify-content: center;
+  }
+
+  /* Phones: tighten the FAQ and review typography */
+  .ref-text {
+    font-size: 0.97rem;
+  }
+
+  .ref-arrow {
+    width: 34px;
+    height: 34px;
+  }
+
+  .faq-question {
+    padding: 1rem 1.15rem;
+    font-size: 0.98rem;
+  }
+
+  .faq-answer {
+    padding: 0 1.15rem 1.1rem;
   }
 
   .icon-labels-container {
@@ -1064,8 +1895,7 @@ footer {
 /* ===== PRINT STYLES ===== */
 @media print {
   .sidebar,
-  .lightbox,
-  .testimonial-arrow {
+  .lightbox {
     display: none !important;
   }
   

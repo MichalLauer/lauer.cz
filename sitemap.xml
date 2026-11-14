@@ -3,7 +3,13 @@
   <url>
     <loc>https://lauer.cz/</loc>
     <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>yearly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://lauer.cz/sluzby/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

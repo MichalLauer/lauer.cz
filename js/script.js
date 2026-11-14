@@ -13,12 +13,6 @@ const setPageOverflow = (hidden) => {
   document.body.style.overflow = hidden ? 'hidden' : '';
 };
 
-const setTestimonialArrows = (enabled) => {
-  $$('.testimonial-arrow').forEach(arrow => {
-    arrow.style.pointerEvents = enabled ? 'auto' : 'none';
-  });
-};
-
 // Tooltip functionality for abbreviations
 function initTooltips() {
   $$('abbr[title]').forEach(el => {
@@ -300,153 +294,6 @@ function initSmoothScroll() {
   });
 }
 
-// Testimonial data
-const testimonials = [
-  {
-    text: 'Nemůžu si vynachválit Pana Lauera z mnoha důvodů, jako je rychlost, připravenost a neskutečná ochota.',
-    source: 'Andy V.',
-    url: 'https://www.doucuji.eu/381550-doucovani-srozumitelne-a-lidske-doucovani-statistiky-a-datove-analyzy'
-  },
-  {
-    text: 'Obrovská spokojenost s panem Lauerem. Ještě jednou velké DÍKY za pomoc se statistikou a všem moc doporučuji.',
-    source: 'Vendula K.',
-    url: 'https://www.doucuji.eu/381550-doucovani-srozumitelne-a-lidske-doucovani-statistiky-a-datove-analyzy'
-  },
-  {
-    text: 'Pokud potřebujete poradit se statistikou v rámci své vysokoškolské práce určitě se neváhejte obrátit na pana Michala.',
-    source: 'Petra M.',
-    url: 'https://www.doucuji.eu/381550-doucovani-srozumitelne-a-lidske-doucovani-statistiky-a-datove-analyzy'
-  },
-  {
-    text: 'Díky panu Lauerovi se mi podařilo úspěšně spočítat řadu příkladů a uspět u zkoušky na první pokus, což považuji za zázrak:)',
-    source: 'Andrea D.',
-    url: 'https://www.doucuji.eu/381550-doucovani-srozumitelne-a-lidske-doucovani-statistiky-a-datove-analyzy'
-  },
-  {
-    text: 'Pana Michala na 100 % doporučuji. Velká pomoc při DP. Je vidět, že statistice opravdu rozumí a hlavně ji dokáže vysvětlit.',
-    source: 'Mgr. I.',
-    url: 'https://www.doucuji.eu/381550-doucovani-srozumitelne-a-lidske-doucovani-statistiky-a-datove-analyzy'
-  }, 
-
-
-
-  {
-    text: 'Dneska jsem úspěšně práci obhájila a myslím, že bez vás bych to nezvládla, tak děkuji!',
-    source: 'Private review' // conversations/381550-458409-t
-  }, 
-  {
-    text: 'Ale chci tedy moc poděkovat, že jste mi pomohl a byl moc milý! Jestli pořád budete doučovat, určitě využiju',
-    source: 'Private review' // conversations/381550-266946-t
-  }
-];
-
-// Testimonial carousel functionality
-function initTestimonialCarousel() {
-  const carousel = $('.testimonial-carousel');
-  if (!carousel) return;
-
-  const cardsContainer = carousel.querySelector('.testimonial-cards');
-  const leftArrow = carousel.querySelector('.testimonial-arrow-left');
-  const rightArrow = carousel.querySelector('.testimonial-arrow-right');
-
-  if (!cardsContainer || !leftArrow || !rightArrow) return;
-
-  // If already initialized, just re-render (this makes the function idempotent
-  // and ensures that when the page is restored from bfcache we re-populate
-  // the carousel without binding duplicate event listeners).
-  if (carousel._initialized) {
-    // update visibleCards and re-render
-    const getVisibleCards = () => (window.innerWidth <= 768 ? 1 : (window.innerWidth <= 1024 ? 2 : 3));
-    carousel._visibleCards = getVisibleCards();
-    carousel._renderCards();
-    return;
-  }
-
-  // First-time initialization
-  carousel._initialized = true;
-  carousel._totalCards = testimonials.length;
-  carousel._currentPosition = 0;
-  const getVisibleCards = () => (window.innerWidth <= 768 ? 1 : (window.innerWidth <= 1024 ? 2 : 3));
-  carousel._visibleCards = getVisibleCards();
-
-  // create a render function attached to the carousel so other handlers (pageshow)
-  // can call it to repopulate the DOM from the source `testimonials` array.
-  carousel._renderCards = function () {
-    // defensive reference lookups
-    const total = carousel._totalCards || testimonials.length;
-    const pos = (typeof carousel._currentPosition === 'number') ? carousel._currentPosition : 0;
-    const visible = carousel._visibleCards || 1;
-
-    cardsContainer.innerHTML = '';
-
-    for (let i = 0; i < visible; i++) {
-      const cardIndex = (pos + i) % total;
-      const testimonial = testimonials[cardIndex];
-
-      const card = document.createElement('div');
-      card.className = 'testimonial-card';
-      card.innerHTML = `
-        <div class="testimonial-text">${testimonial.text}</div>
-        <div class="testimonial-bottom-row">
-          <div class="testimonial-number">${cardIndex + 1}</div>
-          <div class="testimonial-source">
-          ${testimonial.url ? `
-            <a href="${testimonial.url}" target="_blank" rel="noopener"
-              title="Source" aria-label="Source">
-              ${testimonial.source}
-            </a> 🔗 ` : `
-            <span>${testimonial.source}</span>`}
-          </div>
-        </div>
-      `;
-      cardsContainer.appendChild(card);
-    }
-  };
-
-  // Navigation handlers (bind once)
-  leftArrow.addEventListener('click', () => {
-    carousel._currentPosition = (carousel._currentPosition - 1 + carousel._totalCards) % carousel._totalCards;
-    carousel._renderCards();
-  });
-  rightArrow.addEventListener('click', () => {
-    carousel._currentPosition = (carousel._currentPosition + 1) % carousel._totalCards;
-    carousel._renderCards();
-  });
-
-  // Handle window resize: re-calc visibleCards and re-render when breakpoint changes
-  carousel._resizeHandler = () => {
-    const newVisible = getVisibleCards();
-    if (newVisible !== carousel._visibleCards) {
-      carousel._visibleCards = newVisible;
-      carousel._currentPosition = carousel._currentPosition % carousel._totalCards;
-      carousel._renderCards();
-    }
-  };
-
-  let resizeTimeout;
-  window.addEventListener('resize', () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(carousel._resizeHandler, 250); });
-
-  // Initial render
-  carousel._renderCards();
-}
-
-// When a user navigates with back/forward, some browsers restore the DOM from
-// the bfcache and do not fire DOMContentLoaded. Use pageshow to ensure the
-// carousel is repopulated when returning to the page.
-window.addEventListener('pageshow', (e) => {
-  const carousel = document.querySelector('.testimonial-carousel');
-  if (!carousel) return;
-  if (carousel._initialized) {
-    // update visible cards then re-render
-    const visible = (window.innerWidth <= 768 ? 1 : (window.innerWidth <= 1024 ? 2 : 3));
-    carousel._visibleCards = visible;
-    carousel._renderCards();
-  } else {
-    // If for some reason it wasn't initialized (rare), initialize now
-    initTestimonialCarousel();
-  }
-});
-
 // Lightbox functionality
 function initLightbox() {
   const galleryLinks = $$('.gallery-link');
@@ -580,7 +427,10 @@ function createMailtoAnchor(email) {
 
 function revealEmail(container, triggerBtn) {
   // Do NOT insert the email into the page. Open the user's mail client instead.
-  const mailto = 'mailto:' + EMAIL_FULL;
+  let mailto = 'mailto:' + EMAIL_FULL;
+  // Optional pre-filled subject, e.g. "Poptávka – Doučování"
+  const subject = container && container.dataset ? (container.dataset.subject || '') : '';
+  if (subject) mailto += '?subject=' + encodeURIComponent(subject);
   try {
     // Use location change which typically triggers the mail client
     window.location.href = mailto;
@@ -651,29 +501,199 @@ function initEmailPlaceholders() {
   });
 }
 
+// CTA buttons on the services page use a span so the button stays a single link.
+// Reuse the same privacy-friendly contact behaviour: the label is shown, the
+// address never lands in the markup.
+function initCtaEmails() {
+  document.querySelectorAll('.cta-email').forEach(span => {
+    if (span.dataset.initialized) return; span.dataset.initialized = '1';
+
+    span.textContent = span.dataset.text || 'Contact';
+
+    const link = span.closest('a');
+    if (!link) return;
+
+    link.setAttribute('aria-label', (span.dataset.text || 'Contact') + ' - Michal Lauer');
+    link.addEventListener('click', function (e) { e.preventDefault(); revealEmail(span, link); });
+  });
+}
+
+// Reference carousels on the services page.
+// Exactly three reviews are shown at a time: the middle one is pulled
+// forward while its neighbours sit back. Arrows step one review at a time
+// and loop around in both directions. Cards keep their natural height and
+// are vertically centred against the tallest one.
+function initRefCarousels() {
+  const carousels = $$('.ref-carousel');
+  if (!carousels.length) return;
+
+  carousels.forEach(carousel => {
+    if (carousel._initialized) return;
+
+    const viewport = carousel.querySelector('.ref-viewport');
+    const track = carousel.querySelector('.ref-track');
+    const cards = track ? Array.from(track.querySelectorAll('.ref-card')) : [];
+    const prev = carousel.querySelector('.ref-arrow-prev');
+    const next = carousel.querySelector('.ref-arrow-next');
+    if (!viewport || !track || !cards.length || !prev || !next) return;
+
+    carousel._initialized = true;
+
+    const state = { index: 0, gap: 0, cardWidth: 0, usableWidth: 0 };
+
+    // Three reviews are on screen on wide displays: the centre one pulled
+    // forward and its two neighbours behind. Below laptop width there is not
+    // enough room, so only the centre card is shown at full width.
+    const singleQuery = window.matchMedia('(max-width: 1024px)');
+    const perView = () => (singleQuery.matches ? 1 : 3);
+    const maxSide = () => Math.floor(perView() / 2);
+
+    const slotOf = (i) => {
+      const total = cards.length;
+      let rel = i - state.index;
+      const half = Math.floor(total / 2);
+      if (rel > half) rel -= total;
+      if (rel < -half) rel += total;
+      return rel;
+    };
+
+    const render = ({ animate = true } = {}) => {
+      const stepW = state.cardWidth + state.gap;
+      // Cards are absolutely positioned inside the track, which itself sits
+      // in the viewport's content box. So slot 0 is measured from there.
+      const centreLeft = (state.usableWidth - state.cardWidth) / 2;
+
+      cards.forEach((card, i) => {
+        const rel = slotOf(i);
+        const visible = Math.abs(rel) <= maxSide();
+        const left = centreLeft + rel * stepW;
+        // The centre card is pulled forward only when there are neighbours to
+        // sit back from it; alone on a phone it stays at full size.
+        const scale = rel === 0 && perView() > 1 ? 1.07 : 1;
+
+        card.style.transition = animate ? '' : 'none';
+        // top: 50% + translateY(-50%) centres each card on its own rendered
+        // height, so cards of different lengths stay vertically aligned.
+        card.style.transform = `translate(${left}px, -50%) scale(${scale})`;
+        // Keep side cards fully opaque: fading the whole card drops its text
+        // below the contrast minimum. They recede via scale and muted colour.
+        card.style.opacity = visible ? '1' : '0';
+        card.style.pointerEvents = visible ? '' : 'none';
+        card.style.zIndex = rel === 0 ? 3 : (visible ? 2 : 1);
+        card.setAttribute('aria-hidden', visible ? 'false' : 'true');
+
+        // Anything focusable inside a card that is out of view must not be
+        // reachable by keyboard (it is aria-hidden, so it would be a dead end).
+        // Cards may themselves be buttons, so include the card element.
+        const focusables = [card, ...card.querySelectorAll('a, button')];
+        focusables.forEach(el => {
+          if (!el) return;
+          if (visible) {
+            el.removeAttribute('tabindex');
+            if (el === card) el.style.pointerEvents = '';
+          } else {
+            el.setAttribute('tabindex', '-1');
+          }
+        });
+
+        card.classList.toggle('is-active', rel === 0);
+        card.classList.toggle('is-side', visible && rel !== 0);
+
+        // Review position, e.g. "1 / 6"
+        const counter = card.querySelector('.ref-number');
+        if (counter) counter.textContent = `${i + 1} / ${cards.length}`;
+      });
+
+      if (!animate) {
+        // Flush the jump so the next move animates from here
+        void track.offsetWidth;
+        cards.forEach(card => { card.style.transition = ''; });
+      }
+    };
+
+    const go = (direction) => {
+      const total = cards.length;
+      if (total <= 1) return;
+      state.index = (state.index + direction + total) % total;
+      render();
+    };
+
+    const update = () => {
+      const cs = getComputedStyle(track);
+      const gap = parseFloat(cs.columnGap || cs.gap) || 0;
+      state.gap = gap;
+
+      const vpStyle = getComputedStyle(viewport);
+      const available = viewport.clientWidth
+        - parseFloat(vpStyle.paddingLeft)
+        - parseFloat(vpStyle.paddingRight);
+
+      // On phones and tablets only the centre card is shown. It is inset from
+      // the arrows rather than stretched edge to edge, which reads better than
+      // a full-bleed block. On wider screens three cards share the width, with
+      // a floor that never exceeds what is available so nothing is pushed out.
+      const count = perView();
+      const fitWidth = Math.floor((available - gap * (count - 1)) / count);
+      // Single card: inset to 84% of the space, capped so it does not run too
+      // wide, and never clipped by the 200px floor that applies to the trio.
+      const singleWidth = Math.min(520, Math.round(available * 0.84));
+      const MIN_CARD = Math.min(200, fitWidth);
+      state.cardWidth = count === 1
+        ? singleWidth
+        : Math.max(MIN_CARD, fitWidth);
+      state.usableWidth = available;
+      carousel.style.setProperty('--ref-card-width', `${state.cardWidth}px`);
+
+      const scrollable = cards.length > 1;
+      carousel.classList.toggle('is-static', !scrollable);
+      prev.disabled = !scrollable;
+      next.disabled = !scrollable;
+
+      render({ animate: false });
+      fitTrackHeight();
+    };
+
+    // Cards are absolutely positioned, so the track has no intrinsic height.
+    // Let the tallest review define it, with a little room for the centre
+    // card's scale-up so nothing spills outside the track.
+    const fitTrackHeight = () => {
+      track.style.minHeight = '0px';
+      const tallest = Math.max(...cards.map(card => card.offsetHeight));
+      if (tallest > 0) track.style.minHeight = `${Math.ceil(tallest * 1.08)}px`;
+    };
+
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+
+    // Keyboard support when the arrows are focused
+    [prev, next].forEach(btn => {
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+      });
+    });
+
+    update();
+    window.addEventListener('resize', () => {
+      clearTimeout(carousel._resizeTimeout);
+      carousel._resizeTimeout = setTimeout(update, 120);
+    });
+
+    // Crossing the single-card breakpoint changes how many cards are on
+    // screen; re-layout so resizing never leaves a stale arrangement.
+    singleQuery.addEventListener('change', update);
+  });
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
   initSidebar();
   initMobileMenu();
   initSmoothScroll();
-  initTestimonialCarousel();
+  initRefCarousels();
   initLightbox();
   initEmailPlaceholders();
+  initCtaEmails();
   initLazyLoading();
-});
-
-// Handle page visibility changes for performance
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    // Pause any animations or timers when page is hidden
-    $$('.testimonial-arrow').forEach(arrow => {
-      arrow.style.pointerEvents = 'none';
-    });
-  } else {
-    // Resume when page becomes visible
-    $$('.testimonial-arrow').forEach(arrow => {
-      arrow.style.pointerEvents = 'auto';
-    });
-  }
 });

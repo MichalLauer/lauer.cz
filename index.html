@@ -172,17 +172,35 @@
 
   <!-- Main menu -->
   <ul id="main-sidebar-menu">
-    <li><a href="/#about" target="_self" aria-current="page">About Me</a></li>
     <li><a href="/#research" target="_self">Research</a></li>
+    <li><a href="/#teaching-resources" target="_self">Resources</a></li>
+    <li><a href="/#teaching-gallery" target="_self">Gallery</a></li>
+  </ul>
+
+  <!-- Page switcher: which part of the site you are on (bottom of the navbar) -->
+  <ul class="sidebar-pages" aria-label="Sekce webu">
     <li>
-      <a href="/#teaching" target="_self">Teaching</a>
-      <ul>
-        <li><a href="/#teaching-resources" target="_self">Resources</a></li>
-        <li><a href="/#teaching-gallery" target="_self">Gallery</a></li>
-        <li><a href="/#teaching-classes" target="_self">Classes</a></li>
-      </ul>
+      <a href="/" target="_self" aria-current="page">
+        <svg class="nav-flag" viewBox="0 0 60 30" aria-hidden="true" focusable="false">
+          <rect width="60" height="30" fill="#012169"></rect>
+          <path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"></path>
+          <path d="M0 0L60 30M60 0L0 30" stroke="#C8102E" stroke-width="4"></path>
+          <path d="M30 0V30M0 15H60" stroke="#fff" stroke-width="10"></path>
+          <path d="M30 0V30M0 15H60" stroke="#C8102E" stroke-width="6"></path>
+        </svg>
+        <span>About me</span>
+      </a>
     </li>
-    <li><a href="/#testimonials" target="_self">Testimonials</a></li>
+    <li>
+      <a href="/sluzby" target="_self">
+        <svg class="nav-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">
+          <rect width="60" height="20" fill="#fff"></rect>
+          <rect y="20" width="60" height="20" fill="#D7141A"></rect>
+          <path d="M0 0L30 20L0 40Z" fill="#11457E"></path>
+        </svg>
+        <span>Služby</span>
+      </a>
+    </li>
   </ul>
 
 </nav>
@@ -205,19 +223,19 @@
 
           <!-- Social Media Icons -->
           <div class="icons" role="list" aria-label="Social Media Links">
-            <a class="icon-link" href="https://www.linkedin.com/in/michal-lauer/" rel="noopener noreferrer"
+            <a class="icon-link" role="listitem" href="https://www.linkedin.com/in/michal-lauer/" rel="noopener noreferrer"
               title="LinkedIn Profile" aria-label="Visit LinkedIn Profile">
               <i class="fab fa-linkedin" aria-hidden="true"></i>
             </a>
-            <a class="icon-link" href="https://github.com/MichalLauer" rel="noopener noreferrer" title="GitHub Profile"
+            <a class="icon-link" role="listitem" href="https://github.com/MichalLauer" rel="noopener noreferrer" title="GitHub Profile"
               aria-label="Visit GitHub Profile">
               <i class="fab fa-github" aria-hidden="true"></i>
             </a>
-            <a class="icon-link" href="https://www.researchgate.net/profile/Michal-Lauer" rel="noopener noreferrer"
+            <a class="icon-link" role="listitem" href="https://www.researchgate.net/profile/Michal-Lauer" rel="noopener noreferrer"
               title="ResearchGate Profile" aria-label="Visit ResearchGate Profile">
               <i class="fab fa-researchgate" aria-hidden="true"></i>
             </a>
-            <a class="icon-link" href="assets/cv.pdf" rel="noopener noreferrer" title="Download CV"
+            <a class="icon-link" role="listitem" href="assets/cv.pdf" rel="noopener noreferrer" title="Download CV"
               aria-label="Download CV">
               <i class="fas fa-file-arrow-down" aria-hidden="true"></i>
             </a>
@@ -256,6 +274,28 @@
               Let's work together! (hello [at] lauer [dot] cz)
             </noscript>
           </p>
+
+          <!-- Work together CTAs -->
+          <div class="work-together-links">
+            <a class="work-together-link work-together-sluzby" href="/sluzby" target="_self" hreflang="cs" lang="cs">
+              <i class="fas fa-briefcase" aria-hidden="true"></i>
+              <svg class="nav-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">
+                <rect width="60" height="20" fill="#fff"></rect>
+                <rect y="20" width="60" height="20" fill="#D7141A"></rect>
+                <path d="M0 0L30 20L0 40Z" fill="#11457E"></path>
+              </svg>
+              <span class="work-together-title">Služby</span>
+              <i class="fas fa-arrow-right work-together-arrow" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <!-- Scroll cue to Research -->
+          <div class="about-me-scroll">
+            <a class="about-me-btn" href="#research" target="_self">
+              <i class="fas fa-arrow-down" aria-hidden="true"></i>
+              <span>About me</span>
+            </a>
+          </div>
         </div>
       </header>
 
@@ -264,221 +304,154 @@
         <h2>Research</h2>
         <p>
           At the <a href="https://vse.cz">University of Economics in Prague</a>, I study Bayesian approaches to
-          causality and statistical inference. I am fond of methods like Directed Acyclic Graphs
-          (<strong>DAG</strong>s), General Linear Models (<strong>GLM</strong>s), hierarchical models,
-          state&ndash;space models, and sampling methods. My diploma and research focuses on bayesian state-space
-          modeling (<strong>SSM</strong>) with causality identification in time-series data. If you need someone to collaborate
-          with, just
-          <span class="mail-placeholder" data-text="drop me a message!"></span>
-          <noscript>
-            drop me a message! (hello [at] lauer [dot] cz)
-          </noscript>
+          causality and statistical inference. I am fond of methods for probabilistic graphical models (<i>PGMs</i>)
+          and anything bayesian related within R, Python or Stan. My research focuses on PGMs, specificaly on bayesian
+          estimation of Directed Acyclic Graphs (<i>DAGs</i>).
         </p>
       </section>
 
-      <!-- Teaching Section -->
-      <section id="teaching" itemscope itemtype="https://schema.org/EducationalOrganization">
-        <h2>Teaching</h2>
-        <p>I design and deliver university courses and professional workshops on various topics
-          (<a
-            href="https://www.doucuji.eu/381550-doucovani-srozumitelne-a-lidske-doucovani-statistiky-a-datove-analyzy">statistics</a>,
-          <a href="https://coderslab.cz/cz/kurzy/data-analyst">data analyst</a>, machine learning) in various tools
-          (<a href="https://www.datova-akademie.cz/nasi_lektori/michal-lauer/">R</a>,
-          <a href="https://coderslab.cz/cz/kurzy/data-analyst">Python</a>,
-          <a href="https://coderslab.cz/cz/kurzy/data-analyst">Excel</a>,
-          <a href="http://edudata.msmt.gov.cz/">Shiny</a>).
-          If you feel like I could help you with your thesis, data analysis, statistical work, or you just need help
-          clarifying something, don't hesitate to
-          <span class="mail-placeholder" data-text="reach out!"></span>
-          <noscript>
-            reach out! (hello [at] lauer [dot] cz)
-          </noscript>
-        </p>
-
-        <section id="teaching-resources">
-          <h3>Resources</h3>
-          <div class="teaching-resources-list">
-            <div class="teaching-resources-item">
-              <h4>Stats</h4>
-              <ul>
-                <li><a href="https://rpsychologist.com/viz/">R Psychologist</a></li>
-                <li><a href="https://www.math.wm.edu/~leemis/chart/UDR/UDR.html">Distributions</a></li>
-                <li><a href="https://sites.stat.washington.edu/raftery/Research/bma.html">Model Averaging, Hypothesis Testing and Model Selection</a></li>
-              </ul>
-            </div>
-
-            <div class="teaching-resources-item">
-              <h4>Books</h4>
-              <ul>
-                <li><a href="https://feaz-book.com/">Feature Engineering A-Z</a></li>
-                <li><a href="https://www.bigbookofr.com/">Big Book of R</a></li>
-                <li><a href="https://avehtari.github.io/ROS-Examples/">Regression and Other Stories</a></li>
-                <li><a href="https://www.bradyneal.com/which-causal-inference-book">Causal tree</a></li>
-              </ul>
-            </div>
-
-            <div class="teaching-resources-item">
-              <h4>Brain teasers</h4>
-              <ul>
-                <li><a href="https://www.tylervigen.com/spurious-correlations">Correlation ≠ Causation</a></li>
-                <li><a href="https://www.research.autodesk.com/publications/same-stats-different-graphs/">Numbers are
-                    not everything</a></li>
-                <li><a href="https://www.guessthecorrelation.com/">Guess the correlation!</a></li>
-              </ul>
-            </div>
-
-            <div class="teaching-resources-item">
-              <h4>Programming</h4>
-              <ul>
-                <li><a href="https://stats.oarc.ucla.edu/other/dae/">UCLA stats</a></li>
-                <li><a href="https://spannbaueradam.shinyapps.io/r_regex_tester/">Regex tester</a></li>
-              </ul>
-            </div>
-
-            <div class="teaching-resources-item">
-              <h4>Visualization</h4>
-              <ul>
-                <li><a href="https://www.data-to-viz.com/">Data to viz</a></li>
-                <li><a href="https://exts.ggplot2.tidyverse.org/gallery/">{ggplot2} extensions</a></li>
-                <li><a href="https://emilhvitfeldt.github.io/r-color-palettes/">R Palettes</a></li>
-                <li><a href="https://r-charts.com/color-palette-generator/">Palette generators</a></li>
-              </ul>
-            </div>
-
-            <div class="teaching-resources-item">
-              <h4>YouTube</h4>
-              <ul>
-                <li><a href="https://www.youtube.com/@RConsortium">R Consortium</a></li>
-                <li><a href="https://www.youtube.com/@rmcelreath">Richard McElreath</a></li>
-                <li><a href="https://www.youtube.com/@very-normal">Very Normal</a></li>
-                <li><a href="https://www.youtube.com/@simplistics_stats">Simplistics</a></li>
-              </ul>
-            </div>
-
-            <!-- Gallery Section -->
-            <div id="teaching-gallery" class="teaching-resources-item teaching-resources-gallery">
-              <h4>Gallery</h4>
-              <div class="gallery-legend">
-                <span>
-                  <span class="color-dot blue"></span>
-                  <span>Statistics</span>
-                </span>
-                <span>
-                  <span class="color-dot yellow"></span>
-                  <span>Educational</span>
-                </span>
-              </div>
-
-              <div class="gallery-thumbnails">
-                <a class="gallery-link meme">
-                  <img src="assets/imgs/yea_this_might_happen.jpeg"
-                    data-source="https://x.com/miniapeur/status/1723632801516298401"
-                    alt="Statistical meme from miniapeur on Twitter" loading="lazy">
-                </a>
-                <a class="gallery-link meme">
-                  <img src="assets/imgs/mumble_clt.jpeg"
-                    data-source="https://x.com/DataSciFact/status/1824447539044556869"
-                    alt="Central Limit Theorem meme from DataSciFact on Twitter" loading="lazy">
-                </a>
-                <a class="gallery-link meme">
-                  <img src="assets/imgs/iq_median.jpeg" data-source="https://x.com/tunguz/status/1864308697289380061"
-                    alt="IQ median statistics meme from tunguz on Twitter" loading="lazy">
-                </a>
-                <a class="gallery-link meme">
-                  <img src="assets/imgs/data_vibe.jpeg" data-source="https://x.com/NeerajKA/status/1804864851312890141"
-                    alt="Data science vibe meme from NeerajKA on Twitter" loading="lazy">
-                </a>
-                <a class="gallery-link meme">
-                  <img src="assets/imgs/child_weight.png"
-                    data-source="https://x.com/pronounced_kyle/status/1768852493092680036"
-                    alt="Child weight statistics meme from pronounced_kyle on Twitter" loading="lazy">
-                </a>
-                <a class="gallery-link meme">
-                  <img src="assets/imgs/stat_math.jpeg" data-source="https://x.com/pickover/status/1738720315566391486"
-                    alt="Statistics vs math meme from pickover on Twitter" loading="lazy">
-                </a>
-                <a class="gallery-link meme">
-                  <img src="assets/imgs/size.jpeg" data-source="https://x.com/miniapeur/status/1737058739956420878"
-                    alt="Sample size meme from miniapeur on Twitter" loading="lazy">
-                </a>
-                <a class="gallery-link educ">
-                  <img src="assets/imgs/sas.png" data-source="https://x.com/StefanFrancisci/status/1805256795469885597"
-                    alt="SAS programming educational content from StefanFrancisci on Twitter" loading="lazy">
-                </a>
-                <a class="gallery-link educ">
-                  <img src="assets/imgs/russia_elections.jpeg"
-                    data-source="https://x.com/martinmbauer/status/1769672126905090386"
-                    alt="Russia elections data visualization from martinmbauer on Twitter" loading="lazy">
-                </a>
-                <a class="gallery-link educ">
-                  <img src="assets/imgs/gym.jpeg" data-source="https://x.com/sonukg4india/status/1743483491508171110"
-                    alt="Gym statistics educational content from sonukg4india on Twitter" loading="lazy">
-                </a>
-                <a class="gallery-link educ">
-                  <img src="assets/imgs/sampling_bias.jpg" data-source="https://x.com/Whiskeypunk1/status/1861167858899693769"
-                    alt="Sampling bias joke from Whiskeypunk1 on Twitter" loading="lazy">
-                </a>
-                <a class="gallery-link meme">
-                  <img src="assets/imgs/type_1_2.jpg"
-                       data-source="https://www.reddit.com/r/APStudents/comments/1rlxyl7/just_finished_my_stats_test/"
-                       alt="Type 1 and 2 errors from r/Usual_Adagio_5059 on Reddit" loading="lazy">
-                </a>
-                <a class="gallery-link meme">
-                  <img src="assets/imgs/thesis.webp" data-source="https://www.reddit.com/r/me_irl/comments/1to3oiw/me_irl/"
-                    alt="Thesis meme from u/XAE_Warthog on Reddit" loading="lazy">
-                </a>
-                <a class="gallery-link meme">
-                  <img src="assets/imgs/null_hypothesis_simpsons.jpeg"
-                    data-source="https://www.reddit.com/r/statisticsmemes/comments/1ww2h23/you_can_never_accept_null_hypothesis/"
-                    alt="Failing to reject the null hypothesis meme from r/statisticsmemes on Reddit" loading="lazy">
-                </a>
-              </div>
-            </div>
+      <!-- Resources Section -->
+      <section id="teaching-resources">
+        <h3>Resources</h3>
+        <div class="teaching-resources-list">
+          <div class="teaching-resources-item">
+            <h4>Stats</h4>
+            <ul>
+              <li><a href="https://rpsychologist.com/viz/">R Psychologist</a></li>
+              <li><a href="https://www.math.wm.edu/~leemis/chart/UDR/UDR.html">Distributions</a></li>
+              <li><a href="https://sites.stat.washington.edu/raftery/Research/bma.html">Model Averaging, Hypothesis Testing and Model Selection</a></li>
+            </ul>
           </div>
-        </section>
 
-        <section id="teaching-classes">
-          <h3>Classes</h3>
-          <p><em>
-              Databon materials may be outdated, as I no longer work with that organization. But feel free to check out
-              how I work!
-            </em></p>
-          <div class="teaching-resources-list">
-
-            <div class="teaching-resources-item">
-              <h4>Czech DataBon materials</h4>
-              <ul>
-                <li><a href="https://github.com/MichalLauer/datova-analyza-excel">Datová analýza v Excelu</a></li>
-                <li><a href="https://github.com/MichalLauer/zaklady-r-markdown-pro-vedce">Základy R Markdownu pro
-                    vědce</a></li>
-              </ul>
-            </div>
-
-            <div class="teaching-resources-item">
-              <h4>Czech VŠE courses</h4>
-              <ul>
-                <li><a href="https://gitlab.com/vseteaching/4st211kvantitativnimetody">4ST211 Kvantitativní Metody</a>
-                </li>
-              </ul>
-            </div>
-
+          <div class="teaching-resources-item">
+            <h4>Books</h4>
+            <ul>
+              <li><a href="https://feaz-book.com/">Feature Engineering A-Z</a></li>
+              <li><a href="https://www.bigbookofr.com/">Big Book of R</a></li>
+              <li><a href="https://avehtari.github.io/ROS-Examples/">Regression and Other Stories</a></li>
+              <li><a href="https://www.bradyneal.com/which-causal-inference-book">Causal tree</a></li>
+            </ul>
           </div>
-        </section>
 
+          <div class="teaching-resources-item">
+            <h4>Brain teasers</h4>
+            <ul>
+              <li><a href="https://www.tylervigen.com/spurious-correlations">Correlation ≠ Causation</a></li>
+              <li><a href="https://www.research.autodesk.com/publications/same-stats-different-graphs/">Numbers are
+                  not everything</a></li>
+              <li><a href="https://www.guessthecorrelation.com/">Guess the correlation!</a></li>
+            </ul>
+          </div>
+
+          <div class="teaching-resources-item">
+            <h4>Programming</h4>
+            <ul>
+              <li><a href="https://stats.oarc.ucla.edu/other/dae/">UCLA stats</a></li>
+              <li><a href="https://spannbaueradam.shinyapps.io/r_regex_tester/">Regex tester</a></li>
+            </ul>
+          </div>
+
+          <div class="teaching-resources-item">
+            <h4>Visualization</h4>
+            <ul>
+              <li><a href="https://www.data-to-viz.com/">Data to viz</a></li>
+              <li><a href="https://exts.ggplot2.tidyverse.org/gallery/">{ggplot2} extensions</a></li>
+              <li><a href="https://emilhvitfeldt.github.io/r-color-palettes/">R Palettes</a></li>
+              <li><a href="https://r-charts.com/color-palette-generator/">Palette generators</a></li>
+            </ul>
+          </div>
+
+          <div class="teaching-resources-item">
+            <h4>YouTube</h4>
+            <ul>
+              <li><a href="https://www.youtube.com/@RConsortium">R Consortium</a></li>
+              <li><a href="https://www.youtube.com/@rmcelreath">Richard McElreath</a></li>
+              <li><a href="https://www.youtube.com/@very-normal">Very Normal</a></li>
+              <li><a href="https://www.youtube.com/@simplistics_stats">Simplistics</a></li>
+            </ul>
+          </div>
+        </div>
       </section>
 
-      <!-- Testimonials Section -->
-      <section id="testimonials" itemscope itemtype="https://schema.org/Review">
-        <h2>Testimonials</h2>
-        <p>Selected excerpts from student feedback and course evaluations (tutoring listed on <a
-            href="https://www.doucuji.eu/381550-doucovani-srozumitelne-a-lidske-doucovani-statistiky-a-datove-analyzy">doucuji.eu</a>),
-          and teaching engagements at <a href="http://coderslab.cz/">Coders Lab</a> and <a
-            href="https://www.datova-akademie.cz/">Data Academy</a>.</p>
+      <!-- Gallery Section -->
+      <section id="teaching-gallery">
+        <h2>Gallery</h2>
+        <div class="gallery">
+          <div class="gallery-legend">
+            <span>
+              <span class="color-dot blue"></span>
+              <span>Statistics</span>
+            </span>
+            <span>
+              <span class="color-dot yellow"></span>
+              <span>Educational</span>
+            </span>
+          </div>
 
-        <div class="testimonial-carousel">
-          <button class="testimonial-arrow testimonial-arrow-left" aria-label="Previous testimonial">&#10094;</button>
-          <div class="testimonial-cards"></div>
-          <button class="testimonial-arrow testimonial-arrow-right" aria-label="Next testimonial">&#10095;</button>
+          <div class="gallery-thumbnails">
+            <button type="button" class="gallery-link meme">
+              <img src="assets/imgs/yea_this_might_happen.jpeg"
+                data-source="https://x.com/miniapeur/status/1723632801516298401"
+                alt="Statistical meme from miniapeur on Twitter" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link meme">
+              <img src="assets/imgs/mumble_clt.jpeg"
+                data-source="https://x.com/DataSciFact/status/1824447539044556869"
+                alt="Central Limit Theorem meme from DataSciFact on Twitter" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link meme">
+              <img src="assets/imgs/iq_median.jpeg" data-source="https://x.com/tunguz/status/1864308697289380061"
+                alt="IQ median statistics meme from tunguz on Twitter" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link meme">
+              <img src="assets/imgs/data_vibe.jpeg" data-source="https://x.com/NeerajKA/status/1804864851312890141"
+                alt="Data science vibe meme from NeerajKA on Twitter" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link meme">
+              <img src="assets/imgs/child_weight.png"
+                data-source="https://x.com/pronounced_kyle/status/1768852493092680036"
+                alt="Child weight statistics meme from pronounced_kyle on Twitter" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link meme">
+              <img src="assets/imgs/stat_math.jpeg" data-source="https://x.com/pickover/status/1738720315566391486"
+                alt="Statistics vs math meme from pickover on Twitter" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link meme">
+              <img src="assets/imgs/size.jpeg" data-source="https://x.com/miniapeur/status/1737058739956420878"
+                alt="Sample size meme from miniapeur on Twitter" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link educ">
+              <img src="assets/imgs/sas.png" data-source="https://x.com/StefanFrancisci/status/1805256795469885597"
+                alt="SAS programming educational content from StefanFrancisci on Twitter" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link educ">
+              <img src="assets/imgs/russia_elections.jpeg"
+                data-source="https://x.com/martinmbauer/status/1769672126905090386"
+                alt="Russia elections data visualization from martinmbauer on Twitter" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link educ">
+              <img src="assets/imgs/gym.jpeg" data-source="https://x.com/sonukg4india/status/1743483491508171110"
+                alt="Gym statistics educational content from sonukg4india on Twitter" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link educ">
+              <img src="assets/imgs/sampling_bias.jpg" data-source="https://x.com/Whiskeypunk1/status/1861167858899693769"
+                alt="Sampling bias joke from Whiskeypunk1 on Twitter" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link meme">
+              <img src="assets/imgs/type_1_2.jpg"
+                data-source="https://www.reddit.com/r/APStudents/comments/1rlxyl7/just_finished_my_stats_test/"
+                alt="Type 1 and 2 errors from r/Usual_Adagio_5059 on Reddit" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link meme">
+              <img src="assets/imgs/thesis.webp" data-source="https://www.reddit.com/r/me_irl/comments/1to3oiw/me_irl/"
+                alt="Thesis meme from u/XAE_Warthog on Reddit" loading="lazy">
+            </button>
+            <button type="button" class="gallery-link meme">
+              <img src="assets/imgs/null_hypothesis_simpsons.jpeg"
+                data-source="https://www.reddit.com/r/statisticsmemes/comments/1ww2h23/you_can_never_accept_null_hypothesis/"
+                alt="Failing to reject the null hypothesis meme from r/statisticsmemes on Reddit" loading="lazy">
+            </button>
+          </div>
         </div>
       </section>
     </main>
@@ -486,7 +459,7 @@
     <!-- Footer -->
     <footer>
       <p>Made with <span class="heart" role="img" aria-label="love">❤️</span> &amp; AI · &copy; <time
-          datetime="2025">2025</time> Michal Lauer.</p>
+          datetime="2026">2026</time> Michal Lauer.</p>
     </footer>
   </div>
 
