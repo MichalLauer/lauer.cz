@@ -1,7 +1,7 @@
 # Canonical clean URLs.
 /index.html       /                 301
 /sluzby           /sluzby/          301
-/*/index.html     /:splat           301
+/*/index.html     /:splat/          301
 
 # Short CV URL without duplicate crawlable content.
 /cv               /assets/cv.pdf    301

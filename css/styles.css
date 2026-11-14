@@ -585,7 +585,7 @@ section {
 .linkedin-label { top: 40px; left: -20px; }
 .github-label { bottom: 10px; left: 40px; }
 .researchgate-label { bottom: 20px; left: 120px; }
-.resume-label { top: 40px; right: -20px; }
+.resume-label { top: 40px; right: 20px; }
 
 .arrows-svg {
   position: absolute;
