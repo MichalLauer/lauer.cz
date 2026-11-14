@@ -31,31 +31,38 @@ function initTooltips() {
 
     const positionTooltip = () => {
       if (!tooltip) return;
-      
+
+      // The tooltip is position: fixed, so viewport coordinates are used directly.
       const rect = el.getBoundingClientRect();
       const ttRect = tooltip.getBoundingClientRect();
-      const top = window.scrollY + rect.top - ttRect.height - 10;
+      const top = Math.max(10, rect.top - ttRect.height - 10);
       const left = Math.max(10, Math.min(
-        window.scrollX + rect.left + (rect.width - ttRect.width) / 2,
+        rect.left + (rect.width - ttRect.width) / 2,
         window.innerWidth - ttRect.width - 10
       ));
-      
+
       tooltip.style.top = `${top}px`;
       tooltip.style.left = `${left}px`;
     };
 
-    el.addEventListener('mouseenter', () => {
+    const showTooltip = () => {
+      // Only one tooltip can be open at a time
+      document.querySelectorAll('.floating-tooltip').forEach(t => t.remove());
       el.setAttribute('title', '');
       tooltip = createTooltip();
       positionTooltip();
-    });
+    };
 
-    el.addEventListener('mousemove', positionTooltip);
-
-    el.addEventListener('mouseleave', () => {
+    const hideTooltip = () => {
       el.setAttribute('title', tooltipText);
       if (tooltip) { tooltip.remove(); tooltip = null; }
-    });
+    };
+
+    el.addEventListener('mouseenter', showTooltip);
+    el.addEventListener('mousemove', positionTooltip);
+    el.addEventListener('mouseleave', hideTooltip);
+    // Touch devices fire no mouseleave after the native title tooltip opens
+    el.addEventListener('touchstart', hideTooltip, { passive: true });
   });
 }
 
@@ -89,12 +96,20 @@ function initSidebar() {
       // Place indicator inside the anchor but keep it non-interactive to the anchor by stopping propagation
       anchor.appendChild(indicator);
 
+      // A <span role="button"> inside an <a> is announced as a nested control,
+      // so the chevron is hidden from assistive tech and the submenu state is
+      // exposed on the link itself via aria-expanded.
+      indicator.setAttribute('aria-hidden', 'true');
+      indicator.removeAttribute('tabindex');
+      anchor.setAttribute('aria-expanded', 'false');
+
       const toggle = (e) => {
         e.preventDefault();
         e.stopPropagation();
         li.classList.toggle('open');
         const isOpen = li.classList.contains('open');
         indicator.setAttribute('aria-expanded', String(!!isOpen));
+        anchor.setAttribute('aria-expanded', String(isOpen));
       };
 
       indicator.addEventListener('click', toggle);
@@ -175,23 +190,15 @@ function initSidebar() {
       // Prevent navigation and toggle submenu
       e.preventDefault();
       li.classList.toggle('open');
-      // Update the aria-expanded state on the indicator if present
+      // Update the aria-expanded state (both places it is exposed)
       const ind = li.querySelector('.submenu-indicator');
-      if (ind) ind.setAttribute('aria-expanded', String(li.classList.contains('open')));
+      const open = String(li.classList.contains('open'));
+      if (ind) ind.setAttribute('aria-expanded', open);
+      target.setAttribute('aria-expanded', open);
     } else {
-      // When clicking a link (no submenu), close mobile menu so content is visible
-      if (window.closeMobileMenu) {
-        window.closeMobileMenu();
-      } else {
-        document.body.classList.remove('menu-open');
-        const menuToggle = document.querySelector('.menu-toggle');
-        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-        // remove any overlay if present
-        const overlay = document.querySelector('.menu-overlay');
-        if (overlay) overlay.remove();
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
-      }
+      // A plain link: close the mobile menu and let the click through.
+      // (The overlay/scroll-lock are cleaned up, so the link navigates normally.)
+      if (window.closeMobileMenu) window.closeMobileMenu();
     }
   });
 }
@@ -309,18 +316,35 @@ function initLightbox() {
   const nextBtn = lightbox.querySelector('.lightbox-next');
 
   let currentIndex = 0;
+  let lastFocused = null;
+
+  // The services page uses a wrapper that inherits <base target="_blank">,
+  // and the document <base> makes lightbox images report an absolute URL.
+  // Relative URLs keep the gallery images on the same origin as the page.
+  const sameOriginSrc = (url) => {
+    try {
+      const parsed = new URL(url, document.baseURI);
+      return parsed.origin === window.location.origin
+        ? parsed.pathname + parsed.search + parsed.hash
+        : url;
+    } catch (e) {
+      return url;
+    }
+  };
 
   const updateLightbox = () => {
     const linkEl = galleryLinks[currentIndex];
     const imgEl = linkEl.querySelector('img');
-    
-    lightboxImg.src = imgEl.src;
+
+    lightboxImg.src = sameOriginSrc(imgEl.currentSrc || imgEl.src);
     lightboxImg.alt = imgEl.alt;
     captionLink.href = imgEl.dataset.source || imgEl.src;
-    
+
     // Update thumbnails
     thumbContainer.querySelectorAll('img').forEach((img, idx) => {
-      img.classList.toggle('active', idx === currentIndex);
+      const active = idx === currentIndex;
+      img.classList.toggle('active', active);
+      img.setAttribute('aria-current', active ? 'true' : 'false');
     });
   };
 
@@ -328,22 +352,30 @@ function initLightbox() {
   galleryLinks.forEach((link, idx) => {
     const img = link.querySelector('img');
     const thumb = document.createElement('img');
-    thumb.src = img.src;
+    thumb.src = sameOriginSrc(img.currentSrc || img.src);
     thumb.alt = img.alt;
     thumb.dataset.index = idx;
-    thumb.addEventListener('click', () => {
-      currentIndex = idx;
-      updateLightbox();
+    // Clickable, so give it button semantics: focusable and Enter/Space aware
+    thumb.setAttribute('role', 'button');
+    thumb.setAttribute('tabindex', '0');
+    const show = () => { currentIndex = idx; updateLightbox(); };
+    thumb.addEventListener('click', show);
+    thumb.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        show();
+      }
     });
     thumbContainer.appendChild(thumb);
 
     // Gallery link click handler
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
+    link.addEventListener('click', () => {
       currentIndex = idx;
       updateLightbox();
+      lastFocused = link;
       lightbox.classList.add('show');
-      document.body.style.overflow = 'hidden';
+      setPageOverflow(true);
+      lightboxImg.focus({ preventScroll: true });
     });
   });
 
@@ -361,11 +393,15 @@ function initLightbox() {
   // Close handlers
   const closeLightbox = () => {
     lightbox.classList.remove('show');
-    document.body.style.overflow = '';
+    setPageOverflow(false);
+    if (lastFocused) {
+      lastFocused.focus({ preventScroll: true });
+      lastFocused = null;
+    }
   };
 
   closeBtn?.addEventListener('click', closeLightbox);
-  
+
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
   });
@@ -373,7 +409,7 @@ function initLightbox() {
   // Keyboard navigation
   document.addEventListener('keydown', (e) => {
     if (!lightbox.classList.contains('show')) return;
-    
+
     switch(e.key) {
       case 'Escape':
         closeLightbox();
@@ -388,42 +424,11 @@ function initLightbox() {
   });
 }
 
-// Performance optimization: Lazy loading for images
-function initLazyLoading() {
-  if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.dataset.src || img.src;
-          img.classList.remove('lazy');
-          observer.unobserve(img);
-        }
-      });
-    });
-
-    $$('img[loading="lazy"]').forEach(img => {
-      imageObserver.observe(img);
-    });
-  }
-}
-
 // Email placeholders and click-to-open-mailto behaviour
 // Keep user/domain only in JS to avoid exposing in markup
 const EMAIL_USER = 'hello';
 const EMAIL_DOMAIN = 'lauer.cz';
 const EMAIL_FULL = EMAIL_USER + '@' + EMAIL_DOMAIN;
-
-function createMailtoAnchor(email) {
-  const a = document.createElement('a');
-  a.href = 'mailto:' + email;
-  a.textContent = email;
-  a.title = email;
-  a.target = '_self';
-  a.rel = 'nofollow';
-  a.setAttribute('aria-label', 'Contact Michal Lauer');
-  return a;
-}
 
 function revealEmail(container, triggerBtn) {
   // Do NOT insert the email into the page. Open the user's mail client instead.
@@ -463,7 +468,7 @@ function initEmailPlaceholders() {
       // `.sidebar-contact` applies to this button as well.
       if (/\bsidebar-contact\b/.test(variant)) el.classList.add('sidebar-contact');
       // For header-contact (large-screen) include an envelope icon before the text
-  if (/\b(header-contact|navbar-contact)\b/.test(variant)) {
+      if (/\b(header-contact|navbar-contact)\b/.test(variant)) {
         // create the icon element (Font Awesome)
         const icon = document.createElement('i');
         icon.className = 'fas fa-envelope';
@@ -482,7 +487,7 @@ function initEmailPlaceholders() {
       if (variant) variant.split(/\s+/).forEach(c => { if (c) el.classList.add(c); });
       if (/\bsidebar-contact\b/.test(variant)) el.classList.add('sidebar-contact');
       // For header-contact (large-screen) include an envelope icon before the text
-  if (/\b(header-contact|navbar-contact)\b/.test(variant)) {
+      if (/\b(header-contact|navbar-contact)\b/.test(variant)) {
         const icon = document.createElement('i');
         icon.className = 'fas fa-envelope';
         icon.setAttribute('aria-hidden', 'true');
@@ -695,5 +700,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initLightbox();
   initEmailPlaceholders();
   initCtaEmails();
-  initLazyLoading();
 });

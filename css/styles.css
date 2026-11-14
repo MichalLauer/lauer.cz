@@ -149,12 +149,6 @@ p a {
 }
 
 /* ===== LAYOUT ===== */
-.container-main {
-  display: block;
-  min-height: 100vh;
-  width: 100%;
-}
-
 .content {
   margin-left: var(--sidebar-width);
   width: calc(100% - var(--sidebar-width));
@@ -285,14 +279,6 @@ p a {
   color: var(--accent);
 }
 
-.sidebar-bottom-item {
-  margin-top: auto;
-  width: 100%;
-  padding-bottom: 1.5rem;
-  display: flex;
-  justify-content: center;
-}
-
 /* ===== SIDEBAR PAGE SWITCHER ===== */
 /* Which part of the site you are on: About me / Services / Courses */
 .sidebar-pages {
@@ -405,6 +391,28 @@ p a {
   background: var(--accent-hover);
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
+}
+
+/* Extra class on the floating mobile contact button (added by script.js from
+   the data-variant attribute). Keep the specificity that beats `.sidebar-contact`. */
+.contact-float .sidebar-contact.navbar-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: var(--accent);
+  border: none;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.contact-float .sidebar-contact.navbar-contact:hover {
+  background: var(--accent-hover);
 }
 
 /* Page switcher sits at the very bottom of the sidebar */
@@ -805,6 +813,7 @@ body:has(.iframe-container) {
 .gallery-thumbnails .gallery-link { display: block; overflow: hidden; transition: var(--transition); }
 .gallery-thumbnails .gallery-link:hover,
 .gallery-thumbnails .gallery-link:focus-visible { transform: scale(1.05); }
+.gallery-thumbnails .gallery-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .gallery-thumbnails img { display: block; width: 100%; height: auto; object-fit: cover; box-shadow: var(--shadow); transition: var(--transition); }
 
 .gallery-thumbnails .gallery-link.meme img {
@@ -816,6 +825,8 @@ body:has(.iframe-container) {
 }
 
 /* ===== LIGHTBOX ===== */
+/* Opened by buttons, so <base target="_blank"> in the markup never applies.
+   The "View source" caption link is explicitly target="_blank". */
 .lightbox {
   position: fixed;
   top: 0;
@@ -912,6 +923,7 @@ body:has(.iframe-container) {
   transition: var(--transition);
 }
 
+/* Clickable, so it is focusable (set by script.js): give it a visible focus ring */
 .lightbox-thumbnails img.active {
   opacity: 1;
   border: 2px solid var(--accent);
@@ -920,9 +932,6 @@ body:has(.iframe-container) {
 /* ===== PAGE HEADER (subpages) ===== */
 .page-header {
   margin-top: 4rem;
-}
-
-.page-header {
   padding: 2.5rem 2rem;
 }
 
@@ -1461,18 +1470,15 @@ body:has(.iframe-container) {
               opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Middle card: pulled forward. Side cards are recede without fading the text,
-   which keeps their copy readable (and above contrast minimums). */
+/* Middle card: pulled forward. Side cards recede via scale and colour rather
+   than fading, which keeps their copy readable (and above contrast minimums). */
 .ref-card.is-active {
-  opacity: 1;
-}
-
-.ref-card.is-side {
   opacity: 1;
 }
 
 /* Side cards read as secondary through colour and border, not transparency */
 .ref-card.is-side {
+  opacity: 1;
   border-left-color: rgba(65, 128, 58, 0.45);
 }
 
@@ -1576,12 +1582,12 @@ body:has(.iframe-container) {
   cursor: default;
 }
 
-/* ===== TESTIMONIALS ===== */
-  /* Math blocks: allow horizontal scroll on small screens (KaTeX/MathJax) */
-  p:has(.math) {
-    overflow-x: scroll !important;
-    overflow-y: hidden !important;
-  }
+/* ===== MATH BLOCKS ===== */
+/* Allow horizontal scroll on small screens (KaTeX/MathJax) */
+p:has(.math) {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
 
 /* ===== FOOTER ===== */
 footer {
@@ -1700,11 +1706,6 @@ footer {
     box-shadow: var(--shadow);
   }
 
-  /* Hide the contact that lives inside the sidebar to avoid duplicates on mobile */
-  .sidebar .sidebar-bottom-item {
-    display: none;
-  }
-
   .burger-line {
     display: block;
     width: 22px;
@@ -1719,6 +1720,7 @@ footer {
     top: 0;
     left: 0;
     width: 100%;
+    height: 100%;
     background: rgba(0,0,0,0.35);
     opacity: 0;
     pointer-events: none;
@@ -1797,16 +1799,6 @@ footer {
     font-size: 2rem;
   }
 
-  .service-header {
-    gap: 0.9rem;
-  }
-
-  .service-icon {
-    width: 44px;
-    height: 44px;
-    font-size: 1.2rem;
-  }
-
   .service-grid {
     grid-template-columns: 1fr;
   }
@@ -1829,6 +1821,11 @@ footer {
   .ref-arrow {
     width: 34px;
     height: 34px;
+  }
+
+  /* Keep the arrow vertically centred on phones too */
+  .ref-arrow:active {
+    transform: translateY(-50%) scale(0.95);
   }
 
   .faq-question {
@@ -1889,6 +1886,21 @@ footer {
   
   .icon-label {
     font-size: 0.8rem;
+  }
+}
+
+/* Respect the user's motion preference for the site-wide transitions */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
