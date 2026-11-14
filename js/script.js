@@ -66,140 +66,14 @@ function initTooltips() {
   });
 }
 
-// Sidebar submenu functionality
+// Close the mobile sidebar after following a navigation link.
 function initSidebar() {
   const sidebar = $('.sidebar');
   if (!sidebar) return;
 
-  const menuItems = sidebar.querySelectorAll('li');
-
-  // Add indicators (chevrons) to items that contain submenus.
-  function addIndicators() {
-    menuItems.forEach(li => {
-      const sub = li.querySelector('ul');
-      if (!sub) return;
-
-      const anchor = li.querySelector('a');
-      if (!anchor) return;
-
-      // Avoid adding duplicate indicators
-      if (anchor.querySelector('.submenu-indicator')) return;
-
-      const indicator = document.createElement('span');
-      indicator.className = 'submenu-indicator';
-      indicator.setAttribute('role', 'button');
-      indicator.setAttribute('tabindex', '0');
-      indicator.setAttribute('aria-expanded', 'false');
-      indicator.setAttribute('aria-label', 'Toggle submenu');
-      indicator.innerHTML = '<svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-
-      // Place indicator inside the anchor but keep it non-interactive to the anchor by stopping propagation
-      anchor.appendChild(indicator);
-
-      // A <span role="button"> inside an <a> is announced as a nested control,
-      // so the chevron is hidden from assistive tech and the submenu state is
-      // exposed on the link itself via aria-expanded.
-      indicator.setAttribute('aria-hidden', 'true');
-      indicator.removeAttribute('tabindex');
-      anchor.setAttribute('aria-expanded', 'false');
-
-      const toggle = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        li.classList.toggle('open');
-        const isOpen = li.classList.contains('open');
-        indicator.setAttribute('aria-expanded', String(!!isOpen));
-        anchor.setAttribute('aria-expanded', String(isOpen));
-      };
-
-      indicator.addEventListener('click', toggle);
-      indicator.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); toggle(e); }
-      });
-    });
-  }
-
-  // Ensure indicators exist immediately
-  addIndicators();
-
-  // We'll enable hover behavior only on desktop-sized viewports and
-  // remove it for small screens so click/tap toggles work reliably.
-  const hoverHandlers = new Map();
-
-  function enableHover() {
-    menuItems.forEach(li => {
-      if (hoverHandlers.has(li)) return; // already added
-      const onEnter = () => li.classList.add('open');
-      const onLeave = () => li.classList.remove('open');
-      li.addEventListener('mouseenter', onEnter);
-      li.addEventListener('mouseleave', onLeave);
-      hoverHandlers.set(li, { onEnter, onLeave });
-    });
-
-    if (!sidebar._desktopMouseLeave) {
-      sidebar._desktopMouseLeave = () => menuItems.forEach(li => li.classList.remove('open'));
-      sidebar.addEventListener('mouseleave', sidebar._desktopMouseLeave);
-    }
-  }
-
-  function disableHover() {
-    hoverHandlers.forEach((h, li) => {
-      li.removeEventListener('mouseenter', h.onEnter);
-      li.removeEventListener('mouseleave', h.onLeave);
-    });
-    hoverHandlers.clear();
-    if (sidebar._desktopMouseLeave) {
-      sidebar.removeEventListener('mouseleave', sidebar._desktopMouseLeave);
-      delete sidebar._desktopMouseLeave;
-    }
-    // Ensure no submenu remains accidentally open when switching modes
-    menuItems.forEach(li => {
-      li.classList.remove('open');
-      const ind = li.querySelector('.submenu-indicator');
-      if (ind) ind.setAttribute('aria-expanded', 'false');
-    });
-  }
-
-  function updateSidebarMode() {
-    if (window.innerWidth > 768) enableHover();
-    else disableHover();
-  }
-
-  // Initialize based on current viewport and keep in sync on resize
-  updateSidebarMode();
-  window.addEventListener('resize', () => {
-    // Simple throttle to avoid toggling too often
-    clearTimeout(sidebar._resizeTimeout);
-    sidebar._resizeTimeout = setTimeout(updateSidebarMode, 120);
-  });
-
-  // Mobile: allow clicking parent links to toggle submenu
-  // Use event delegation for simplicity
   sidebar.addEventListener('click', (e) => {
-    const target = e.target.closest('a');
-    if (!target) return;
-
-    // Only on small screens
     if (window.innerWidth > 768) return;
-
-    const li = target.closest('li');
-    if (!li) return;
-
-    const sub = li.querySelector('ul');
-    if (sub) {
-      // Prevent navigation and toggle submenu
-      e.preventDefault();
-      li.classList.toggle('open');
-      // Update the aria-expanded state (both places it is exposed)
-      const ind = li.querySelector('.submenu-indicator');
-      const open = String(li.classList.contains('open'));
-      if (ind) ind.setAttribute('aria-expanded', open);
-      target.setAttribute('aria-expanded', open);
-    } else {
-      // A plain link: close the mobile menu and let the click through.
-      // (The overlay/scroll-lock are cleaned up, so the link navigates normally.)
-      if (window.closeMobileMenu) window.closeMobileMenu();
-    }
+    if (e.target.closest('a') && window.closeMobileMenu) window.closeMobileMenu();
   });
 }
 
@@ -208,11 +82,6 @@ function initMobileMenu() {
   const toggle = document.querySelector('.menu-toggle');
   const sidebar = document.querySelector('.sidebar');
   if (!toggle || !sidebar) return;
-
-  // Make non-button toggle keyboard-accessible (Enter / Space)
-  toggle.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); toggle.click(); }
-  });
 
   const ensureOverlay = () => {
     let overlay = document.querySelector('.menu-overlay');
@@ -354,6 +223,8 @@ function initLightbox() {
     const thumb = document.createElement('img');
     thumb.src = sameOriginSrc(img.currentSrc || img.src);
     thumb.alt = img.alt;
+    thumb.loading = 'lazy';
+    thumb.decoding = 'async';
     thumb.dataset.index = idx;
     // Clickable, so give it button semantics: focusable and Enter/Space aware
     thumb.setAttribute('role', 'button');
@@ -478,7 +349,6 @@ function initEmailPlaceholders() {
       } else {
         el.textContent = text;
       }
-      el.setAttribute('aria-label', 'Contact Michal Lauer');
       el.addEventListener('click', function () { revealEmail(ph, el); });
     } else {
       el = document.createElement('a');
@@ -497,7 +367,6 @@ function initEmailPlaceholders() {
         el.textContent = text;
       }
       el.setAttribute('role', 'button');
-      el.setAttribute('aria-label', 'Contact Michal Lauer');
       el.addEventListener('click', function (e) { e.preventDefault(); revealEmail(ph, el); });
       el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); el.click(); } });
     }
@@ -690,9 +559,8 @@ function initRefCarousels() {
   });
 }
 
-// External links open in a new tab. Pages without <base target="_blank"> (the
-// services page) rely on this, so in-page anchors and internal links are left
-// alone. Same-origin links keep the current tab.
+// External links open in a new tab with safe rel attributes.
+// Same-origin and in-page links are left alone.
 function initExternalLinks() {
   document.querySelectorAll('a[href^="http"]').forEach(link => {
     if (link.target || link.hostname === window.location.hostname) return;

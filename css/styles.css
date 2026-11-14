@@ -75,19 +75,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== UTILITIES & ACCESSIBILITY ===== */
-/* Utility helpers (visually-hidden, focus outlines) used across components */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
+/* ===== ACCESSIBILITY ===== */
 /* Focus styles for accessibility */
 a:focus,
 button:focus,
@@ -212,71 +200,6 @@ p a {
 
 .sidebar ul li a:hover::after {
   width: 100%;
-}
-
-/* Submenu indicator (chevron) positioned inside the link on the right */
-.submenu-indicator {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: transparent;
-  color: currentColor;
-  cursor: pointer;
-  transition: transform 0.18s ease, color 0.18s ease;
-}
-
-.submenu-indicator:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* Rotate chevron when submenu is open */
-.sidebar ul li.open > a .submenu-indicator {
-  transform: translateY(-50%) rotate(180deg);
-}
-
-/* Sidebar Submenus */
-.sidebar ul li ul {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, opacity 0.4s ease;
-  padding-left: 2rem;
-}
-
-.sidebar ul li.open > ul {
-  max-height: 500px;
-  opacity: 1;
-}
-
-.sidebar ul li ul li {
-  margin: 0.3rem 0;
-  position: relative;
-  padding-left: 1rem;
-  transform: translateX(-10px);
-  opacity: 0;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-.sidebar ul li.open > ul li {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.sidebar ul li ul li::before {
-  content: '•';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--accent);
 }
 
 /* ===== SIDEBAR PAGE SWITCHER ===== */
@@ -433,26 +356,6 @@ section {
   background: var(--card-bg);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
-}
-
-body:has(.iframe-container) {
-  overflow: hidden;
-}
-
-.iframe-container {
-  margin-left: var(--sidebar-width);
-}
-
-.iframe-container iframe {
-  display: block;
-  margin: 2rem auto;
-  width: 100%;
-  max-width: var(--content-width);
-  height: 100vh;
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  border: none;
 }
 
 /* ===== LANDING & PROFILE ===== */
@@ -631,7 +534,9 @@ body:has(.iframe-container) {
 
 /* ===== SOCIAL ICONS ===== */
 .icons {
-  margin-top: 1.5rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -674,7 +579,7 @@ body:has(.iframe-container) {
   position: absolute;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--arrow-color);
+  color: var(--arrow-deep);
 }
 
 .linkedin-label { top: 40px; left: -20px; }
@@ -724,6 +629,10 @@ body:has(.iframe-container) {
 .teaching-resources-item:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
+}
+
+.teaching-resources-item h3 {
+  font-size: 1.3rem;
 }
 
 .teaching-resources-item ul {
@@ -856,7 +765,11 @@ body:has(.iframe-container) {
   position: absolute;
   top: 20px;
   right: 30px;
+  padding: 0;
+  border: 0;
+  background: none;
   color: #fff;
+  font-family: inherit;
   font-size: 2rem;
   cursor: pointer;
   transition: var(--transition);
@@ -870,6 +783,9 @@ body:has(.iframe-container) {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  border: 0;
+  background: none;
+  font-family: inherit;
   font-size: 3rem;
   color: #fff;
   padding: 0 1rem;
@@ -1456,6 +1372,7 @@ body:has(.iframe-container) {
 .ref-card {
   position: absolute;
   top: 50%;
+  margin: 0;
   left: 0;
   width: var(--ref-card-width, 260px);
   box-sizing: border-box;
@@ -1581,13 +1498,6 @@ body:has(.iframe-container) {
 .ref-arrow:disabled {
   opacity: 0.4;
   cursor: default;
-}
-
-/* ===== MATH BLOCKS ===== */
-/* Allow horizontal scroll on small screens (KaTeX/MathJax) */
-p:has(.math) {
-  overflow-x: auto;
-  overflow-y: hidden;
 }
 
 /* ===== FOOTER ===== */

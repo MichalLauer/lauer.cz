@@ -50,7 +50,7 @@
   <meta property="og:locale:alternate" content="en_US">
   <meta property="og:site_name" content="Michal Lauer">
 
-  <!-- Twitter / X -->
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Doučování statistiky, konzultace a spolupráce | Michal Lauer">
   <meta name="twitter:description"
@@ -59,11 +59,8 @@
   <meta name="twitter:image:alt" content="Michal Lauer, statistik a lektor">
 
   <!--
-    Structured data. @id values are shared with index.html, so search engines
-    connect the person, the site and this offer into one entity.
-    FAQPage mirrors exactly the questions visible in the FAQ section below.
-    The OfferCatalog has no @id of its own in the service section, so it is
-    linked from the page through mainEntity only.
+    Structured data uses shared @id values to connect this page, its offers
+    and the person. Every value describes content visible to visitors.
   -->
   <script type="application/ld+json">
     {
@@ -193,54 +190,6 @@
               "availability": "https://schema.org/InStock"
             }
           ]
-        },
-        {
-          "@type": "FAQPage",
-          "@id": "https://lauer.cz/sluzby/#faq",
-          "inLanguage": "cs",
-          "isPartOf": { "@id": "https://lauer.cz/sluzby/#webpage" },
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Kdy probíhá doučování nebo konzultace?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Čas mám primárně každý všední den po 18:00, případně o víkendu nebo o státních svátcích."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Jak jste na tom časově se spoluprací?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Nejvíce mi vyhovují večerní nebo víkendové kurzy, což je forma, jakou proběhly téměř všechny předchozí spolupráce."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Jak se spojíme online?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Online doučování probíhá přes evropskou zabezpečenou platformu mailbox.org a její Meet. Dostanete odkaz, na který kliknete, vložíte své jméno a jsme spojeni. Platforma Meet obsahuje nástroje i pro vedení kurzů, jako je rozdělení do skupin, přestávka na kávu, moderace nebo průzkumy."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Jak funguje placení?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Pro platbu vždy dostanete vystavenou fakturu, ze které stačí naskenovat QR kód."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Je možné se sejít osobně?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Pro doučování a konzultace bohužel ne, v těchto případech se spojíme pouze online. U spolupráce je osobní setkání samozřejmě možné."
-              }
-            }
-          ]
         }
       ]
     }
@@ -257,14 +206,14 @@
   <div class="container">
 
     <!-- Mobile menu toggle (burger) -->
-    <span class="menu-toggle" role="button" tabindex="0" aria-controls="main-navigation" aria-expanded="false"
+    <button type="button" class="menu-toggle" aria-controls="main-navigation" aria-expanded="false"
       aria-label="Přepnout navigaci">
       <svg class="menu-icon" width="28" height="22" viewBox="0 0 28 22" aria-hidden="true" focusable="false">
         <rect class="burger-line" x="0" y="2" width="28" height="2" rx="1"></rect>
         <rect class="burger-line" x="0" y="10" width="28" height="2" rx="1"></rect>
         <rect class="burger-line" x="0" y="18" width="28" height="2" rx="1"></rect>
       </svg>
-    </span>
+    </button>
 
     <!-- Floating contact for small screens -->
     <span class="contact-float">
@@ -277,22 +226,17 @@
     </span>
 
     <!-- Navigation Sidebar -->
-    <nav id="main-navigation" class="sidebar" role="navigation" aria-label="Hlavní navigace">
+    <nav id="main-navigation" class="sidebar" aria-label="Hlavní navigace">
 
       <!-- Top CTA -->
-      <div class="sidebar-header">
-        <span class="sidebar-header-blank" aria-hidden="true"></span>
-        <div class="sidebar-header-controls">
-          <div class="sidebar-header-contact">
-            <span class="mail-placeholder" data-text="Napište mi!"
-              data-variant="header-contact sidebar-contact"></span>
-            <noscript>
-              <span class="sidebar-contact-noscript" title="Kontakt Michal Lauer">
-                Napište mi!<br>(hello [at] lauer [dot] cz)
-              </span>
-            </noscript>
-          </div>
-        </div>
+      <div class="sidebar-header-contact">
+        <span class="mail-placeholder" data-text="Napište mi!"
+          data-variant="header-contact sidebar-contact"></span>
+        <noscript>
+          <span class="sidebar-contact-noscript" title="Kontakt Michal Lauer">
+            Napište mi!<br>(hello [at] lauer [dot] cz)
+          </span>
+        </noscript>
       </div>
 
       <!-- Main menu -->
@@ -336,7 +280,7 @@
 
       <!-- Page header -->
       <section id="sluzby" class="page-header">
-        <h1>Služby</h1>
+        <h1>Doučování statistiky, konzultace a spolupráce</h1>
         <p>
           Pomáhám studentům, školám a firmám zvládnout statistiku, práci s daty a programování. Doučování i konzultace
           probíhají online v češtině nebo angličtině, první setkání na 30 minut je zdarma.
@@ -466,90 +410,90 @@
           </button>
           <div class="ref-viewport">
             <div class="ref-track">
-              <article class="ref-card">
+              <figure class="ref-card">
                 <p class="ref-text">Skvělá domluva, termíny apod. Doučování samotné super, vysvětlení srozumitelné, 10/10, doporučuji.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Anna Š.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Pan Lauer mi pomáhal s doučováním ze statistiky a programem R, byla jsem opravdu začátečník a díky pár hodinám doučování jsem úspěšně složila zapocet.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Dora L.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Studuji psychologii a statistika je pro mě naprosto cizí. Jsem strašně ráda za to, že jsem objevila pana Lauera. Díky němu se mi podařilo úspěšně spočítat řadu příkladů a uspět u zkoušky na první pokus…</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Andrea D.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">+ Velmi rychlá domluva na termínu. + Profesionální a zároveň lidský přístup. + Pan Michal vše vysvětlil srozumitelnou řečí. + Na hodinu se předem dokonale připravil - velká úspora času…</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Michaela Š.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Pan Lauer mi byl schopen pomoct a vysvětlit danou látku ve velice krátkém čase, navíc se stihl na doučování skvěle připravit…</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Zbyněk H.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">S panem Lauerem jsme se dokázali domluvit na termínu pouhý den dopředu. Pan Lauer byl velmi dobře připravený, abychom se nemuseli zdržovat během samotné výuky…</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Jan S.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Velmi efektivní, cílené, doučování, vstřícné časově, přizpůsobivé dané problematice. Milý, sympatický. Doporučuji.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Monika Š.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Obrovská spokojenost s panem Lauerem. Je velice ochotný a na látku velmi dobře připravený. Na každou mou otázku následovala okamžitá a perfektně vysvětlená odpověď…</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Vendula K.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Michalovi tímto děkujeme za skvělou spolupráci. Je to velmi vstřícný, trpělivý a pečlivý doučovatel. Ocenila jsem výbornou komunikaci a přístup k zadanému úkolu…</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Alexandra P.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Skvelá spolupráca, pán Michal je veľmi priateľský a nápomocný. Určite odporúčam aj pre dáta z oblasti prírodných vied.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Marika K.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Velmi trpělivý, vstřícný a flexibilní</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Jakub F.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Michal, bych ochotný, moc doporučuji.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Kateřina F.</a></p>
                 </div>
-              </article>
+              </figure>
             </div>
           </div>
           <button type="button" class="ref-arrow ref-arrow-next" aria-label="Další reference">
@@ -614,62 +558,62 @@
           </button>
           <div class="ref-viewport">
             <div class="ref-track">
-              <article class="ref-card">
+              <figure class="ref-card">
                 <p class="ref-text">Pan Lauer je velice ochotný a příjemný člověk, který mi pomohl s dotazníkovým šetřením do diplomové práce. Jednoznačně doporučuji 😊</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Jana H.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Pan Michal mi velmi pomohl při zpracovávání dat z dotazníkového šetření pro moji diplomovou práci. Konzultace byly skvělé, měla jsem prostor se doptávat…</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Andrea K.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Spolupráce s Michalem při zpracování statistické části mé diplomové práce byla velmi příjemná a přínosná. Velmi si cením jeho klidného a trpělivého přístupu…</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Nela O.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Pana Michala na 100 % doporučuji. Velká pomoc při DP. Velmi rychlá domluva na konzultacích. Na jakékoli otázky okamžitě reagoval a vysvětlil.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Mgr. I.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Velmi doporučuji, pokud potřebujete poradit se statistikou v rámci své vysokoškolské práce určitě se neváhejte obrátit na pana Michala.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Petra M.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Skvělá komunikace, rychlost, příjemná cena. Pan Lauer mi velice rychle poskytl konzultaci ohledně VŠ statistiky, hodina byla příjemná, vše lidsky vysvětleno a popsáno.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Zuzana P.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Nemůžu si vynachválit Pana Lauera z mnoha důvodů, jako je rychlost, připravenost a neskutečná ochota.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Andy V.</a></p>
                 </div>
-              </article>
-              <article class="ref-card">
+              </figure>
+              <figure class="ref-card">
                 <p class="ref-text">Jsem velmi spokojený, příjmený, rychlá domluva. Doporučuji.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy">Petr S.</a></p>
                 </div>
-              </article>
+              </figure>
             </div>
           </div>
           <button type="button" class="ref-arrow ref-arrow-next" aria-label="Další reference">
@@ -732,7 +676,7 @@
                 <span>Datová analýza v Excelu</span>
               </span>
             </a>
-            <a class="preview-tile" href="https://github.com/MichalLauer/zaklady-r-markdown-pro-vedce" target="_blank" rel="noopener">
+            <a class="preview-tile" href="https://github.com/MichalLauer/zaklady-rmd" target="_blank" rel="noopener">
               <span class="preview-label">
                 <i class="fas fa-file-lines" aria-hidden="true"></i>
                 <span>Základy R Markdownu pro vědce</span>
@@ -768,59 +712,59 @@
           </button>
           <div class="ref-viewport">
             <div class="ref-track">
-              <article class="ref-card">
+              <figure class="ref-card">
                 <h4 class="ref-title">Datový inženýr pro finanční akciová data</h4>
                 <p class="ref-text">Práce s akciovými daty: jejich sběr, čištění a zpracování v jazyce R.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://nutit.cz" target="_blank" rel="noopener">nutit.cz</a></p>
                 </div>
-              </article>
+              </figure>
 
-              <article class="ref-card">
+              <figure class="ref-card">
                 <h4 class="ref-title">Spolupráce na statistických konzultacích a projektech</h4>
                 <p class="ref-text">Spolupráce na statistických konzultacích a projektech pro klienty.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://mojestatistika.cz" target="_blank" rel="noopener">mojestatistika.cz</a></p>
                 </div>
-              </article>
+              </figure>
 
-              <article class="ref-card">
+              <figure class="ref-card">
                 <h4 class="ref-title">Soukromá výuka datové analýzy, Excelu a Pythonu</h4>
                 <p class="ref-text">Výuka kurzů zaměřených na datovou analýzu, Excel a Python.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://coderslab.cz/cz/kurzy/data-analyst" target="_blank" rel="noopener">coderslab.cz</a></p>
                 </div>
-              </article>
+              </figure>
 
-              <article class="ref-card">
+              <figure class="ref-card">
                 <h4 class="ref-title">Výuka statistických kurzů v češtině</h4>
                 <p class="ref-text">Výuka statistických kurzů na vysoké škole v češtině.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source">Vysoká škola ekonomická v Praze</p>
                 </div>
-              </article>
+              </figure>
 
-              <article class="ref-card">
+              <figure class="ref-card">
                 <h4 class="ref-title">Výuka statistických kurzů v angličtině</h4>
                 <p class="ref-text">Výuka statistických kurzů na americké univerzitě v angličtině.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://www.newhaven.edu" target="_blank" rel="noopener">University of New Haven</a></p>
                 </div>
-              </article>
+              </figure>
 
-              <article class="ref-card">
+              <figure class="ref-card">
                 <h4 class="ref-title">DataBon Datová akademie</h4>
                 <p class="ref-text">Výuka statistické práce v Excelu a úvod do moderní práce s R Markdownem.</p>
                 <div class="ref-meta">
                   <span class="ref-number" aria-hidden="true"></span>
                   <p class="ref-source"><a href="https://datova-akademie.cz/" target="_blank" rel="noopener">DataBon</a></p>
                 </div>
-              </article>
+              </figure>
             </div>
           </div>
           <button type="button" class="ref-arrow ref-arrow-next" aria-label="Další zkušenost">
@@ -923,7 +867,7 @@
     <!-- Footer -->
     <footer>
       <p>Vytvořeno s <span class="heart" role="img" aria-label="láskou">❤️</span> &amp; AI &middot; &copy;
-        <time datetime="2026">2026</time> Michal Lauer.</p>
+        <time datetime="2026">2026</time> Michal Lauer</p>
     </footer>
   </div>
 

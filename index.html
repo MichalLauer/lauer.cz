@@ -66,8 +66,7 @@
     referenced instead of repeated. Links: Person → WebSite (publisher),
     WebSite → Person (author), Person → services offer (sameAs inverse).
     Google reads Person and ProfilePage; the WebSite node supplies the site
-    name shown above the result; BreadcrumbList and FAQPage only on /sluzby/,
-    where that content is visible.
+    name shown above the result; BreadcrumbList is only on /sluzby/.
     Every value here describes something a visitor can see on this page.
   -->
   <script type="application/ld+json">
@@ -198,13 +197,13 @@
   <div class="container">
 
 <!-- Mobile menu toggle (burger) -->
-<span class="menu-toggle" role="button" tabindex="0" aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation">
+<button type="button" class="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation">
   <svg class="menu-icon" width="28" height="22" viewBox="0 0 28 22" aria-hidden="true" focusable="false">
     <rect class="burger-line" x="0" y="2" width="28" height="2" rx="1"></rect>
     <rect class="burger-line" x="0" y="10" width="28" height="2" rx="1"></rect>
     <rect class="burger-line" x="0" y="18" width="28" height="2" rx="1"></rect>
   </svg>
-</span>
+</button>
 
 <!-- Floating contact for small screens -->
 <span class="contact-float">
@@ -217,21 +216,16 @@
 </span>
 
 <!-- Navigation Sidebar -->
-<nav id="main-navigation" class="sidebar" role="navigation" aria-label="Main Navigation">
+<nav id="main-navigation" class="sidebar" aria-label="Main Navigation">
 
   <!-- Top CTA -->
-  <div class="sidebar-header">
-    <span class="sidebar-header-blank" aria-hidden="true"></span>
-    <div class="sidebar-header-controls">
-      <div class="sidebar-header-contact">
-        <span class="mail-placeholder" data-text="Write me!" data-variant="header-contact sidebar-contact"></span>
-        <noscript>
-          <span class="sidebar-contact-noscript" title="Contact Michal Lauer">
-            Write me!<br>(hello [at] lauer [dot] cz)
-          </span>
-        </noscript>
-      </div>
-    </div>
+  <div class="sidebar-header-contact">
+    <span class="mail-placeholder" data-text="Write me!" data-variant="header-contact sidebar-contact"></span>
+    <noscript>
+      <span class="sidebar-contact-noscript" title="Contact Michal Lauer">
+        Write me!<br>(hello [at] lauer [dot] cz)
+      </span>
+    </noscript>
   </div>
 
   <!-- Main menu -->
@@ -285,24 +279,32 @@
           </div>
 
           <!-- Social Media Icons -->
-          <div class="icons" role="list" aria-label="Social Media Links">
-            <a class="icon-link" role="listitem" href="https://www.linkedin.com/in/michal-lauer/" rel="me noopener noreferrer"
-              title="LinkedIn Profile" aria-label="Visit LinkedIn Profile">
-              <i class="fab fa-linkedin" aria-hidden="true"></i>
-            </a>
-            <a class="icon-link" role="listitem" href="https://github.com/MichalLauer" rel="me noopener noreferrer" title="GitHub Profile"
-              aria-label="Visit GitHub Profile">
-              <i class="fab fa-github" aria-hidden="true"></i>
-            </a>
-            <a class="icon-link" role="listitem" href="https://www.researchgate.net/profile/Michal-Lauer" rel="me noopener noreferrer"
-              title="ResearchGate Profile" aria-label="Visit ResearchGate Profile">
-              <i class="fab fa-researchgate" aria-hidden="true"></i>
-            </a>
-            <a class="icon-link" role="listitem" href="/assets/cv.pdf" rel="noopener noreferrer" title="Download CV"
-              aria-label="Download CV">
-              <i class="fas fa-file-arrow-down" aria-hidden="true"></i>
-            </a>
-          </div>
+          <ul class="icons" aria-label="Social Media Links">
+            <li>
+              <a class="icon-link" href="https://www.linkedin.com/in/michal-lauer/" rel="me noopener noreferrer"
+                title="LinkedIn Profile" aria-label="Visit LinkedIn Profile">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="icon-link" href="https://github.com/MichalLauer" rel="me noopener noreferrer" title="GitHub Profile"
+                aria-label="Visit GitHub Profile">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="icon-link" href="https://www.researchgate.net/profile/Michal-Lauer" rel="me noopener noreferrer"
+                title="ResearchGate Profile" aria-label="Visit ResearchGate Profile">
+                <i class="fab fa-researchgate" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="icon-link" href="/assets/cv.pdf" rel="noopener noreferrer" title="Download CV"
+                aria-label="Download CV">
+                <i class="fas fa-file-arrow-down" aria-hidden="true"></i>
+              </a>
+            </li>
+          </ul>
 
           <!-- Icon Labels with Arrows -->
           <div class="icon-labels-container">
@@ -378,7 +380,7 @@
         <h2>Resources</h2>
         <div class="teaching-resources-list">
           <div class="teaching-resources-item">
-            <h4>Stats</h4>
+            <h3>Stats</h3>
             <ul>
               <li><a href="https://rpsychologist.com/viz/" rel="noopener">R Psychologist</a></li>
               <li><a href="https://www.math.wm.edu/~leemis/chart/UDR/UDR.html" rel="noopener">Distributions</a></li>
@@ -387,7 +389,7 @@
           </div>
 
           <div class="teaching-resources-item">
-            <h4>Books</h4>
+            <h3>Books</h3>
             <ul>
               <li><a href="https://feaz-book.com/" rel="noopener">Feature Engineering A-Z</a></li>
               <li><a href="https://www.bigbookofr.com/" rel="noopener">Big Book of R</a></li>
@@ -397,7 +399,7 @@
           </div>
 
           <div class="teaching-resources-item">
-            <h4>Brain teasers</h4>
+            <h3>Brain teasers</h3>
             <ul>
               <li><a href="https://www.tylervigen.com/spurious-correlations" rel="noopener">Correlation ≠ Causation</a></li>
               <li><a href="https://www.research.autodesk.com/publications/same-stats-different-graphs/" rel="noopener">Numbers are
@@ -407,7 +409,7 @@
           </div>
 
           <div class="teaching-resources-item">
-            <h4>Programming</h4>
+            <h3>Programming</h3>
             <ul>
               <li><a href="https://stats.oarc.ucla.edu/other/dae/" rel="noopener">UCLA stats</a></li>
               <li><a href="https://spannbaueradam.shinyapps.io/r_regex_tester/" rel="noopener">Regex tester</a></li>
@@ -415,7 +417,7 @@
           </div>
 
           <div class="teaching-resources-item">
-            <h4>Visualization</h4>
+            <h3>Visualization</h3>
             <ul>
               <li><a href="https://www.data-to-viz.com/" rel="noopener">Data to Viz</a></li>
               <li><a href="https://exts.ggplot2.tidyverse.org/gallery/" rel="noopener">{ggplot2} extensions</a></li>
@@ -425,7 +427,7 @@
           </div>
 
           <div class="teaching-resources-item">
-            <h4>YouTube</h4>
+            <h3>YouTube</h3>
             <ul>
               <li><a href="https://www.youtube.com/@RConsortium" rel="noopener noreferrer">R Consortium</a></li>
               <li><a href="https://www.youtube.com/@rmcelreath" rel="noopener noreferrer">Richard McElreath</a></li>
@@ -522,7 +524,7 @@
     <!-- Footer -->
     <footer>
       <p>Made with <span class="heart" role="img" aria-label="love">❤️</span> &amp; AI &middot; &copy; <time
-          datetime="2026">2026</time> Michal Lauer.</p>
+          datetime="2026">2026</time> Michal Lauer</p>
       <p class="footer-links">
         <a href="https://www.linkedin.com/in/michal-lauer/" target="_blank" rel="me noopener noreferrer">LinkedIn</a>
         <span aria-hidden="true">&middot;</span>
@@ -534,11 +536,12 @@
   </div>
 
   <!-- Lightbox Modal for images -->
-  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
-    <span class="lightbox-close" aria-label="Close lightbox">&times;</span>
-    <span class="lightbox-nav lightbox-prev" aria-label="Previous image">&#10094;</span>
-    <span class="lightbox-nav lightbox-next" aria-label="Next image">&#10095;</span>
-    <img class="lightbox-img" src="" alt="" id="lightbox-title">
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button type="button" class="lightbox-close" aria-label="Close lightbox">&times;</button>
+    <button type="button" class="lightbox-nav lightbox-prev" aria-label="Previous image">&#10094;</button>
+    <button type="button" class="lightbox-nav lightbox-next" aria-label="Next image">&#10095;</button>
+    <img class="lightbox-img" src="/assets/imgs/yea_this_might_happen.jpeg"
+      alt="Statistical meme from miniapeur on Twitter" tabindex="-1">
     <div class="lightbox-caption">
       <a href="#" target="_blank" rel="noopener">View source</a>
     </div>
