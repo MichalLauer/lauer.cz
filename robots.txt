@@ -1,5 +1,59 @@
 # robots.txt for lauer.cz
+#
+# Search engines are welcome: Google, Seznam and DuckDuckGo (via DuckDuckBot).
+# AI assistants may read and cite pages, AI model training is not allowed.
+#
+# Cloudflare puts its own managed block in front of this file, so the
+# Content-Signal line and the training crawler groups (GPTBot, ClaudeBot,
+# Google-Extended, CCBot, Bytespider, ...) are not repeated here. This file
+# only lists groups that differ from, or add to, that block.
+#
+# Only user-agent, allow, disallow and sitemap belong to the robots.txt
+# standard (RFC 9309). Google ignores everything else, so there are no
+# crawl-delay or request-rate lines.
+
+# Search engines: allowed, so pages can appear in search results
+User-agent: Googlebot
+Allow: /
+
+User-agent: SeznamBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# AI search and assistants: allowed, so answers can cite lauer.cz
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+# Seznam AI answers. Seznam states this is not used for model training.
+User-agent: Seznam-Extended
+Allow: /
+
+User-agent: MachineLearning
+Allow: /
+
+# AI training and training data sets: blocked
+User-agent: Perplexity-User
+Disallow: /
+
+User-agent: AI_Training
+Disallow: /
+
+User-agent: AI_Evaluation
+Disallow: /
+
+User-agent: AI_Input
+Disallow: /
+
+# Sitemap
 Sitemap: https://lauer.cz/sitemap.xml
-
-Crawl-delay: 1
-

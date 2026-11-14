@@ -18,45 +18,238 @@
     gtag('config', 'G-8ZGMYX2VV4');
   </script>
 
-  <!-- SEO Meta Tags -->
-  <title>Služby | Michal Lauer – Doučování, konzultace a spolupráce</title>
+  <!-- Primary meta -->
+  <title>Doučování statistiky, konzultace a spolupráce | Michal Lauer</title>
   <meta name="description"
-    content="Doučování, konzultace a dlouhodobá spolupráce v oblasti statistiky, dat a programování - srozumitelně a krok za krokem.">
+    content="Doučování statistiky a R, statistické konzultace k diplomkám i firemním datům a dlouhodobá spolupráce na kurzech a analýzách. Úvodní konzultace 30 minut zdarma.">
   <meta name="author" content="Michal Lauer">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
-  <!-- Canonical URL -->
+  <!--
+    Canonical URL and language versions. The hreflang set must be identical on
+    both pages, otherwise Google drops the annotations.
+  -->
   <link rel="canonical" href="https://lauer.cz/sluzby/">
+  <link rel="alternate" hreflang="en" href="https://lauer.cz/">
+  <link rel="alternate" hreflang="cs" href="https://lauer.cz/sluzby/">
+  <link rel="alternate" hreflang="x-default" href="https://lauer.cz/">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
   <link rel="apple-touch-icon" href="/assets/profile.jpeg">
 
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph / Facebook / LinkedIn -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://lauer.cz/sluzby/">
-  <meta property="og:title" content="Služby – Michal Lauer">
+  <meta property="og:title" content="Doučování statistiky, konzultace a spolupráce | Michal Lauer">
   <meta property="og:description"
-    content="Doučování, konzultace a dlouhodobá spolupráce v oblasti statistiky, dat a programování - srozumitelně a krok za krokem.">
+    content="Doučování statistiky a R, statistické konzultace k diplomkám i firemním datům a dlouhodobá spolupráce na kurzech a analýzách. Úvodní konzultace 30 minut zdarma.">
   <meta property="og:image" content="https://lauer.cz/assets/profile.jpeg">
-  <meta property="og:image:alt" content="Michal Lauer - statistika a data">
+  <meta property="og:image:alt" content="Michal Lauer, statistik a lektor">
   <meta property="og:locale" content="cs_CZ">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="og:site_name" content="Michal Lauer">
 
-  <!-- Twitter -->
+  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://lauer.cz/sluzby/">
-  <meta name="twitter:title" content="Služby – Michal Lauer">
+  <meta name="twitter:title" content="Doučování statistiky, konzultace a spolupráce | Michal Lauer">
   <meta name="twitter:description"
-    content="Doučování, konzultace a dlouhodobá spolupráce v oblasti statistiky, dat a programování - srozumitelně a krok za krokem.">
+    content="Doučování statistiky a R, statistické konzultace k diplomkám i firemním datům a dlouhodobá spolupráce na kurzech a analýzách.">
   <meta name="twitter:image" content="https://lauer.cz/assets/profile.jpeg">
-  <meta name="twitter:creator" content="@MichalLauer">
+  <meta name="twitter:image:alt" content="Michal Lauer, statistik a lektor">
+
+  <!--
+    Structured data. @id values are shared with index.html, so search engines
+    connect the person, the site and this offer into one entity.
+    FAQPage mirrors exactly the questions visible in the FAQ section below.
+    The OfferCatalog has no @id of its own in the service section, so it is
+    linked from the page through mainEntity only.
+  -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://lauer.cz/#michal-lauer",
+          "name": "Michal Lauer",
+          "url": "https://lauer.cz/",
+          "image": {
+            "@type": "ImageObject",
+            "url": "https://lauer.cz/assets/profile.jpeg",
+            "caption": "Michal Lauer"
+          },
+          "jobTitle": "Applied Statistician and Lecturer",
+          "description": "Applied statistician and lecturer in Prague specializing in Bayesian statistics, causal inference and practical statistical education.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Prague",
+            "addressCountry": "CZ"
+          },
+          "knowsLanguage": [
+            { "@type": "Language", "name": "Czech" },
+            { "@type": "Language", "name": "English" }
+          ],
+          "sameAs": [
+            "https://www.linkedin.com/in/michal-lauer/",
+            "https://github.com/MichalLauer",
+            "https://www.researchgate.net/profile/Michal-Lauer",
+            "https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy"
+          ]
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://lauer.cz/sluzby/#webpage",
+          "url": "https://lauer.cz/sluzby/",
+          "name": "Doučování statistiky, konzultace a spolupráce",
+          "description": "Doučování statistiky a R, statistické konzultace k diplomkám i firemním datům a dlouhodobá spolupráce na kurzech a analýzách.",
+          "inLanguage": "cs",
+          "isPartOf": { "@id": "https://lauer.cz/#website" },
+          "about": { "@id": "https://lauer.cz/#michal-lauer" },
+          "mainEntity": { "@id": "https://lauer.cz/sluzby/#services" },
+          "breadcrumb": { "@id": "https://lauer.cz/sluzby/#breadcrumb" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://lauer.cz/sluzby/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Michal Lauer",
+              "item": "https://lauer.cz/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Služby"
+            }
+          ]
+        },
+        {
+          "@type": "OfferCatalog",
+          "@id": "https://lauer.cz/sluzby/#services",
+          "name": "Služby Michala Lauera",
+          "url": "https://lauer.cz/sluzby/",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Doučování statistiky",
+                "serviceType": "Statistics tutoring",
+                "description": "Individuální výuka statistiky, testování hypotéz, regrese, bayesovské statistiky a jazyka R.",
+                "provider": { "@id": "https://lauer.cz/#michal-lauer" },
+                "areaServed": { "@type": "Country", "name": "Česko" },
+                "availableLanguage": [
+                  { "@type": "Language", "name": "Czech" },
+                  { "@type": "Language", "name": "English" }
+                ]
+              },
+              "priceCurrency": "CZK",
+              "price": "500",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "500",
+                "priceCurrency": "CZK",
+                "unitText": "hodina"
+              },
+              "availability": "https://schema.org/InStock"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Statistické konzultace",
+                "serviceType": "Statistical consulting",
+                "description": "Nastavení dotazníkových šetření a experimentů, definice hypotéz, analýza dat a interpretace výsledků.",
+                "provider": { "@id": "https://lauer.cz/#michal-lauer" },
+                "areaServed": { "@type": "Country", "name": "Česko" },
+                "availableLanguage": [
+                  { "@type": "Language", "name": "Czech" },
+                  { "@type": "Language", "name": "English" }
+                ]
+              },
+              "priceCurrency": "CZK",
+              "price": "800",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "800",
+                "priceCurrency": "CZK",
+                "unitText": "hodina"
+              },
+              "availability": "https://schema.org/InStock"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Dlouhodobá spolupráce",
+                "serviceType": "Teaching and data analysis collaboration",
+                "description": "B2B spolupráce, vedení soukromých kurzů (Data Science, Machine Learning, statistika), výuka na školách a spolupráce na publikacích.",
+                "provider": { "@id": "https://lauer.cz/#michal-lauer" },
+                "areaServed": { "@type": "Country", "name": "Česko" }
+              },
+              "availability": "https://schema.org/InStock"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://lauer.cz/sluzby/#faq",
+          "inLanguage": "cs",
+          "isPartOf": { "@id": "https://lauer.cz/sluzby/#webpage" },
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Kdy probíhá doučování nebo konzultace?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Čas mám primárně každý všední den po 18:00, případně o víkendu nebo o státních svátcích."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Jak jste na tom časově se spoluprací?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nejvíce mi vyhovují večerní nebo víkendové kurzy, což je forma, jakou proběhly téměř všechny předchozí spolupráce."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Jak se spojíme online?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Online doučování probíhá přes evropskou zabezpečenou platformu mailbox.org a její Meet. Dostanete odkaz, na který kliknete, vložíte své jméno a jsme spojeni. Platforma Meet obsahuje nástroje i pro vedení kurzů, jako je rozdělení do skupin, přestávka na kávu, moderace nebo průzkumy."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Jak funguje placení?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Pro platbu vždy dostanete vystavenou fakturu, ze které stačí naskenovat QR kód."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Je možné se sejít osobně?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Pro doučování a konzultace bohužel ne, v těchto případech se spojíme pouze online. U spolupráce je osobní setkání samozřejmě možné."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  </script>
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="stylesheet" href="/css/styles.css">
 
-  <!-- Ensure external links open in new tab -->
   <base target="_blank">
 </head>
 
@@ -125,7 +318,7 @@
           </a>
         </li>
         <li>
-          <a href="/sluzby" target="_self" aria-current="page">
+          <a href="/sluzby/" target="_self" aria-current="page">
             <svg class="nav-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">
               <rect width="60" height="20" fill="#fff"></rect>
               <rect y="20" width="60" height="20" fill="#D7141A"></rect>
@@ -145,7 +338,8 @@
       <section id="sluzby" class="page-header">
         <h1>Služby</h1>
         <p>
-          Pomáhám studentům, školám a firmám zvládnout statistiku, práci s daty a programování.
+          Pomáhám studentům, školám a firmám zvládnout statistiku, práci s daty a programování. Doučování i konzultace
+          probíhají online v češtině nebo angličtině, první setkání na 30 minut je zdarma.
         </p>
         <div class="page-cta-row">
           <a class="cta-button" href="#" data-js-only="cta-fallback">

@@ -690,6 +690,21 @@ function initRefCarousels() {
   });
 }
 
+// External links open in a new tab. Pages without <base target="_blank"> (the
+// services page) rely on this, so in-page anchors and internal links are left
+// alone. Same-origin links keep the current tab.
+function initExternalLinks() {
+  document.querySelectorAll('a[href^="http"]').forEach(link => {
+    if (link.target || link.hostname === window.location.hostname) return;
+    link.target = '_blank';
+    const rel = (link.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
+    ['noopener', 'noreferrer'].forEach(token => {
+      if (!rel.includes(token) && !rel.includes('me')) rel.push(token);
+    });
+    link.setAttribute('rel', rel.join(' '));
+  });
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
@@ -700,4 +715,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initLightbox();
   initEmailPlaceholders();
   initCtaEmails();
+  initExternalLinks();
 });

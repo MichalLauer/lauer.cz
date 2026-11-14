@@ -18,115 +18,179 @@
     gtag('config', 'G-8ZGMYX2VV4');
   </script>
 
-  <!-- SEO Meta Tags -->
-  <title>Michal Lauer - Applied Statistician &amp; Lecturer | Bayesian Statistics &amp; Causal Inference</title>
+  <!-- Primary meta -->
+  <title>Michal Lauer - Statistician &amp; Lecturer, Prague</title>
   <meta name="description"
-    content="Applied statistician and lecturer based in Prague. I teach Bayesian statistics and causal inference, and I help teams apply these methods in their own fields.">
-  <meta name="keywords"
-    content="Michal Lauer, data scientist Prague, Bayesian statistics expert, machine learning researcher, causal inference, MCMC methods, directed acyclic graphs, statistical modeling, university teaching, VŠE Prague, data visualization, statistical education, Czech Republic researcher">
+    content="Michal Lauer is an applied statistician and lecturer in Prague who teaches Bayesian statistics and causal inference, consults on data analysis in R and Python, and offers tutoring in Czech and English.">
+  <link rel="canonical" href="https://lauer.cz/">
+
+  <!--
+    Language versions (hreflang). Google only uses a set where every page lists
+    itself and the other pages; /sluzby/ carries the same three lines.
+  -->
+  <link rel="alternate" hreflang="en" href="https://lauer.cz/">
+  <link rel="alternate" hreflang="cs" href="https://lauer.cz/sluzby/">
+  <link rel="alternate" hreflang="x-default" href="https://lauer.cz/">
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="author" content="Michal Lauer">
-  <meta name="robots" content="index, follow">
 
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://lauer.cz">
+  <!-- Icons -->
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/profile.jpeg">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-  <link rel="apple-touch-icon" href="assets/profile.jpeg">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://lauer.cz">
-  <meta property="og:title" content="Michal Lauer - Applied Statistician &amp; Lecturer">
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://lauer.cz/">
+  <meta property="og:title" content="Michal Lauer - Statistician &amp; Lecturer, Prague">
   <meta property="og:description"
-    content="Lecturer and researcher in Bayesian statistics and causal inference. Available for workshops, lectures and consulting.">
+    content="Bayesian statistics, causal inference and practical statistical education. Available for workshops, lectures, consulting and tutoring.">
   <meta property="og:image" content="https://lauer.cz/assets/profile.jpeg">
-  <meta property="og:image:alt" content="Michal Lauer - Data Scientist and Researcher">
+  <meta property="og:image:alt" content="Portrait of Michal Lauer">
   <meta property="og:locale" content="en_US">
-  <meta property="og:site_name" content="Michal Lauer - Research and Data Science">
+  <meta property="og:locale:alternate" content="cs_CZ">
+  <meta property="og:site_name" content="Michal Lauer">
+  <meta property="profile:first_name" content="Michal">
+  <meta property="profile:last_name" content="Lauer">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://lauer.cz">
-  <meta name="twitter:title" content="Michal Lauer - Applied Statistician &amp; Lecturer">
+  <meta name="twitter:title" content="Michal Lauer - Statistician &amp; Lecturer, Prague">
   <meta name="twitter:description"
-    content="Bayesian statistics, causal inference and practical statistical education for teams and students.">
+    content="Bayesian statistics, causal inference and practical statistical education. Available for workshops, lectures, consulting and tutoring.">
   <meta name="twitter:image" content="https://lauer.cz/assets/profile.jpeg">
-  <meta name="twitter:image:alt" content="Michal Lauer - Data Scientist and Researcher">
-  <meta name="twitter:creator" content="@MichalLauer">
+  <meta name="twitter:image:alt" content="Portrait of Michal Lauer">
 
-  <!-- JSON-LD Structured Data -->
+  <!--
+    Structured data. One @graph so every node has a stable @id that can be
+    referenced instead of repeated. Links: Person → WebSite (publisher),
+    WebSite → Person (author), Person → services offer (sameAs inverse).
+    Google reads Person and ProfilePage; the WebSite node supplies the site
+    name shown above the result; BreadcrumbList and FAQPage only on /sluzby/,
+    where that content is visible.
+    Every value here describes something a visitor can see on this page.
+  -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Michal Lauer",
-      "jobTitle": "Researcher and Data Scientist",
-      "url": "https://lauer.cz",
-      "image": "https://lauer.cz/assets/profile.jpeg",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "CZ",
-        "addressLocality": "Prague"
-      },
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "Prague University of Economics and Business",
-        "alternateName": "VŠE Praha",
-        "url": "https://vse.cz"
-      },
-      "worksFor": {
-        "@type": "EducationalOrganization",
-        "name": "Prague University of Economics and Business"
-      },
-      "knowsAbout": [
-        "Bayesian Statistics",
-        "Causal Inference",
-        "Machine Learning",
-        "Data Science",
-        "MCMC Methods",
-        "Directed Acyclic Graphs",
-        "Statistical Modeling",
-        "Data Visualization",
-        "Statistical Education"
-      ],
-      "description": "Applied statistician and lecturer specializing in Bayesian statistics, causal inference and practical statistical education.",
-      "sameAs": [
-        "https://www.linkedin.com/in/michal-lauer/",
-        "https://github.com/MichalLauer",
-        "https://www.researchgate.net/profile/Michal-Lauer"
-      ],
-      "hasOccupation": {
-        "@type": "Occupation",
-        "name": "Applied Statistician and Lecturer",
-        "occupationLocation": {
-          "@type": "City",
-          "name": "Prague"
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://lauer.cz/#michal-lauer",
+          "name": "Michal Lauer",
+          "givenName": "Michal",
+          "familyName": "Lauer",
+          "url": "https://lauer.cz/",
+          "mainEntityOfPage": "https://lauer.cz/",
+          "image": {
+            "@type": "ImageObject",
+            "url": "https://lauer.cz/assets/profile.jpeg",
+            "caption": "Portrait of Michal Lauer"
+          },
+          "jobTitle": "Applied Statistician and Lecturer",
+          "description": "Applied statistician and lecturer in Prague specializing in Bayesian statistics, causal inference and practical statistical education.",
+          "nationality": { "@type": "Country", "name": "Czechia" },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Prague",
+            "addressCountry": "CZ"
+          },
+          "knowsLanguage": [
+            { "@type": "Language", "name": "Czech", "alternateName": "cs" },
+            { "@type": "Language", "name": "English", "alternateName": "en" }
+          ],
+          "knowsAbout": [
+            "Bayesian statistics",
+            "Causal inference",
+            "Statistical inference",
+            "Probabilistic graphical models",
+            "Directed acyclic graphs",
+            "Markov chain Monte Carlo",
+            "Hierarchical models",
+            "State-space models",
+            "Data analysis in R",
+            "Statistical education"
+          ],
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "@id": "https://www.vse.cz/#university",
+            "name": "Prague University of Economics and Business",
+            "alternateName": "Vysoká škola ekonomická v Praze (VŠE)",
+            "url": "https://www.vse.cz/"
+          },
+          "worksFor": { "@id": "https://www.vse.cz/#university" },
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "degree",
+              "name": "Ing. (Statistics)"
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "degree",
+              "name": "Bc. (Data Analytics)"
+            }
+          ],
+          "hasOccupation": {
+            "@type": "Occupation",
+            "name": "Applied Statistician and Lecturer",
+            "occupationalCategory": "Statistician",
+            "occupationLocation": { "@type": "City", "name": "Prague" }
+          },
+          "makesOffer": {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "@id": "https://lauer.cz/sluzby/#doucovani",
+              "name": "Statistics tutoring, consulting and collaboration",
+              "url": "https://lauer.cz/sluzby/",
+              "provider": { "@id": "https://lauer.cz/#michal-lauer" },
+              "serviceType": "Statistics tutoring, statistical consulting, data analysis",
+              "availableLanguage": [
+                { "@type": "Language", "name": "Czech" },
+                { "@type": "Language", "name": "English" }
+              ],
+              "areaServed": { "@type": "Country", "name": "Czechia" }
+            }
+          },
+          "sameAs": [
+            "https://www.linkedin.com/in/michal-lauer/",
+            "https://github.com/MichalLauer",
+            "https://www.researchgate.net/profile/Michal-Lauer",
+            "https://www.doucuji.eu/381550-doucovani-lidske-a-pratelske-doucovani-statistiky-a-datove-analyzy"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://lauer.cz/#website",
+          "url": "https://lauer.cz/",
+          "name": "Michal Lauer",
+          "alternateName": ["lauer.cz", "Michal Lauer - Statistics"],
+          "description": "The personal site of Michal Lauer: Bayesian statistics, causal inference, teaching materials and tutoring.",
+          "inLanguage": "en",
+          "author": { "@id": "https://lauer.cz/#michal-lauer" },
+          "publisher": { "@id": "https://lauer.cz/#michal-lauer" }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://lauer.cz/#webpage",
+          "url": "https://lauer.cz/",
+          "name": "Michal Lauer - Statistician & Lecturer, Prague",
+          "description": "Applied statistician and lecturer in Prague working on Bayesian statistics, causal inference and statistical education.",
+          "isPartOf": { "@id": "https://lauer.cz/#website" },
+          "about": { "@id": "https://lauer.cz/#michal-lauer" },
+          "mainEntity": { "@id": "https://lauer.cz/#michal-lauer" },
+          "inLanguage": "en"
         }
-      }
-    }
-  </script>
-
-  <!-- Website Structured Data -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Michal Lauer - Research and Data Science",
-      "url": "https://lauer.cz",
-      "description": "Personal site of Michal Lauer - research, teaching materials and applied data science.",
-      "author": {
-        "@type": "Person",
-        "name": "Michal Lauer"
-      }
+      ]
     }
   </script>
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <link rel="stylesheet" href="css/styles.css">
-
-  <!-- Ensure external links open in new tab -->
+  <link rel="stylesheet" href="/css/styles.css">
+  <!-- External links open in a new tab; internal links opt out with target="_self".
+       Kept here (not in /sluzby/) so this page's own anchors are never re-targeted. -->
   <base target="_blank">
 </head>
 
@@ -192,7 +256,7 @@
       </a>
     </li>
     <li>
-      <a href="/sluzby" target="_self">
+      <a href="/sluzby/" target="_self" hreflang="cs" lang="cs">
         <svg class="nav-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">
           <rect width="60" height="20" fill="#fff"></rect>
           <rect y="20" width="60" height="20" fill="#D7141A"></rect>
@@ -211,7 +275,7 @@
       <!-- Hero Section -->
       <header id="about" class="landing-section">
         <div class="landing-left">
-          <img src="assets/profile.jpeg" alt="Portrait of Michal Lauer" class="profile-photo">
+          <img src="/assets/profile.jpeg" alt="Portrait of Michal Lauer" class="profile-photo">
 
           <div class="name">
             <p>
@@ -222,19 +286,19 @@
 
           <!-- Social Media Icons -->
           <div class="icons" role="list" aria-label="Social Media Links">
-            <a class="icon-link" role="listitem" href="https://www.linkedin.com/in/michal-lauer/" rel="noopener noreferrer"
+            <a class="icon-link" role="listitem" href="https://www.linkedin.com/in/michal-lauer/" rel="me noopener noreferrer"
               title="LinkedIn Profile" aria-label="Visit LinkedIn Profile">
               <i class="fab fa-linkedin" aria-hidden="true"></i>
             </a>
-            <a class="icon-link" role="listitem" href="https://github.com/MichalLauer" rel="noopener noreferrer" title="GitHub Profile"
+            <a class="icon-link" role="listitem" href="https://github.com/MichalLauer" rel="me noopener noreferrer" title="GitHub Profile"
               aria-label="Visit GitHub Profile">
               <i class="fab fa-github" aria-hidden="true"></i>
             </a>
-            <a class="icon-link" role="listitem" href="https://www.researchgate.net/profile/Michal-Lauer" rel="noopener noreferrer"
+            <a class="icon-link" role="listitem" href="https://www.researchgate.net/profile/Michal-Lauer" rel="me noopener noreferrer"
               title="ResearchGate Profile" aria-label="Visit ResearchGate Profile">
               <i class="fab fa-researchgate" aria-hidden="true"></i>
             </a>
-            <a class="icon-link" role="listitem" href="assets/cv.pdf" rel="noopener noreferrer" title="Download CV"
+            <a class="icon-link" role="listitem" href="/assets/cv.pdf" rel="noopener noreferrer" title="Download CV"
               aria-label="Download CV">
               <i class="fas fa-file-arrow-down" aria-hidden="true"></i>
             </a>
@@ -276,7 +340,7 @@
 
           <!-- Work together CTAs -->
           <div class="work-together-links">
-            <a class="work-together-link work-together-sluzby" href="/sluzby" target="_self" hreflang="cs" lang="cs">
+            <a class="work-together-link work-together-sluzby" href="/sluzby/" target="_self" hreflang="cs" lang="cs">
               <i class="fas fa-briefcase" aria-hidden="true"></i>
               <svg class="nav-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">
                 <rect width="60" height="20" fill="#fff"></rect>
@@ -299,10 +363,10 @@
       </header>
 
       <!-- Research Section -->
-      <section id="research" itemscope itemtype="https://schema.org/ResearchProject">
+      <section id="research">
         <h2>Research</h2>
         <p>
-          At the <a href="https://vse.cz">Prague University of Economics and Business</a>, I study Bayesian approaches
+          At the <a href="https://www.vse.cz/" rel="noopener">Prague University of Economics and Business</a>, I study Bayesian approaches
           to causality and statistical inference. I am fond of methods for probabilistic graphical models (<i>PGMs</i>)
           and anything Bayesian-related within R, Python or Stan. My research focuses on PGMs, specifically on Bayesian
           estimation of directed acyclic graphs (<i>DAGs</i>).
@@ -311,62 +375,62 @@
 
       <!-- Resources Section -->
       <section id="teaching-resources">
-        <h3>Resources</h3>
+        <h2>Resources</h2>
         <div class="teaching-resources-list">
           <div class="teaching-resources-item">
             <h4>Stats</h4>
             <ul>
-              <li><a href="https://rpsychologist.com/viz/">R Psychologist</a></li>
-              <li><a href="https://www.math.wm.edu/~leemis/chart/UDR/UDR.html">Distributions</a></li>
-              <li><a href="https://sites.stat.washington.edu/raftery/Research/bma.html">Model averaging, hypothesis testing and model selection</a></li>
+              <li><a href="https://rpsychologist.com/viz/" rel="noopener">R Psychologist</a></li>
+              <li><a href="https://www.math.wm.edu/~leemis/chart/UDR/UDR.html" rel="noopener">Distributions</a></li>
+              <li><a href="https://sites.stat.washington.edu/raftery/Research/bma.html" rel="noopener">Model averaging, hypothesis testing and model selection</a></li>
             </ul>
           </div>
 
           <div class="teaching-resources-item">
             <h4>Books</h4>
             <ul>
-              <li><a href="https://feaz-book.com/">Feature Engineering A-Z</a></li>
-              <li><a href="https://www.bigbookofr.com/">Big Book of R</a></li>
-              <li><a href="https://avehtari.github.io/ROS-Examples/">Regression and Other Stories</a></li>
-              <li><a href="https://www.bradyneal.com/which-causal-inference-book">Which causal inference book should I read?</a></li>
+              <li><a href="https://feaz-book.com/" rel="noopener">Feature Engineering A-Z</a></li>
+              <li><a href="https://www.bigbookofr.com/" rel="noopener">Big Book of R</a></li>
+              <li><a href="https://avehtari.github.io/ROS-Examples/" rel="noopener">Regression and Other Stories</a></li>
+              <li><a href="https://www.bradyneal.com/which-causal-inference-book" rel="noopener">Which causal inference book should I read?</a></li>
             </ul>
           </div>
 
           <div class="teaching-resources-item">
             <h4>Brain teasers</h4>
             <ul>
-              <li><a href="https://www.tylervigen.com/spurious-correlations">Correlation ≠ Causation</a></li>
-              <li><a href="https://www.research.autodesk.com/publications/same-stats-different-graphs/">Numbers are
+              <li><a href="https://www.tylervigen.com/spurious-correlations" rel="noopener">Correlation ≠ Causation</a></li>
+              <li><a href="https://www.research.autodesk.com/publications/same-stats-different-graphs/" rel="noopener">Numbers are
                   not everything</a></li>
-              <li><a href="https://www.guessthecorrelation.com/">Guess the correlation!</a></li>
+              <li><a href="https://www.guessthecorrelation.com/" rel="noopener">Guess the correlation!</a></li>
             </ul>
           </div>
 
           <div class="teaching-resources-item">
             <h4>Programming</h4>
             <ul>
-              <li><a href="https://stats.oarc.ucla.edu/other/dae/">UCLA stats</a></li>
-              <li><a href="https://spannbaueradam.shinyapps.io/r_regex_tester/">Regex tester</a></li>
+              <li><a href="https://stats.oarc.ucla.edu/other/dae/" rel="noopener">UCLA stats</a></li>
+              <li><a href="https://spannbaueradam.shinyapps.io/r_regex_tester/" rel="noopener">Regex tester</a></li>
             </ul>
           </div>
 
           <div class="teaching-resources-item">
             <h4>Visualization</h4>
             <ul>
-              <li><a href="https://www.data-to-viz.com/">Data to Viz</a></li>
-              <li><a href="https://exts.ggplot2.tidyverse.org/gallery/">{ggplot2} extensions</a></li>
-              <li><a href="https://emilhvitfeldt.github.io/r-color-palettes/">R palettes</a></li>
-              <li><a href="https://r-charts.com/color-palette-generator/">Palette generators</a></li>
+              <li><a href="https://www.data-to-viz.com/" rel="noopener">Data to Viz</a></li>
+              <li><a href="https://exts.ggplot2.tidyverse.org/gallery/" rel="noopener">{ggplot2} extensions</a></li>
+              <li><a href="https://emilhvitfeldt.github.io/r-color-palettes/" rel="noopener">R palettes</a></li>
+              <li><a href="https://r-charts.com/color-palette-generator/" rel="noopener">Palette generators</a></li>
             </ul>
           </div>
 
           <div class="teaching-resources-item">
             <h4>YouTube</h4>
             <ul>
-              <li><a href="https://www.youtube.com/@RConsortium">R Consortium</a></li>
-              <li><a href="https://www.youtube.com/@rmcelreath">Richard McElreath</a></li>
-              <li><a href="https://www.youtube.com/@very-normal">Very Normal</a></li>
-              <li><a href="https://www.youtube.com/@simplistics_stats">Simplistics</a></li>
+              <li><a href="https://www.youtube.com/@RConsortium" rel="noopener noreferrer">R Consortium</a></li>
+              <li><a href="https://www.youtube.com/@rmcelreath" rel="noopener noreferrer">Richard McElreath</a></li>
+              <li><a href="https://www.youtube.com/@very-normal" rel="noopener noreferrer">Very Normal</a></li>
+              <li><a href="https://www.youtube.com/@simplistics_stats" rel="noopener noreferrer">Simplistics</a></li>
             </ul>
           </div>
         </div>
@@ -389,64 +453,64 @@
 
           <div class="gallery-thumbnails">
             <button type="button" class="gallery-link meme">
-              <img src="assets/imgs/yea_this_might_happen.jpeg"
-                data-source="https://x.com/miniapeur/status/1723632801516298401"
+              <img src="/assets/imgs/yea_this_might_happen.jpeg"
+                data-source="https://twitter.com/miniapeur/status/1723632801516298401"
                 alt="Statistical meme from miniapeur on Twitter" loading="lazy">
             </button>
             <button type="button" class="gallery-link meme">
-              <img src="assets/imgs/mumble_clt.jpeg"
-                data-source="https://x.com/DataSciFact/status/1824447539044556869"
+              <img src="/assets/imgs/mumble_clt.jpeg"
+                data-source="https://twitter.com/DataSciFact/status/1824447539044556869"
                 alt="Central Limit Theorem meme from DataSciFact on Twitter" loading="lazy">
             </button>
             <button type="button" class="gallery-link meme">
-              <img src="assets/imgs/iq_median.jpeg" data-source="https://x.com/tunguz/status/1864308697289380061"
+              <img src="/assets/imgs/iq_median.jpeg" data-source="https://twitter.com/tunguz/status/1864308697289380061"
                 alt="IQ median statistics meme from tunguz on Twitter" loading="lazy">
             </button>
             <button type="button" class="gallery-link meme">
-              <img src="assets/imgs/data_vibe.jpeg" data-source="https://x.com/NeerajKA/status/1804864851312890141"
+              <img src="/assets/imgs/data_vibe.jpeg" data-source="https://twitter.com/NeerajKA/status/1804864851312890141"
                 alt="Data science vibe meme from NeerajKA on Twitter" loading="lazy">
             </button>
             <button type="button" class="gallery-link meme">
-              <img src="assets/imgs/child_weight.png"
-                data-source="https://x.com/pronounced_kyle/status/1768852493092680036"
+              <img src="/assets/imgs/child_weight.png"
+                data-source="https://twitter.com/pronounced_kyle/status/1768852493092680036"
                 alt="Child weight statistics meme from pronounced_kyle on Twitter" loading="lazy">
             </button>
             <button type="button" class="gallery-link meme">
-              <img src="assets/imgs/stat_math.jpeg" data-source="https://x.com/pickover/status/1738720315566391486"
-                alt="Statistics vs math meme from pickover on Twitter" loading="lazy">
+              <img src="/assets/imgs/stat_math.jpeg" data-source="https://twitter.com/pickover/status/1738720315566391486"
+                alt="Statistics vs. math meme from pickover on Twitter" loading="lazy">
             </button>
             <button type="button" class="gallery-link meme">
-              <img src="assets/imgs/size.jpeg" data-source="https://x.com/miniapeur/status/1737058739956420878"
+              <img src="/assets/imgs/size.jpeg" data-source="https://twitter.com/miniapeur/status/1737058739956420878"
                 alt="Sample size meme from miniapeur on Twitter" loading="lazy">
             </button>
             <button type="button" class="gallery-link educ">
-              <img src="assets/imgs/sas.png" data-source="https://x.com/StefanFrancisci/status/1805256795469885597"
+              <img src="/assets/imgs/sas.png" data-source="https://twitter.com/StefanFrancisci/status/1805256795469885597"
                 alt="SAS programming educational content from StefanFrancisci on Twitter" loading="lazy">
             </button>
             <button type="button" class="gallery-link educ">
-              <img src="assets/imgs/russia_elections.jpeg"
-                data-source="https://x.com/martinmbauer/status/1769672126905090386"
-                alt="Russia elections data visualization from martinmbauer on Twitter" loading="lazy">
+              <img src="/assets/imgs/russia_elections.jpeg"
+                data-source="https://twitter.com/martinmbauer/status/1769672126905090386"
+                alt="Russian election results data visualization from martinmbauer on Twitter" loading="lazy">
             </button>
             <button type="button" class="gallery-link educ">
-              <img src="assets/imgs/gym.jpeg" data-source="https://x.com/sonukg4india/status/1743483491508171110"
+              <img src="/assets/imgs/gym.jpeg" data-source="https://twitter.com/sonukg4india/status/1743483491508171110"
                 alt="Gym statistics educational content from sonukg4india on Twitter" loading="lazy">
             </button>
             <button type="button" class="gallery-link educ">
-              <img src="assets/imgs/sampling_bias.jpg" data-source="https://x.com/Whiskeypunk1/status/1861167858899693769"
+              <img src="/assets/imgs/sampling_bias.jpg" data-source="https://twitter.com/Whiskeypunk1/status/1861167858899693769"
                 alt="Sampling bias joke from Whiskeypunk1 on Twitter" loading="lazy">
             </button>
             <button type="button" class="gallery-link meme">
-              <img src="assets/imgs/type_1_2.jpg"
+              <img src="/assets/imgs/type_1_2.jpg"
                 data-source="https://www.reddit.com/r/APStudents/comments/1rlxyl7/just_finished_my_stats_test/"
                 alt="Type I and type II errors meme from r/APStudents on Reddit" loading="lazy">
             </button>
             <button type="button" class="gallery-link meme">
-              <img src="assets/imgs/thesis.webp" data-source="https://www.reddit.com/r/me_irl/comments/1to3oiw/me_irl/"
+              <img src="/assets/imgs/thesis.webp" data-source="https://www.reddit.com/r/me_irl/comments/1to3oiw/me_irl/"
                 alt="Thesis meme from u/XAE_Warthog on Reddit" loading="lazy">
             </button>
             <button type="button" class="gallery-link meme">
-              <img src="assets/imgs/null_hypothesis_simpsons.jpeg"
+              <img src="/assets/imgs/null_hypothesis_simpsons.jpeg"
                 data-source="https://www.reddit.com/r/statisticsmemes/comments/1ww2h23/you_can_never_accept_null_hypothesis/"
                 alt="Failing to reject the null hypothesis meme from r/statisticsmemes on Reddit" loading="lazy">
             </button>
@@ -459,6 +523,13 @@
     <footer>
       <p>Made with <span class="heart" role="img" aria-label="love">❤️</span> &amp; AI &middot; &copy; <time
           datetime="2026">2026</time> Michal Lauer.</p>
+      <p class="footer-links">
+        <a href="https://www.linkedin.com/in/michal-lauer/" target="_blank" rel="me noopener noreferrer">LinkedIn</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="https://github.com/MichalLauer" target="_blank" rel="me noopener noreferrer">GitHub</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="https://www.researchgate.net/profile/Michal-Lauer" target="_blank" rel="me noopener noreferrer">ResearchGate</a>
+      </p>
     </footer>
   </div>
 
@@ -475,7 +546,7 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/script.js"></script>
+  <script src="/js/script.js"></script>
 </body>
 
 </html>

@@ -1,12 +1,18 @@
-# Canonical Domain: Redirect www to non-www
+# Redirect rules for Cloudflare Pages (_redirects format).
+#
+# Only the first matching rule is applied. :splat is greedy, so /*/index.html
+# matches across slashes and rewrites in one redirect.
+#
+# Not handled here on purpose:
+#   - 404.html is served by the host's not-found handling
+#   - /<folder>/ is served from <folder>/index.html by the host itself, and
+#     .html is stripped from every URL form before it reaches this file
+
+# Canonical domain: every request on the www host goes to the bare domain
 https://www.lauer.cz/*  https://lauer.cz/:splat  301!
 
-# Global Clean URLs: Remove index.html from ALL subfolders
-/*/index.html  /:1/  301
-/index.html    /     301
+# Clean URLs: /<folder>/index.html goes to /<folder>/ in one redirect
+/*/index.html  /:splat  301
 
 # Clean URL for CV
 /cv  /assets/cv.pdf  200
-
-# Catch-all: Redirect non-existent pages to 404
-/*  /404.html  404

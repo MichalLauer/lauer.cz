@@ -625,6 +625,7 @@ body:has(.iframe-container) {
   align-items: baseline;
   gap: 0.5rem;
   flex-wrap: wrap;
+  justify-content: center;
   text-align: center;
 }
 
@@ -1594,6 +1595,19 @@ footer {
   text-align: center;
   margin-left: var(--sidebar-width);
   color: var(--text-muted);
+}
+
+.footer-links {
+  font-size: 0.9rem;
+}
+
+.footer-links a {
+  color: inherit;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  color: var(--accent);
 }
 
 .heart {
